@@ -6,7 +6,7 @@ import { suggestedPrompts } from "../data/sunnyPrompts";
 
 const WELCOME = {
   role: "assistant",
-  text: "Hi, I'm Sunny 👋 I can help you search listings, estimate a home's value, or connect you with a Long Realty agent. What are you working on?",
+  text: "Hi, I'm Sunny. I can help you find your way around this portfolio preview. Are you exploring homes, looking for an adviser, or planning your next move?",
 };
 
 /**
@@ -16,22 +16,36 @@ const WELCOME = {
  * calling code doesn't need to change.
  */
 async function getAssistantReply(userText) {
-  await new Promise((resolve) => setTimeout(resolve, 700 + Math.random() * 500));
+  await new Promise((resolve) =>
+    setTimeout(resolve, 700 + Math.random() * 500),
+  );
 
   const text = userText.toLowerCase();
-  if (text.includes("worth") || text.includes("value") || text.includes("estimate")) {
-    return "You can get a free estimate in the Home Value Calculator tab of our search panel near the top of the page — want me to scroll you there?";
+  if (
+    text.includes("worth") ||
+    text.includes("value") ||
+    text.includes("estimate")
+  ) {
+    return "For a home valuation, start a conversation in the contact section. This preview doesn't calculate live market valuations.";
   }
-  if (text.includes("listing") || text.includes("home") || text.includes("propert")) {
-    return "Take a look at New Listings just below the hero — you can browse single or grid view, or use Find A Home to filter by location and price.";
+  if (
+    text.includes("listing") ||
+    text.includes("home") ||
+    text.includes("propert")
+  ) {
+    return "Explore the New Listings section to browse homes in Single or Grid view. You can save your favorites or select Arrange a private showing to draft an inquiry.";
   }
-  if (text.includes("agent") || text.includes("realtor") || text.includes("expert")) {
-    return "Our Find an Expert section has agent profiles you can browse — or tell me what you're looking for and I'll point you to the right specialist.";
+  if (
+    text.includes("agent") ||
+    text.includes("realtor") ||
+    text.includes("expert")
+  ) {
+    return "Find your adviser in the Local Knowledge section. Use the portrait cards or navigation buttons to browse, then select Let’s connect to draft your message.";
   }
   if (text.includes("quick buy") || text.includes("quickbuy")) {
-    return "Quick Buy gets you a competitive cash offer on qualifying homes within 48 hours. You can start that from the Feature Services section, or I can pass your details to an agent.";
+    return "For advice about selling, use the contact section to tell us about your move. This is an illustrative preview, so I can’t provide a real cash offer.";
   }
-  return "Got it — I'll pass that along. In the meantime, feel free to browse New Listings or use the search panel above, and a Long Realty agent can follow up directly.";
+  return "You can explore homes, meet our illustrative advisers, or draft a message in the contact section. This preview doesn't send messages or access live listings.";
 }
 
 function TypingBubble() {
@@ -54,15 +68,26 @@ export default function SunnyAssistant() {
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const modalRef = useRef(null);
+  const inputRef = useRef(null);
   const scrollRef = useRef(null);
 
   useGSAP(() => {
     if (!modalRef.current) return;
     if (open) {
+      const reduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      inputRef.current?.focus();
       gsap.fromTo(
         modalRef.current,
-        { opacity: 0, y: 24, scale: 0.97 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }
+        { opacity: 0, y: reduced ? 0 : 24, scale: reduced ? 1 : 0.97 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: reduced ? 0.01 : 0.4,
+          ease: "power3.out",
+        },
       );
     }
   }, [open]);
@@ -84,7 +109,7 @@ export default function SunnyAssistant() {
 
   const sendMessage = async (text) => {
     const trimmed = text.trim();
-    if (!trimmed) return;
+    if (!trimmed || typing) return;
 
     setMessages((m) => [...m, { role: "user", text: trimmed }]);
     setInput("");
@@ -102,7 +127,7 @@ export default function SunnyAssistant() {
 
   return (
     <>
-      <div className="fixed bottom-10 right-12 z-[70]">
+      <div className="sunny-launcher fixed bottom-10 right-12 z-[70]">
         <div className="group relative">
           <span
             role="tooltip"
@@ -119,7 +144,7 @@ export default function SunnyAssistant() {
             aria-label={
               open ? "Close Sunny AI assistant" : "Open Sunny AI assistant"
             }
-            className="flex h-14 w-14 items-center justify-center bg-yellow text-dark shadow-xl transition-transform duration-300 hover:scale-105 motion-safe:animate-[sunny-pulse_3.5s_ease-in-out_infinite]"
+            className="flex h-14 w-14 rounded-full items-center justify-center bg-yellow text-dark shadow-xl transition-transform duration-300 hover:scale-105"
           >
             {open ? <FiX size={24} /> : <FiSun size={24} />}
           </button>
@@ -130,16 +155,18 @@ export default function SunnyAssistant() {
         <div
           ref={modalRef}
           role="dialog"
-          aria-modal="true"
+          aria-modal="false"
           aria-label="Sunny AI assistant chat"
-          className="fixed bottom-[104px] right-6 z-[70] flex h-[520px] w-[92vw] max-w-[380px] flex-col border border-dark/10 bg-white shadow-2xl"
+          className="sunny-dialog fixed bottom-[104px] right-6 z-[70] flex h-[520px] w-[92vw] max-w-[380px] flex-col border border-dark/10 bg-white shadow-2xl"
         >
           <div className="flex items-center justify-between border-b border-dark/10 bg-[#141721] px-5 py-4 text-white">
             <div className="flex items-center gap-2">
               <FiSun className="text-yellow" />
               <div>
                 <p className="text-sm font-semibold leading-none">Sunny</p>
-                <p className="text-[11px] text-white/50">Long Realty Assistant</p>
+                <p className="text-[11px] text-white/50">
+                  Your guide to this preview
+                </p>
               </div>
             </div>
             <button
@@ -198,6 +225,7 @@ export default function SunnyAssistant() {
               Message Sunny
             </label>
             <input
+              ref={inputRef}
               id="sunny-input"
               type="text"
               value={input}
@@ -208,7 +236,7 @@ export default function SunnyAssistant() {
             <button
               type="submit"
               aria-label="Send message"
-              disabled={!input.trim()}
+              disabled={!input.trim() || typing}
               className="flex h-11 w-11 flex-shrink-0 items-center justify-center bg-yellow text-dark transition-opacity disabled:opacity-40"
             >
               <FiSend size={16} />

@@ -7,6 +7,9 @@ export default function Loader({ onComplete }) {
   const pctRef = useRef(null);
 
   useEffect(() => {
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     const counter = { value: 0 };
     const tl = gsap.timeline({
       onComplete: () => onComplete?.(),
@@ -14,19 +17,20 @@ export default function Loader({ onComplete }) {
 
     tl.to(counter, {
       value: 100,
-      duration: 2.2,
+      duration: reduced ? 0.01 : 1.15,
       ease: "power2.inOut",
       onUpdate: () => {
         if (pctRef.current) {
           pctRef.current.textContent = String(Math.floor(counter.value));
         }
         if (lineRef.current) {
-          lineRef.current.style.width = `${counter.value}%`;
+          lineRef.current.style.transform = `scaleX(${counter.value / 100})`;
         }
       },
     }).to(wrapRef.current, {
-      yPercent: -100,
-      duration: 0.9,
+      yPercent: reduced ? 0 : -100,
+      opacity: reduced ? 0 : 1,
+      duration: reduced ? 0.01 : 0.7,
       ease: "power4.inOut",
       delay: 0.15,
     });
@@ -37,7 +41,7 @@ export default function Loader({ onComplete }) {
   return (
     <div
       ref={wrapRef}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#141721]"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-dark"
       aria-hidden="true"
     >
       <div className="flex items-baseline gap-1 text-white">
@@ -47,7 +51,11 @@ export default function Loader({ onComplete }) {
         <span className="text-2xl font-light">%</span>
       </div>
       <div className="mt-8 h-[1px] w-[220px] overflow-hidden bg-white/15">
-        <div ref={lineRef} className="h-full w-0 bg-white" />
+        <div
+          ref={lineRef}
+          className="h-full w-full origin-left bg-yellow"
+          style={{ transform: "scaleX(0)" }}
+        />
       </div>
       <p className="mt-6 text-xs uppercase tracking-[0.3em] text-white/40">
         Long Realty

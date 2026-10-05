@@ -4,11 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: "#151717",
-        yellow: "#FFC522",
-        light: "#EBEBEB",
+        dark: "#071525",
+        yellow: "#F4CF67",
+        light: "#F5F3EC",
         white: "#FFFFFF",
-        secondary: "#2F2F2F",
+        secondary: "#122B42",
       },
       fontFamily: {
         sans: ["'Inter Tight'", "sans-serif"],

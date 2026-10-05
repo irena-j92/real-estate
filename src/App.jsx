@@ -21,27 +21,42 @@ import useMagnetic from "./hooks/useMagnetic";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function useScrollReveal(containerRef) {
+function useScrollReveal(containerRef, loading) {
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const targets = document.querySelectorAll(
-        "[data-reveal]:not(.about-reveal)"
-      );
-      targets.forEach((el) => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 32,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-          },
+    if (
+      loading ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+    const root = containerRef.current;
+    if (!root) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
         });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -35px 0px" },
+    );
+    const register = () =>
+      root.querySelectorAll("[data-reveal]:not(.is-reveal)").forEach((el) => {
+        el.classList.add("is-reveal");
+        observer.observe(el);
       });
-    }, containerRef);
-    return () => ctx.revert();
-  }, [containerRef]);
+    register();
+    const mutations = new MutationObserver(register);
+    mutations.observe(root, { childList: true, subtree: true });
+    return () => {
+      observer.disconnect();
+      mutations.disconnect();
+      root
+        .querySelectorAll(".is-reveal")
+        .forEach((el) => el.classList.remove("is-reveal", "is-visible"));
+    };
+  }, [containerRef, loading]);
 }
 
 export default function App() {
@@ -50,7 +65,7 @@ export default function App() {
   const appRef = useRef(null);
 
   useMagnetic(appRef);
-  useScrollReveal(appRef);
+  useScrollReveal(appRef, loading);
 
   useEffect(() => {
     document.body.style.overflow = loading ? "hidden" : "";
@@ -76,9 +91,9 @@ export default function App() {
         <FeatureServices />
         <FindExpert />
         <WhatWeOffer />
-        <ContactSection />
         {/* <LongRealtyApp /> */}
         <BlogSection />
+        <ContactSection />
         {/* <QuickLinks /> */}
       </main>
       <Footer />

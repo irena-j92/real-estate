@@ -1,57 +1,60 @@
-import { FiArrowUpRight } from "react-icons/fi";
-import Button from "./ui/Button";
-import Container from "./ui/Container";
+import { FiPlus } from "react-icons/fi";
 
-const CARDS = [
+const services = [
   {
-    title: "Quick Buy",
+    title: "Find your place",
     description:
-      "A competitive cash offer on qualifying homes within 48 hours — move on your own timeline.",
+      "The right neighborhood. The right feeling. Discover homes that fit the way you want to live.",
+    link: "#trending",
   },
   {
-    title: "Communities",
+    title: "Make your next move",
     description:
-      "Deep, block-by-block knowledge of Southern Arizona neighborhoods, schools, and HOAs.",
+      "Thoughtful preparation, considered pricing, and a clear plan for bringing your home to market.",
+    link: "#contact",
   },
   {
-    title: "Mortgage",
+    title: "Settle in with confidence",
     description:
-      "In-house lending partners for pre-approval, rate locks, and transparent closing costs.",
+      "From financing to the final keys, find support for all the details that make a move feel effortless.",
+    link: "#offer",
   },
 ];
 
-const NIGHT_IMAGE =
-  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=80";
-
 export default function FeatureServices() {
   return (
-    <section className="relative isolate flex min-h-[820px] items-center overflow-hidden py-24">
-      <img
-        src={NIGHT_IMAGE}
-        alt="A modern home glowing at dusk beneath a deep blue sky"
-        className="absolute inset-0 h-full w-full object-cover"
-        loading="lazy"
-      />
-      <div className="absolute inset-0 bg-dark/55" />
-
-      <Container className="relative px-6 md:px-20">
-        <div className="grid gap-8 md:grid-cols-3">
-          {CARDS.map((card) => (
-            <div
-              key={card.title}
-              data-reveal className="glass flex h-[420px] flex-col justify-between p-8 text-white md:h-[580px]"
-            >
+    <section id="services" className="premium-section services-section">
+      <div className="site-container services-layout">
+        <div data-reveal className="services-intro">
+          <p className="section-kicker">03 / A considered approach</p>
+          <h2 className="section-title">
+            Every move.
+            <br />
+            <em>Made personal.</em>
+          </h2>
+          <p className="body-copy">
+            A little less uncertainty. A lot more possibility. Wherever you are
+            in the journey, we’ll meet you there.
+          </p>
+          <a href="#contact" className="text-link">
+            Let’s talk about your move
+          </a>
+        </div>
+        <div>
+          {services.map((service, i) => (
+            <article data-reveal key={service.title} className="service-row">
+              <span className="service-number">0{i + 1}</span>
               <div>
-                <h3 className="font-accent-italic text-4xl">{card.title}</h3>
-                <p className="mt-6 text-white/75">{card.description}</p>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
               </div>
-              <Button variant="yellow" icon={<FiArrowUpRight />} className="w-fit">
-                Get Started
-              </Button>
-            </div>
+              <a href={service.link} aria-label={service.title}>
+                <FiPlus size={21} />
+              </a>
+            </article>
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

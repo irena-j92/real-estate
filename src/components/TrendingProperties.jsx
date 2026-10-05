@@ -1,189 +1,353 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { FiChevronLeft, FiChevronRight, FiGrid, FiCircle, FiArrowUpRight } from "react-icons/fi";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  FiChevronLeft,
+  FiChevronRight,
+  FiGrid,
+  FiMaximize,
+  FiHeart,
+  FiMapPin,
+  FiPause,
+  FiPlay,
+} from "react-icons/fi";
 import { properties } from "../data/properties";
 import Button from "./ui/Button";
-import Container from "./ui/Container";
 
-const AUTO_ADVANCE_SECONDS = 6;
-
-function SingleView({ index, setIndex }) {
-  const property = properties[index];
-  const barRef = useRef(null);
-  const tlRef = useRef(null);
-
-  useEffect(() => {
-    if (!barRef.current) return;
-    gsap.killTweensOf(barRef.current);
-    gsap.set(barRef.current, { scaleY: 0 });
-    tlRef.current = gsap.to(barRef.current, {
-      scaleY: 1,
-      duration: AUTO_ADVANCE_SECONDS,
-      ease: "none",
-      transformOrigin: "top",
-      onComplete: () => setIndex((i) => (i + 1) % properties.length),
+const SECONDS = 8;
+function inquire(property, offer = false) {
+  window.dispatchEvent(
+    new CustomEvent("realty-inquiry", {
+      detail: offer
+        ? `I'd like to discuss an offer on ${property.title}, ${property.address}.`
+        : `I'd like to arrange a showing of ${property.title}, ${property.address}.`,
+    }),
+  );
+  document
+    .getElementById("contact")
+    ?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
     });
-    return () => tlRef.current?.kill();
-  }, [index, setIndex]);
-
-  const goTo = (dir) => {
-    setIndex((i) => (i + dir + properties.length) % properties.length);
-  };
-
+}
+function SaveButton({ property, saved, toggle }) {
   return (
-    <div className="grid gap-10 md:grid-cols-[80px_1fr] md:gap-16">
-      <div className="hidden flex-col items-center gap-6 md:flex">
-        <div className="relative h-[510px] w-[2px] overflow-hidden bg-dark/10">
-          <div
-            ref={barRef}
-            className="absolute inset-0 origin-top bg-yellow"
-            style={{ transform: "scaleY(0)" }}
-          />
-        </div>
-        <div className="flex flex-col gap-3">
-          <button
-            type="button"
-            onClick={() => goTo(-1)}
-            aria-label="Previous property"
-            className="flex h-10 w-10 items-center justify-center border border-dark/20 transition-colors hover:border-dark"
-          >
-            <FiChevronLeft />
-          </button>
-          <button
-            type="button"
-            onClick={() => goTo(1)}
-            aria-label="Next property"
-            className="flex h-10 w-10 items-center justify-center border border-dark/20 transition-colors hover:border-dark"
-          >
-            <FiChevronRight />
-          </button>
-        </div>
-      </div>
-
-      <div className="grid gap-10 md:grid-cols-2 md:items-center">
-        <div className="overflow-hidden">
+    <button
+      type="button"
+      className="save-property"
+      aria-label={`${saved ? "Unsave" : "Save"} ${property.title}`}
+      aria-pressed={saved}
+      onClick={() => toggle(property.id)}
+    >
+      <FiHeart size={18} fill={saved ? "currentColor" : "none"} />
+    </button>
+  );
+}
+function SingleView({ index, setIndex, saved, toggle }) {
+  const property = properties[index];
+  const progress = useRef(null);
+  const root = useRef(null);
+  const [paused, setPaused] = useState(false);
+  const [hovering, setHovering] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(media.matches);
+    update();
+    media.addEventListener("change", update);
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0.3 },
+    );
+    if (root.current) observer.observe(root.current);
+    return () => {
+      observer.disconnect();
+      media.removeEventListener("change", update);
+    };
+  }, []);
+  useEffect(() => {
+    if (!progress.current) return;
+    const animation = gsap.fromTo(
+      progress.current,
+      { scaleX: 0 },
+      {
+        scaleX: 1,
+        duration: SECONDS,
+        ease: "none",
+        onComplete: () => setIndex((i) => (i + 1) % properties.length),
+      },
+    );
+    if (paused || hovering || focused || !visible || reduced) animation.pause();
+    return () => animation.kill();
+  }, [index, setIndex, paused, hovering, focused, visible, reduced]);
+  const move = (dir) =>
+    setIndex((i) => (i + dir + properties.length) % properties.length);
+  return (
+    <div
+      ref={root}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false);
+      }}
+    >
+      <article className="featured-property">
+        <div className="property-visual">
           <img
             key={property.id}
             src={property.image}
             alt={property.title}
-            className="h-[420px] w-full object-cover"
             loading="lazy"
           />
+          <span className="property-badge">Featured residence</span>
+          <SaveButton
+            property={property}
+            saved={saved.includes(property.id)}
+            toggle={toggle}
+          />
+          <div className="property-photo-caption">
+            <span>Southern Arizona</span>
+            <span>
+              0{index + 1} / 0{properties.length}
+            </span>
+          </div>
         </div>
-        <div>
-<div id="sale-tag" className="inline-flex items-center gap-2">
-  <div className="h-3 w-3 rounded-full bg-green-500" />
-  <span className="text-[10px] font-semibold uppercase tracking-wider text-dark">
-    {property.tag}
-  </span>
-</div>
-          <p className="mt-6 text-[44px] font-accent-light leading-none md:text-[60px]">
-            {property.price}
+        <div key={`${property.id}-info`} className="property-info view-enter">
+          <p className="eyebrow">{property.tag} / Tucson, Arizona</p>
+          <h3 className="property-title">{property.title}</h3>
+          <p className="property-address">
+            <FiMapPin size={15} />
+            {property.address}
           </p>
-          <p className="mt-3 text-dark/60">{property.address}</p>
-
-          <div className="mt-8 grid grid-cols-3 gap-4">
-            <FeatureCard label="Bedrooms" value={property.beds} />
-            <FeatureCard label="Bathrooms" value={property.baths} />
-            <FeatureCard label="Sq. Ft." value={property.sqft} />
+          <p className="property-price">{property.price}</p>
+          <div className="property-specs">
+            <div>
+              <strong>{property.beds}</strong>
+              <span>Bedrooms</span>
+            </div>
+            <div>
+              <strong>{property.baths}</strong>
+              <span>Bathrooms</span>
+            </div>
+            <div>
+              <strong>{property.sqft}</strong>
+              <span>Square feet</span>
+            </div>
           </div>
-
-          <div className="mt-10 grid grid-row gap-2">
-            <Button variant="outline-dark">Request Showing</Button>
-            <Button variant="yellow">Start Offer</Button>
+          <div className="property-actions">
+            <Button variant="yellow" onClick={() => inquire(property)}>
+              Arrange a private showing
+            </Button>
+            <button
+              className="text-link"
+              type="button"
+              onClick={() => inquire(property, true)}
+            >
+              Interested in making an offer?
+            </button>
           </div>
+        </div>
+      </article>
+      <div className="listing-navigation">
+        <div className="nav-track">
+          <span className="count">
+            <strong>0{index + 1}</strong> / 0{properties.length}
+          </span>
+          <div className="listing-progress" aria-hidden="true">
+            <span ref={progress} />
+          </div>
+          <button
+            type="button"
+            aria-label={
+              paused ? "Resume property slideshow" : "Pause property slideshow"
+            }
+            onClick={() => setPaused((p) => !p)}
+            className="icon-button"
+            style={{ width: 40, height: 40 }}
+          >
+            {paused || reduced ? <FiPlay size={13} /> : <FiPause size={13} />}
+          </button>
+        </div>
+        <p className="listing-note">
+          Considered spaces. Endless possibilities.
+        </p>
+        <div className="listing-nav-buttons">
+          <button
+            className="icon-button"
+            type="button"
+            onClick={() => move(-1)}
+            aria-label="Previous property"
+          >
+            <FiChevronLeft size={18} />
+          </button>
+          <button
+            className="icon-button"
+            type="button"
+            onClick={() => move(1)}
+            aria-label="Next property"
+          >
+            <FiChevronRight size={18} />
+          </button>
         </div>
       </div>
     </div>
   );
 }
-
-function FeatureCard({ label, value }) {
+function GridView({ saved, toggle, select }) {
   return (
-    <div className="border border-dark/10 px-4 py-4 text-center">
-      <p className="text-xl font-semibold">{value}</p>
-      <p className="mt-1 text-[11px] uppercase tracking-wider text-dark/50">
-        {label}
-      </p>
-    </div>
-  );
-}
-
-function GridView() {
-  return (
-    <div className="grid gap-8 md:grid-cols-3">
-      {properties.map((property) => (
-        <article
-          key={property.id}
-          data-reveal
-          className="group overflow-hidden bg-white"
-        >
-          <div className="overflow-hidden">
-            <img
-              src={property.image}
-              alt={property.title}
-              loading="lazy"
-              className="h-[280px] w-full object-cover transition-transform duration-700 ease-cinematic group-hover:scale-105"
+    <div className="properties-grid view-enter">
+      {properties.map((property, i) => (
+        <article key={property.id} className="property-grid-card">
+          <div className="grid-property-image">
+            <button
+              onClick={() => select(i)}
+              type="button"
+              aria-label={`Explore ${property.title}`}
+            >
+              <img src={property.image} alt={property.title} loading="lazy" />
+            </button>
+            <span className="property-badge">{property.tag}</span>
+            <SaveButton
+              property={property}
+              saved={saved.includes(property.id)}
+              toggle={toggle}
             />
           </div>
-          <div className="p-6">
-<div id="sale-tag" className="inline-flex items-center gap-2">
-  <span className="text-[12px] px-2 py-1 bg-green-500/50 font-medium uppercase tracking-wider text-dark">
-    {property.tag}
-  </span>
-</div>
-
-            <p className="mt-4 text-3xl font-accent-light">{property.price}</p>
-            <p className="mt-1 text-sm text-dark/60">{property.address}</p>
-            <p className="mt-3 text-sm text-dark/50 text-transform: capitalize">
-              {property.beds} bd · {property.baths} ba · {property.sqft} sqft
-            </p>
+          <div className="grid-property-info">
+            <div>
+              <h3>
+                <button
+                  className="text-left"
+                  onClick={() => select(i)}
+                  type="button"
+                >
+                  {property.title}
+                </button>
+              </h3>
+              <p>{property.address.split(",")[0]}</p>
+            </div>
+            <p className="grid-price">{property.price}</p>
+          </div>
+          <div className="grid-property-meta">
+            <span>
+              {property.beds} beds · {property.baths} baths · {property.sqft} sq
+              ft
+            </span>
+            <button type="button" onClick={() => select(i)}>
+              Explore home
+            </button>
           </div>
         </article>
       ))}
     </div>
   );
 }
-
 export default function TrendingProperties() {
   const [view, setView] = useState("single");
   const [index, setIndex] = useState(0);
-
+  const [saved, setSaved] = useState(() => {
+    try {
+      return JSON.parse(
+        localStorage.getItem("long-realty-saved") || "[]",
+      ).filter((id) => properties.some((p) => p.id === id));
+    } catch {
+      return [];
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem("long-realty-saved", JSON.stringify(saved));
+    } catch {
+      /* Storage can be unavailable in private browsing. */
+    }
+  }, [saved]);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => cancelAnimationFrame(frame);
+  }, [view]);
+  const toggle = (id) =>
+    setSaved((list) =>
+      list.includes(id) ? list.filter((item) => item !== id) : [...list, id],
+    );
+  const select = (i) => {
+    setIndex(i);
+    setView("single");
+    requestAnimationFrame(() =>
+      document
+        .getElementById("trending")
+        ?.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+            .matches
+            ? "instant"
+            : "smooth",
+        }),
+    );
+  };
   return (
-    <section id="trending" className="bg-light py-[100px] md:py-[150px]">
-      <Container className="px-6 md:px-20">
-        <div className="mb-16 flex items-center justify-between">
-          <h2 className="text-[56px] font-accent-light uppercase font-normal leading-none md:text-[100px]">
-            New Listings
-          </h2>
-
-          <div id="btns" className="gap-2 flex inline-flex">
-          <button
-            type="button"
-            onClick={() => setView((v) => (v === "single" ? "grid" : "single"))}
-            aria-label={
-              view === "single" ? "Switch to grid view" : "Switch to single view"
-            }
-            className="flex h-16 w-16 flex-shrink-0 items-center justify-center border border-dark transition-transform hover:scale-105"
-          >
-            {view === "single" ? (
-              <FiGrid size={26} />
-            ) : (
-              <FiCircle size={26} />
-            )}
-          </button>
-            <Button variant="yellow" icon={<FiArrowUpRight />}>
-            View All
-          </Button>
+    <section id="trending" className="premium-section listings-section">
+      <div className="site-container">
+        <div className="section-heading" data-reveal>
+          <div>
+            <p className="section-kicker">02 / On the market</p>
+            <h2 className="section-title">
+              New listings.
+              <br />
+              <em>New possibilities.</em>
+            </h2>
+          </div>
+          <div className="listing-tools">
+            <div
+              className="view-toggle"
+              role="group"
+              aria-label="Property display"
+            >
+              <button
+                onClick={() => setView("single")}
+                aria-pressed={view === "single"}
+                type="button"
+              >
+                <FiMaximize size={15} />
+                Single
+              </button>
+              <button
+                onClick={() => setView("grid")}
+                aria-pressed={view === "grid"}
+                type="button"
+              >
+                <FiGrid size={15} />
+                Grid
+              </button>
+            </div>
+            <button
+              className="text-link"
+              type="button"
+              onClick={() => setView("grid")}
+            >
+              Explore all homes
+            </button>
           </div>
         </div>
-
         {view === "single" ? (
-          <SingleView index={index} setIndex={setIndex} />
+          <SingleView
+            index={index}
+            setIndex={setIndex}
+            saved={saved}
+            toggle={toggle}
+          />
         ) : (
-          <GridView />
+          <GridView saved={saved} toggle={toggle} select={select} />
         )}
-      </Container>
+        <p className="eyebrow" style={{ marginTop: 25, fontSize: 10 }}>
+          {saved.length
+            ? `${saved.length} ${saved.length === 1 ? "home" : "homes"} saved · `
+            : ""}
+          A selection of illustrative residences
+        </p>
+      </div>
     </section>
   );
 }

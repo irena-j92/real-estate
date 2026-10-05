@@ -7,8 +7,7 @@ export const properties = [
     beds: 5,
     baths: 6,
     sqft: "6,240",
-    image:
-      "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1600&q=80",
+    image: "/assets/properties-1.jpg",
     tag: "FOR SALE",
   },
   {
@@ -19,8 +18,7 @@ export const properties = [
     beds: 4,
     baths: 4,
     sqft: "4,910",
-    image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80",
+    image: "/assets/properties-2.jpg",
     tag: "FOR SALE",
   },
   {
@@ -31,8 +29,7 @@ export const properties = [
     beds: 6,
     baths: 7,
     sqft: "7,380",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
+    image: "/assets/properties-3.jpg",
     tag: "FOR SALE",
   },
   {
@@ -43,8 +40,7 @@ export const properties = [
     beds: 4,
     baths: 5,
     sqft: "5,120",
-    image:
-      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=80",
+    image: "/assets/properties-4.jpg",
     tag: "FOR SALE",
   },
 ];

@@ -5,6 +5,16 @@ import { FiUser, FiX } from "react-icons/fi";
 import { megaMenu } from "../data/megaMenu";
 import LanguageSelector from "./LanguageSelector";
 
+function sectionFor(category, link) {
+  if (/agent|career|leadership|team|office/i.test(link)) return "#experts";
+  if (/story|about/i.test(link)) return "#about";
+  if (/blog|market|magazine|news/i.test(link)) return "#journal";
+  if (/mortgage|onepoint|relocation|network|services/i.test(link))
+    return "#offer";
+  if (category === "Sell") return "#contact";
+  return "#trending";
+}
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(megaMenu[0].label);
@@ -29,12 +39,19 @@ export default function Navbar() {
 
   useGSAP(() => {
     if (!panelRef.current) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(panelRef.current, {
+        display: open ? "flex" : "none",
+        clipPath: "none",
+      });
+      return;
+    }
     if (open) {
       gsap.set(panelRef.current, { display: "flex" });
       gsap.fromTo(
         panelRef.current,
         { clipPath: "inset(0 0 100% 0)" },
-        { clipPath: "inset(0 0 0% 0)", duration: 0.7, ease: "power4.inOut" }
+        { clipPath: "inset(0 0 0% 0)", duration: 0.7, ease: "power4.inOut" },
       );
     } else {
       gsap.to(panelRef.current, {
@@ -49,13 +66,22 @@ export default function Navbar() {
   useGSAP(
     () => {
       if (!columnRef.current) return;
+      const reduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
       gsap.fromTo(
         columnRef.current.children,
-        { opacity: 0, y: 14 },
-        { opacity: 1, y: 0, duration: 0.4, stagger: 0.04, ease: "power2.out" }
+        { opacity: 0, y: reduced ? 0 : 14 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: reduced ? 0.01 : 0.4,
+          stagger: reduced ? 0 : 0.04,
+          ease: "power2.out",
+        },
       );
     },
-    { dependencies: [activeCategory], scope: panelRef }
+    { dependencies: [activeCategory], scope: panelRef },
   );
 
   const activeLinks =
@@ -63,15 +89,14 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed inset-x-0 top-0 z-[60] flex items-start justify-between px-10 py-0">
-          <a
-            href="#login"
-            className="hidden mt-10 items-center gap-2 border border-white/25 px-5 py-[16px] text-xs font-semibold uppercase tracking-wider text-white transition-colors hover:border-yellow hover:text-yellow md:flex"
-          >
-            <FiUser size={14} />
-            Locations
-          </a>
-
+      <nav className="hero-nav fixed inset-x-0 top-0 z-[60] flex items-start justify-between px-10 py-0">
+        <a
+          href="#experts"
+          className="hidden mt-10 items-center gap-2 border border-white/25 px-5 py-[16px] text-xs font-semibold uppercase tracking-wider text-white transition-colors hover:border-yellow hover:text-yellow md:flex"
+        >
+          <FiUser size={14} />
+          Our people
+        </a>
 
         <a
           href="#top"
@@ -85,11 +110,11 @@ export default function Navbar() {
           <LanguageSelector variant="light" />
 
           {/* <a
-            href="#login"
+            href="#contact"
             className="hidden items-center gap-2 border border-white/25 px-5 py-[16px] text-xs font-semibold uppercase tracking-wider text-white transition-colors hover:border-yellow hover:text-yellow md:flex"
           >
             <FiUser size={14} />
-            Login / Sign Up
+            Start a conversation
           </a> */}
 
           <button
@@ -121,7 +146,7 @@ export default function Navbar() {
       <div
         ref={panelRef}
         style={{ display: "none" }}
-        className="fixed inset-0 z-50 hidden flex-col bg-[#141721]"
+        className="hero-menu fixed inset-0 z-50 hidden flex-col bg-[#141721]"
       >
         <div className="flex items-center justify-between px-10 pt-10">
           <span className="text-xs uppercase tracking-[0.3em] text-white/40">
@@ -158,7 +183,7 @@ export default function Navbar() {
                     {category.links.map((link) => (
                       <a
                         key={link}
-                        href="#top"
+                        href={sectionFor(category.label, link)}
                         onClick={() => setOpen(false)}
                         className="text-sm text-white/70 hover:text-yellow"
                       >
@@ -178,7 +203,7 @@ export default function Navbar() {
             {activeLinks.map((link) => (
               <a
                 key={link}
-                href="#top"
+                href={sectionFor(activeCategory, link)}
                 onClick={() => setOpen(false)}
                 className="text-lg text-white/70 transition-colors hover:text-yellow"
               >
@@ -190,11 +215,11 @@ export default function Navbar() {
 
         <div className="flex flex-col gap-4 border-t border-white/10 px-10 py-8 md:hidden">
           <a
-            href="#login"
+            href="#contact"
             className="flex items-center gap-2 border border-white/25 px-5 py-2 text-xs font-semibold uppercase tracking-wider text-white"
           >
             <FiUser size={14} />
-            Login / Sign Up
+            Start a conversation
           </a>
         </div>
       </div>

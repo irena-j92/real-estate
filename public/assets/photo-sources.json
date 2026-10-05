@@ -1,0 +1,46 @@
+[
+  {
+    "path": "/assets/properties-1.jpg",
+    "url": "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1600&q=80"
+  },
+  {
+    "path": "/assets/properties-2.jpg",
+    "url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80"
+  },
+  {
+    "path": "/assets/properties-3.jpg",
+    "url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80"
+  },
+  {
+    "path": "/assets/properties-4.jpg",
+    "url": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=80"
+  },
+  {
+    "path": "/assets/posts-1.jpg",
+    "url": "https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    "path": "/assets/posts-2.jpg",
+    "url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    "path": "/assets/posts-3.jpg",
+    "url": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    "path": "/assets/offerservices-1.jpg",
+    "url": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    "path": "/assets/offerservices-2.jpg",
+    "url": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    "path": "/assets/offerservices-3.jpg",
+    "url": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    "path": "/assets/videosection-1.jpg",
+    "url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85"
+  }
+]

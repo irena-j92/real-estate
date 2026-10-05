@@ -1,60 +1,49 @@
 import { useState } from "react";
-import { FiChevronLeft, FiChevronRight, FiArrowUpRight } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { agents } from "../data/agents";
-import { partners } from "../data/partners";
 import Button from "./ui/Button";
-import Container from "./ui/Container";
+const specialties = [
+  "Catalina Foothills & luxury homes",
+  "Central Tucson & first homes",
+  "Oro Valley & family living",
+  "Relocation & desert communities",
+  "Seller representation & estates",
+];
 
-const CAREER_IMAGE =
-  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80";
-
-function OrbitStack({ agents: list, index, setIndex }) {
-  const n = list.length;
-  const half = Math.floor(n / 2);
-
-  const styleForOffset = (offset) => {
-    const abs = Math.abs(offset);
-    const dir = Math.sign(offset);
-    return {
-      transform: `translateX(${dir * abs * 130}px) scale(${1 - abs * 0.14}) rotate(${-dir * abs * -6}deg)`,
-      zIndex: 20 - abs,
-      // opacity: abs > 2 ? 0 : 1 - abs * 0.22,
-    };
-  };
-
+function OrbitStack({ index, setIndex }) {
   return (
-    <div className="relative mx-auto flex h-[380px] w-full max-w-2xl items-center justify-center md:h-[440px]">
-      {list.map((agent, i) => {
+    <div className="expert-stage" aria-label="Choose your adviser">
+      {agents.map((agent, i) => {
         let offset = i - index;
-        if (offset > half) offset -= n;
-        if (offset < -half) offset += n;
-        const isActive = offset === 0;
-
+        if (offset > 2) offset -= agents.length;
+        if (offset < -2) offset += agents.length;
+        const active = offset === 0;
         return (
           <button
             key={agent.id}
-            type="button"
             onClick={() => setIndex(i)}
-            aria-label={`Show ${agent.name}`}
-            aria-current={isActive}
-            style={styleForOffset(offset)}
-            className="absolute h-[340px] w-[240px] overflow-hidden border-radius rounded-lg bg-secondary shadow-xl transition-all duration-500 ease-cinematic md:h-[400px] md:w-[280px]"
+            type="button"
+            className="expert-portrait-card"
+            aria-label={`Select ${agent.name}`}
+            aria-pressed={active}
+            style={{
+              transform: `translateX(${offset * 91}px) translateY(${Math.abs(offset) * 13}px) rotate(${offset * 7}deg) scale(${1 - Math.abs(offset) * 0.09})`,
+              zIndex: 10 - Math.abs(offset),
+              filter: active ? "none" : "brightness(.62)",
+              opacity: Math.abs(offset) > 1 ? 0.5 : 1,
+            }}
           >
-            <img
-              src={agent.image}
-              alt={agent.name}
-              className="h-full w-full object-cover"
-              loading="lazy"
+            <div
+              className="expert-portrait"
+              role="img"
+              aria-label={`Illustrative portrait of ${agent.name}`}
+              style={{ backgroundPosition: `${i * 25}% 15%` }}
             />
-            {isActive && (
-              <div className="absolute inset-0 bg-black/25">
-          <div className="absolute bottom-0 left-0 w-full px-5 py-4 text-left text-white">
-                <p className="text-lg font-semibold text-yellow">{agent.name}</p>
-                <p className="text-xs uppercase tracking-wider text-white/70">
-                  {agent.title}
-                </p>
-              </div>
-              </div>
+            {active && (
+              <span className="expert-card-name">
+                {agent.name}
+                <small>YOUR LOCAL PERSPECTIVE</small>
+              </span>
             )}
           </button>
         );
@@ -65,72 +54,100 @@ function OrbitStack({ agents: list, index, setIndex }) {
 
 export default function FindExpert() {
   const [index, setIndex] = useState(0);
-
+  const agent = agents[index];
   const goTo = (dir) =>
     setIndex((i) => (i + dir + agents.length) % agents.length);
-
+  const connect = () => {
+    window.dispatchEvent(
+      new CustomEvent("realty-inquiry", {
+        detail: `I'd like to connect with ${agent.name} about my next move.`,
+      }),
+    );
+    document
+      .getElementById("contact")
+      ?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "instant"
+          : "smooth",
+      });
+  };
   return (
-    <section id="experts" className="bg-light py-[60px] md:py-[60px]">
-      <Container className="px-6 md:px-20">
-        <h2 className="text-center font-accent-light uppercase text-[60px] md:text-[80px]">
-          Find an Expert
-        </h2>
-
-        <div className="mt-16">
-          <OrbitStack agents={agents} index={index} setIndex={setIndex} />
-        </div>
-
-        <div className="mt-12 flex justify-center">
-          <Button variant="dark" icon={<FiArrowUpRight />}>
-            View All Agents
-          </Button>
-        </div>
-
-        <div className="no-scrollbar mt-24 overflow-hidden">
-          <div className="marquee-track items-center gap-16 grayscale">
-            {[...partners, ...partners].map((partner, i) => (
-              <span
-                key={`${partner}-${i}`}
-                className="whitespace-nowrap text-2xl font-light uppercase tracking-wide text-dark/40"
-              >
-                {partner}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div
-          data-reveal
-          className="mt-20 grid gap-8 border border-dark/10 bg-white p-8 md:grid-cols-[280px_1fr] md:items-center md:p-10"
-        >
-          <img
-            src={CAREER_IMAGE}
-            alt="Long Realty agents collaborating in the office"
-            className="h-[180px] w-full object-cover md:h-[220px]"
-            loading="lazy"
-          />
-          <div>
-            <p className="text-sm leading-relaxed text-dark/70">
-              Give yourself—and your clients—the advantages of a leading real
-              estate company. Long Realty provides the tools, support and
-              guidance to succeed while cultivating a culture of top agents
-              working together. Let's talk about you becoming part of this
-              dynamic team today.
+    <section id="experts" className="premium-section experts-section">
+      <div className="site-container">
+        <div className="experts-layout">
+          <div data-reveal>
+            <p className="section-kicker">04 / Your people, your place</p>
+            <h2 className="section-title">
+              Local knowledge.
+              <br />
+              <em>Human connection.</em>
+            </h2>
+            <p className="body-copy expert-description">
+              The best advice comes from someone who knows the streets, the
+              stories, and what makes a place feel like home. Find the person
+              who sees your vision.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button variant="yellow" className="text-xs">
-                Join Our Team
-              </Button>
-              <Button variant="outline-dark" className="text-xs">
-                Explore Careers
-              </Button>
-              <Button variant="outline-dark" className="text-xs">
-                Contact Recruiting
-              </Button>
+            <div className="expert-selection">
+              <button
+                type="button"
+                className="icon-button"
+                aria-label="Previous adviser"
+                onClick={() => goTo(-1)}
+              >
+                <FiChevronLeft />
+              </button>
+              <div className="expert-current" aria-live="polite">
+                <strong>{agent.name}</strong>
+                <p>{specialties[index]}</p>
+              </div>
+              <button
+                type="button"
+                className="icon-button"
+                aria-label="Next adviser"
+                onClick={() => goTo(1)}
+              >
+                <FiChevronRight />
+              </button>
             </div>
+            <Button className="mt-7" variant="yellow" onClick={connect}>
+              Let’s connect
+            </Button>
+          </div>
+          <div data-reveal>
+            <OrbitStack index={index} setIndex={setIndex} />
+            <p className="expert-count">
+              0{index + 1} <span className="mx-3">/</span> 0{agents.length}
+            </p>
           </div>
         </div>
-      </Container>
+        <div className="partner-band" data-reveal>
+          <span>Local roots. Global reach.</span>
+          <div className="partner-names">
+            <span>HomeServices of America</span>
+            <span>LeadingRE</span>
+            <span>Long Realty</span>
+          </div>
+        </div>
+        <div className="career-line" data-reveal>
+          <p>
+            Good people make a great company. Build your next chapter with us.
+          </p>
+          <a
+            className="text-link"
+            href="#contact"
+            onClick={() =>
+              window.dispatchEvent(
+                new CustomEvent("realty-inquiry", {
+                  detail:
+                    "I'd like to learn more about joining the Long Realty team.",
+                }),
+              )
+            }
+          >
+            Explore a career with Long Realty
+          </a>
+        </div>
+      </div>
     </section>
   );
 }

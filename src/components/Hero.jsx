@@ -44,7 +44,7 @@ export default function Hero({ ready = false }) {
   const [videoMetaReady, setVideoMetaReady] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
- const [activeDropdown, setActiveDropdown] = useState(null);
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   const toggleDropdown = (name) => {
     setActiveDropdown((prev) => (prev === name ? null : name));
@@ -75,6 +75,10 @@ export default function Hero({ ready = false }) {
     const video = videoRef.current;
     const section = sectionRef.current;
     if (!video || !section) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      video.currentTime = Math.max(0, video.duration * 0.6);
+      return;
+    }
 
     let st;
     let rafId;
@@ -89,7 +93,7 @@ export default function Hero({ ready = false }) {
       // last frame.
       const videoScrollDistance = Math.max(
         (video.duration || 8) * 180,
-        window.innerHeight * 1.5
+        window.innerHeight * 1.5,
       );
       // Extra distance the section stays pinned AFTER the video has
       // finished, holding on the last frame, before releasing to the next
@@ -133,7 +137,7 @@ export default function Hero({ ready = false }) {
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("load", onWindowLoad);
-      st && st.kill();
+      if (st) st.kill();
     };
   }, [ready, videoMetaReady]);
 
@@ -141,16 +145,19 @@ export default function Hero({ ready = false }) {
   useEffect(() => {
     if (!ready) return;
 
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
     tl.fromTo(
       headlineRef.current,
-      { autoAlpha: 0, y: 24 },
-      { autoAlpha: 1, y: 0, duration: 0.9 }
+      { autoAlpha: 0, y: reduced ? 0 : 24 },
+      { autoAlpha: 1, y: 0, duration: reduced ? 0.01 : 0.9 },
     ).fromTo(
       searchBarRef.current,
-      { autoAlpha: 0, y: 32 },
-      { autoAlpha: 1, y: 0, duration: 0.8 },
-      "-=0.5"
+      { autoAlpha: 0, y: reduced ? 0 : 32 },
+      { autoAlpha: 1, y: 0, duration: reduced ? 0.01 : 0.8 },
+      reduced ? 0 : "-=0.5",
     );
     return () => tl.kill();
   }, [ready]);
@@ -158,9 +165,9 @@ export default function Hero({ ready = false }) {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden bg-[#151717] font-['Inter_Tight',sans-serif] text-[#EBEBEB]"
+      id="top"
+      className="hero-preserved relative h-screen w-full overflow-hidden bg-[#151717] font-['Inter_Tight',sans-serif] text-[#EBEBEB]"
     >
-
       <video
         ref={videoRef}
         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
@@ -189,10 +196,11 @@ export default function Hero({ ready = false }) {
         className="relative z-10 flex h-full flex-col items-start justify-center px-6 sm:px-12 lg:px-20"
       >
         <h1 className="max-w-auto text-5xl leading-[1.05] font-accent-light tracking-tight uppercase sm:text-[80px] lg:text-[160px]">
-          Origin
+          Belong.
         </h1>
         <p className="mt-5 max-w-md text-lg font-light text-[#EBEBEB]/80 sm:text-xl">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+          Extraordinary homes. A place that feels like you. Discover Southern
+          Arizona with people who know it by heart.
         </p>
       </div>
 
@@ -251,7 +259,18 @@ export default function Hero({ ready = false }) {
 
             <button
               type="button"
-              className="flex items-center justify-center gap-2 bg-[#FFFFFF] px-8 py-4 text-sm font-medium text-[#151717] transition-colors hover:bg-[#FFFFFF]/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFFFFF]"
+              onClick={() => {
+                document
+                  .getElementById("trending")
+                  ?.scrollIntoView({
+                    behavior: window.matchMedia(
+                      "(prefers-reduced-motion: reduce)",
+                    ).matches
+                      ? "instant"
+                      : "smooth",
+                  });
+              }}
+              className="hero-search-submit flex items-center justify-center gap-2 bg-[#FFFFFF] px-8 py-4 text-sm font-medium text-[#151717] transition-colors hover:bg-[#FFFFFF]/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFFFFF]"
             >
               <FiSearch size={18} />
               Search Properties
@@ -269,7 +288,7 @@ export default function Hero({ ready = false }) {
                   >
                     {amenity}
                   </button>
-                )
+                ),
               )}
             </div>
           )}
@@ -292,7 +311,7 @@ function SelectField({ label, options, isOpen, onToggle, onClose }) {
   const [value, setValue] = useState("");
 
   return (
-<div className="relative">
+    <div className="relative">
       <button
         type="button"
         onClick={onToggle}
@@ -309,7 +328,7 @@ function SelectField({ label, options, isOpen, onToggle, onClose }) {
         />
       </button>
 
-{isOpen && (
+      {isOpen && (
         <ul className="absolute bottom-full left-0 z-30 mb-3 w-56 border border-white/15 bg-[#2F2F2F] py-1 shadow-xl">
           {options.map((option) => (
             <li key={option}>

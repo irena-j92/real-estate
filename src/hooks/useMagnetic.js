@@ -10,7 +10,7 @@ export default function useMagnetic(containerRef) {
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    if (prefersReduced) return;
+    if (prefersReduced || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
     const root = containerRef?.current || document;
     const els = root.querySelectorAll('[data-magnetic="true"]');
@@ -25,8 +25,8 @@ export default function useMagnetic(containerRef) {
         const rect = el.getBoundingClientRect();
         const relX = e.clientX - rect.left - rect.width / 2;
         const relY = e.clientY - rect.top - rect.height / 2;
-        xTo(relX * 0.35);
-        yTo(relY * 0.35);
+        xTo(relX * 0.12);
+        yTo(relY * 0.12);
       };
 
       const handleLeave = () => {
