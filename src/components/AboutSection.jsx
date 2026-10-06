@@ -1,33 +1,50 @@
-import Button from "./ui/Button";
-
+import ChapterTitle from "./experience/ChapterTitle";
 export default function AboutSection() {
   return (
     <section id="about" className="premium-section intro-section">
-      <div className="site-container intro-layout">
-        <div data-reveal>
-          <p className="section-kicker">01 / Our perspective</p>
-          <p className="intro-signature">
-            Rooted here.
-            <br />
-            Connected everywhere.
-          </p>
+      <div className="site-container">
+        <div className="chapter-topline" data-reveal>
+          <p className="section-kicker">01 / A sense of place</p>
+          <span className="micro-label">This is where your story begins.</span>
         </div>
-        <div>
-          <h2 data-reveal className="intro-title">
-            A home is more than a place.
-            <br />
-            It’s the beginning of <em>your next chapter.</em>
-          </h2>
-          <div data-reveal className="intro-bottom">
-            <p className="body-copy">
-              From the Catalina Foothills to the heart of Tucson, we bring local
-              understanding and a personal approach to every move. Because the
-              right home starts with someone who understands you.
-            </p>
-            <Button as="a" href="#experts" variant="outline">
-              Meet your people
-            </Button>
+        <div className="intro-composition">
+          <div data-reveal>
+            <ChapterTitle
+              lines={[
+                { text: "Some places" },
+                { text: "change everything.", italic: true },
+              ]}
+            />
+            <div className="intro-bottom">
+              <p className="body-copy">
+                A quiet morning. A view that stays with you. Room for the life
+                you imagined. We believe finding a home is about recognizing a
+                feeling.
+              </p>
+              <a className="text-link" href="#experts">
+                Find your kind of people
+              </a>
+            </div>
           </div>
+          <figure className="intro-image" data-reveal data-image-reveal>
+            <img
+              data-parallax
+              src="/assets/posts-2.jpg"
+              alt="A contemporary home opening onto a sunlit terrace"
+              loading="lazy"
+            />
+            <figcaption>Architecture for a life well lived.</figcaption>
+          </figure>
+        </div>
+        <div className="intro-footnote" data-reveal>
+          <span>Rooted in Southern Arizona.</span>
+          <p>
+            From the foothills to the heart of Tucson, our perspective is
+            personal. Your next chapter should be, too.
+          </p>
+          <span className="intro-star" aria-hidden="true">
+            ✳
+          </span>
         </div>
       </div>
     </section>

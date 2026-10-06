@@ -23,13 +23,11 @@ function inquire(property, offer = false) {
         : `I'd like to arrange a showing of ${property.title}, ${property.address}.`,
     }),
   );
-  document
-    .getElementById("contact")
-    ?.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "instant"
-        : "smooth",
-    });
+  document.getElementById("contact")?.scrollIntoView({
+    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "instant"
+      : "smooth",
+  });
 }
 function SaveButton({ property, saved, toggle }) {
   return (
@@ -96,14 +94,14 @@ function SingleView({ index, setIndex, saved, toggle }) {
       }}
     >
       <article className="featured-property">
-        <div className="property-visual">
+        <div className="property-visual" data-image-reveal>
           <img
             key={property.id}
             src={property.image}
             alt={property.title}
             loading="lazy"
           />
-          <span className="property-badge">Featured residence</span>
+          <span className="property-badge">Selected residence</span>
           <SaveButton
             property={property}
             saved={saved.includes(property.id)}
@@ -202,7 +200,7 @@ function GridView({ saved, toggle, select }) {
     <div className="properties-grid view-enter">
       {properties.map((property, i) => (
         <article key={property.id} className="property-grid-card">
-          <div className="grid-property-image">
+          <div className="grid-property-image" data-cursor="EXPLORE">
             <button
               onClick={() => select(i)}
               type="button"
@@ -277,14 +275,11 @@ export default function TrendingProperties() {
     setIndex(i);
     setView("single");
     requestAnimationFrame(() =>
-      document
-        .getElementById("trending")
-        ?.scrollIntoView({
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-            .matches
-            ? "instant"
-            : "smooth",
-        }),
+      document.getElementById("trending")?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "instant"
+          : "smooth",
+      }),
     );
   };
   return (
@@ -292,11 +287,11 @@ export default function TrendingProperties() {
       <div className="site-container">
         <div className="section-heading" data-reveal>
           <div>
-            <p className="section-kicker">02 / On the market</p>
+            <p className="section-kicker">02 / The collection</p>
             <h2 className="section-title">
-              New listings.
+              The residences.
               <br />
-              <em>New possibilities.</em>
+              <em>Extraordinary by nature.</em>
             </h2>
           </div>
           <div className="listing-tools">

@@ -30,7 +30,7 @@ export default function Footer() {
       <div className="site-container">
         <div className="footer-top" data-reveal>
           <a href="#top" className="footer-brand">
-            Long Realty<small>SOUTHERN ARIZONA. HOME, SINCE ALWAYS.</small>
+            Long Realty<small>A DIFFERENT PERSPECTIVE ON HOME.</small>
           </a>
           {columns.map((col) => (
             <div key={col.title} className="footer-column">

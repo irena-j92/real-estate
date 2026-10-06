@@ -7,7 +7,7 @@ export default function WhatWeOffer() {
   return (
     <section id="offer" className="premium-section offer-section">
       <div className="site-container offer-layout">
-        <div data-reveal className="offer-image">
+        <div data-reveal className="offer-image" data-image-reveal>
           <img
             key={service.number}
             className="view-enter"
@@ -22,11 +22,11 @@ export default function WhatWeOffer() {
           <span className="relative z-10">The details, taken care of.</span>
         </div>
         <div data-reveal>
-          <p className="section-kicker">05 / Beyond the keys</p>
+          <p className="section-kicker">05 / Every detail, considered</p>
           <h2 className="section-title">
-            A simpler move.
+            Beyond the keys.
             <br />
-            <em>A softer landing.</em>
+            <em>Before the beginning.</em>
           </h2>
           <p className="body-copy mt-6">
             There’s a lot that goes into feeling at home. We connect the right

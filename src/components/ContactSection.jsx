@@ -26,11 +26,11 @@ export default function ContactSection() {
     <section id="contact" className="premium-section contact-section">
       <div className="site-container contact-layout">
         <div data-reveal className="contact-intro">
-          <p className="section-kicker">07 / It starts with a conversation</p>
+          <p className="section-kicker">07 / Your next chapter</p>
           <h2 className="section-title">
-            Your next chapter
+            Let’s find
             <br />
-            <em>starts here.</em>
+            <em>your next.</em>
           </h2>
           <p className="body-copy">
             A first home. A fresh start. A little more room. Tell us what’s on

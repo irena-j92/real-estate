@@ -63,24 +63,22 @@ export default function FindExpert() {
         detail: `I'd like to connect with ${agent.name} about my next move.`,
       }),
     );
-    document
-      .getElementById("contact")
-      ?.scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "instant"
-          : "smooth",
-      });
+    document.getElementById("contact")?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
   };
   return (
     <section id="experts" className="premium-section experts-section">
       <div className="site-container">
         <div className="experts-layout">
           <div data-reveal>
-            <p className="section-kicker">04 / Your people, your place</p>
+            <p className="section-kicker">04 / The human connection</p>
             <h2 className="section-title">
-              Local knowledge.
+              Good people.
               <br />
-              <em>Human connection.</em>
+              <em>Great perspective.</em>
             </h2>
             <p className="body-copy expert-description">
               The best advice comes from someone who knows the streets, the

@@ -1,58 +1,93 @@
+import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
-
+import ChapterTitle from "./experience/ChapterTitle";
 const services = [
   {
     title: "Find your place",
     description:
-      "The right neighborhood. The right feeling. Discover homes that fit the way you want to live.",
+      "For the way you live, and the way you want to live. A considered collection of homes and a guide who understands what matters.",
+    image: "/assets/properties-2.jpg",
     link: "#trending",
+    label: "Buying, with perspective",
   },
   {
-    title: "Make your next move",
+    title: "Make your move",
     description:
-      "Thoughtful preparation, considered pricing, and a clear plan for bringing your home to market.",
+      "Thoughtful preparation. A confident presentation. A personal plan for the home you are ready to share with someone new.",
+    image: "/assets/properties-4.jpg",
     link: "#contact",
+    label: "Selling, thoughtfully",
   },
   {
-    title: "Settle in with confidence",
+    title: "Feel at home",
     description:
-      "From financing to the final keys, find support for all the details that make a move feel effortless.",
+      "From the first conversation to the final details, we connect the people and services that make a new beginning feel familiar.",
+    image: "/assets/offerservices-2.jpg",
     link: "#offer",
+    label: "Moving, made personal",
   },
 ];
-
 export default function FeatureServices() {
+  const [active, setActive] = useState(0);
   return (
     <section id="services" className="premium-section services-section">
-      <div className="site-container services-layout">
-        <div data-reveal className="services-intro">
-          <p className="section-kicker">03 / A considered approach</p>
-          <h2 className="section-title">
-            Every move.
-            <br />
-            <em>Made personal.</em>
-          </h2>
-          <p className="body-copy">
-            A little less uncertainty. A lot more possibility. Wherever you are
-            in the journey, we’ll meet you there.
-          </p>
-          <a href="#contact" className="text-link">
-            Let’s talk about your move
-          </a>
+      <div className="site-container">
+        <div className="chapter-topline" data-reveal>
+          <p className="section-kicker">03 / The way forward</p>
+          <span className="micro-label">
+            Every move deserves a different perspective.
+          </span>
         </div>
-        <div>
-          {services.map((service, i) => (
-            <article data-reveal key={service.title} className="service-row">
-              <span className="service-number">0{i + 1}</span>
-              <div>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-              </div>
-              <a href={service.link} aria-label={service.title}>
-                <FiPlus size={21} />
-              </a>
-            </article>
-          ))}
+        <div className="services-layout">
+          <div className="services-visual" data-reveal data-image-reveal>
+            <img
+              key={active}
+              className="view-enter"
+              src={services[active].image}
+              alt={services[active].label}
+              loading="lazy"
+            />
+            <span>0{active + 1} / A considered approach</span>
+          </div>
+          <div className="services-intro" data-reveal>
+            <ChapterTitle
+              lines={[
+                { text: "Life moves." },
+                { text: "Move well.", italic: true },
+              ]}
+            />
+            <div className="service-index">
+              {services.map((service, i) => (
+                <article
+                  className={`service-row ${active === i ? "is-active" : ""}`}
+                  key={service.title}
+                >
+                  <button
+                    type="button"
+                    className="service-select"
+                    aria-expanded={active === i}
+                    aria-controls={`service-copy-${i}`}
+                    onClick={() => setActive(i)}
+                  >
+                    <span className="service-number">0{i + 1}</span>
+                    <span>{service.title}</span>
+                    <FiPlus className={active === i ? "is-open" : ""} />
+                  </button>
+                  {active === i && (
+                    <div
+                      id={`service-copy-${i}`}
+                      className="service-description view-enter"
+                    >
+                      <p>{service.description}</p>
+                      <a className="text-link" href={service.link}>
+                        {service.label}
+                      </a>
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

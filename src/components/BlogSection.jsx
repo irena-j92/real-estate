@@ -51,9 +51,9 @@ export default function BlogSection() {
       <div className="site-container">
         <div className="section-heading" data-reveal>
           <div>
-            <p className="section-kicker">06 / Notes from our neighborhood</p>
+            <p className="section-kicker">06 / The local edit</p>
             <h2 className="section-title">
-              A little <em>local perspective.</em>
+              Life, through a <em>different lens.</em>
             </h2>
           </div>
           <p className="body-copy">
@@ -64,6 +64,7 @@ export default function BlogSection() {
           <article data-reveal className="journal-feature">
             <button
               className="journal-feature-image"
+              data-cursor="READ"
               type="button"
               onClick={() => setSelected(0)}
               aria-label={`Read ${lead.title}`}
@@ -90,6 +91,7 @@ export default function BlogSection() {
               <article data-reveal key={post.id} className="journal-small">
                 <button
                   className="journal-small-image"
+                  data-cursor="READ"
                   type="button"
                   onClick={() => setSelected(i + 1)}
                   aria-label={`Read ${post.title}`}
