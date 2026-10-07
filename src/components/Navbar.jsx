@@ -81,11 +81,6 @@ export default function Navbar({ ready = true }) {
           Long<span>Realty</span>
           <small>SOUTHERN ARIZONA</small>
         </a>
-        <nav className="desktop-nav" aria-label="Primary navigation">
-          <a href="#trending">The residences</a>
-          <a href="#about">Our perspective</a>
-          <a href="#experts">Your people</a>
-        </nav>
         <div className="nav-controls">
           <LanguageSelector />
           <button
@@ -98,6 +93,11 @@ export default function Navbar({ ready = true }) {
             aria-label={open ? "Close menu" : "Open menu"}
           >
             <span>{open ? "Close" : "Menu"}</span>
+            <span className="architecture-mark" aria-hidden="true">
+              {Array.from({ length: 9 }, (_, i) => (
+                <i key={i} />
+              ))}
+            </span>
             {open ? <FiX size={19} /> : <FiPlus size={19} />}
           </button>
         </div>

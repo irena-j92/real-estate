@@ -1,92 +1,145 @@
-import { useState } from "react";
-import { FiPlus } from "react-icons/fi";
+import { useEffect, useRef, useState } from "react";
 import ChapterTitle from "./experience/ChapterTitle";
 const services = [
   {
-    title: "Find your place",
+    title: "A place that feels like you.",
+    short: "Buying",
     description:
-      "For the way you live, and the way you want to live. A considered collection of homes and a guide who understands what matters.",
+      "The morning light. The right neighborhood. A home that makes room for your life. We help you see the possibilities, understand the details, and choose with confidence.",
     image: "/assets/properties-2.jpg",
+    alt: "A bright residence framed by desert landscape",
     link: "#trending",
-    label: "Buying, with perspective",
+    label: "Explore the residences",
   },
   {
-    title: "Make your move",
+    title: "Your home. Its next chapter.",
+    short: "Selling",
     description:
-      "Thoughtful preparation. A confident presentation. A personal plan for the home you are ready to share with someone new.",
+      "Every home has a story. We find yours, shape a thoughtful presentation, and bring it to the people ready to begin their next chapter. Personal guidance, from preparation to closing.",
     image: "/assets/properties-4.jpg",
+    alt: "Contemporary architecture with an open outdoor terrace",
     link: "#contact",
-    label: "Selling, thoughtfully",
+    label: "Talk about your next move",
   },
   {
-    title: "Feel at home",
+    title: "Arrive. Settle. Belong.",
+    short: "Relocating",
     description:
-      "From the first conversation to the final details, we connect the people and services that make a new beginning feel familiar.",
+      "A new address is only the beginning. From understanding the communities to connecting the right local services, we make your move to Southern Arizona feel a little more familiar.",
     image: "/assets/offerservices-2.jpg",
+    alt: "A welcoming interior prepared for a new beginning",
     link: "#offer",
-    label: "Moving, made personal",
+    label: "Discover the support around you",
   },
 ];
 export default function FeatureServices() {
   const [active, setActive] = useState(0);
+  const chapters = useRef([]);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting)
+            setActive(Number(entry.target.dataset.serviceChapter));
+        });
+      },
+      { rootMargin: "-30% 0px -45% 0px", threshold: 0 },
+    );
+    chapters.current.forEach((chapter) => chapter && observer.observe(chapter));
+    return () => observer.disconnect();
+  }, []);
+  const select = (i) => {
+    setActive(i);
+    const chapter = chapters.current[i];
+    if (chapter)
+      window.scrollTo({
+        top: chapter.getBoundingClientRect().top + window.scrollY - 135,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "instant"
+          : "smooth",
+      });
+  };
   return (
-    <section id="services" className="premium-section services-section">
+    <section
+      id="services"
+      className="premium-section services-section service-story"
+    >
       <div className="site-container">
         <div className="chapter-topline" data-reveal>
-          <p className="section-kicker">03 / The way forward</p>
+          <p className="section-kicker">03 / A considered approach</p>
           <span className="micro-label">
-            Every move deserves a different perspective.
+            From a first conversation to a new beginning.
           </span>
         </div>
-        <div className="services-layout">
-          <div className="services-visual" data-reveal data-image-reveal>
-            <img
-              key={active}
-              className="view-enter"
-              src={services[active].image}
-              alt={services[active].label}
-              loading="lazy"
-            />
-            <span>0{active + 1} / A considered approach</span>
-          </div>
-          <div className="services-intro" data-reveal>
-            <ChapterTitle
-              lines={[
-                { text: "Life moves." },
-                { text: "Move well.", italic: true },
-              ]}
-            />
-            <div className="service-index">
+        <div className="service-story-layout">
+          <div className="service-story-visual">
+            <div className="service-image-stack">
               {services.map((service, i) => (
-                <article
-                  className={`service-row ${active === i ? "is-active" : ""}`}
-                  key={service.title}
-                >
-                  <button
-                    type="button"
-                    className="service-select"
-                    aria-expanded={active === i}
-                    aria-controls={`service-copy-${i}`}
-                    onClick={() => setActive(i)}
-                  >
-                    <span className="service-number">0{i + 1}</span>
-                    <span>{service.title}</span>
-                    <FiPlus className={active === i ? "is-open" : ""} />
-                  </button>
-                  {active === i && (
-                    <div
-                      id={`service-copy-${i}`}
-                      className="service-description view-enter"
-                    >
-                      <p>{service.description}</p>
-                      <a className="text-link" href={service.link}>
-                        {service.label}
-                      </a>
-                    </div>
-                  )}
-                </article>
+                <img
+                  key={service.short}
+                  src={service.image}
+                  alt={service.alt}
+                  loading="lazy"
+                  className={active === i ? "is-active" : ""}
+                  aria-hidden={active !== i}
+                />
               ))}
             </div>
+            <div className="service-image-caption">
+              <span>0{active + 1} / 03</span>
+              <span>{services[active].short}, with perspective.</span>
+            </div>
+          </div>
+          <div className="service-story-content">
+            <div className="service-story-heading" data-reveal>
+              <ChapterTitle
+                lines={[
+                  { text: "Your move." },
+                  { text: "Our perspective.", italic: true },
+                ]}
+              />
+              <p className="body-copy">
+                The right home. The right people. A little clarity at every
+                step.
+              </p>
+            </div>
+            <nav className="service-chapter-nav" aria-label="Service chapters">
+              {services.map((service, i) => (
+                <button
+                  key={service.short}
+                  type="button"
+                  aria-pressed={active === i}
+                  onClick={() => select(i)}
+                >
+                  0{i + 1} / {service.short}
+                </button>
+              ))}
+            </nav>
+            {services.map((service, i) => (
+              <article
+                key={service.short}
+                ref={(el) => {
+                  chapters.current[i] = el;
+                }}
+                data-service-chapter={i}
+                className={`service-chapter ${active === i ? "is-active" : ""}`}
+              >
+                <img
+                  className="service-mobile-photo"
+                  src={service.image}
+                  alt={service.alt}
+                  loading="lazy"
+                />
+                <p className="section-kicker">
+                  /0{i + 1} — {service.short}
+                </p>
+                <h3>{service.title}</h3>
+                <p className="body-copy">{service.description}</p>
+                <a className="text-link" href={service.link}>
+                  {service.label}
+                </a>
+              </article>
+            ))}
           </div>
         </div>
       </div>

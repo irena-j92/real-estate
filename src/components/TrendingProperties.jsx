@@ -115,38 +115,42 @@ function SingleView({ index, setIndex, saved, toggle }) {
           </div>
         </div>
         <div key={`${property.id}-info`} className="property-info view-enter">
-          <p className="eyebrow">{property.tag} / Tucson, Arizona</p>
-          <h3 className="property-title">{property.title}</h3>
-          <p className="property-address">
-            <FiMapPin size={15} />
-            {property.address}
-          </p>
-          <p className="property-price">{property.price}</p>
-          <div className="property-specs">
-            <div>
-              <strong>{property.beds}</strong>
-              <span>Bedrooms</span>
-            </div>
-            <div>
-              <strong>{property.baths}</strong>
-              <span>Bathrooms</span>
-            </div>
-            <div>
-              <strong>{property.sqft}</strong>
-              <span>Square feet</span>
-            </div>
+          <div className="property-summary">
+            <p className="eyebrow">{property.tag} / Tucson, Arizona</p>
+            <h3 className="property-title">{property.title}</h3>
+            <p className="property-address">
+              <FiMapPin size={15} />
+              {property.address}
+            </p>
           </div>
-          <div className="property-actions">
-            <Button variant="yellow" onClick={() => inquire(property)}>
-              Arrange a private showing
-            </Button>
-            <button
-              className="text-link"
-              type="button"
-              onClick={() => inquire(property, true)}
-            >
-              Interested in making an offer?
-            </button>
+          <div className="property-details">
+            <p className="property-price">{property.price}</p>
+            <div className="property-specs">
+              <div>
+                <strong>{property.beds}</strong>
+                <span>Bedrooms</span>
+              </div>
+              <div>
+                <strong>{property.baths}</strong>
+                <span>Bathrooms</span>
+              </div>
+              <div>
+                <strong>{property.sqft}</strong>
+                <span>Square feet</span>
+              </div>
+            </div>
+            <div className="property-actions">
+              <Button variant="yellow" onClick={() => inquire(property)}>
+                Arrange a private showing
+              </Button>
+              <button
+                className="text-link"
+                type="button"
+                onClick={() => inquire(property, true)}
+              >
+                Interested in making an offer?
+              </button>
+            </div>
           </div>
         </div>
       </article>
@@ -336,7 +340,7 @@ export default function TrendingProperties() {
         ) : (
           <GridView saved={saved} toggle={toggle} select={select} />
         )}
-        <p className="eyebrow" style={{ marginTop: 25, fontSize: 10 }}>
+        <p className="eyebrow listing-disclosure">
           {saved.length
             ? `${saved.length} ${saved.length === 1 ? "home" : "homes"} saved · `
             : ""}

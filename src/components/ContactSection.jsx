@@ -24,95 +24,100 @@ export default function ContactSection() {
   };
   return (
     <section id="contact" className="premium-section contact-section">
-      <div className="site-container contact-layout">
-        <div data-reveal className="contact-intro">
-          <p className="section-kicker">07 / Your next chapter</p>
-          <h2 className="section-title">
-            Let’s find
+      <div className="site-container">
+        <div className="contact-heading" data-reveal>
+          <span className="section-kicker">07 / Your next chapter</span>
+          <h2>
+            Make room
             <br />
-            <em>your next.</em>
+            <em>for what’s next.</em>
           </h2>
-          <p className="body-copy">
-            A first home. A fresh start. A little more room. Tell us what’s on
-            your mind, and let’s explore what comes next.
-          </p>
-          <div className="contact-small">
-            <p>
-              <strong>Rooted in Tucson</strong>900 E. River Road
-              <br />
-              Tucson, Arizona 85718
-            </p>
-            <p>
-              <strong>Here for your next move</strong>Buying · Selling ·
-              Relocating
-              <br />
-              Southern Arizona & beyond
-            </p>
-          </div>
         </div>
-        <div data-reveal className="contact-form">
-          <h3>Tell us a little about you.</h3>
-          <p>No pressure. Just possibilities.</p>
-          {sent ? (
-            <div className="contact-success" role="status">
-              <h4>Your message is ready.</h4>
+        <div className="contact-layout">
+          <div data-reveal className="contact-intro">
+            <h3 className="contact-invitation">Let’s find your next.</h3>
+            <p className="body-copy">
+              A first home. A fresh start. A little more room. Tell us what’s on
+              your mind, and let’s explore what comes next.
+            </p>
+            <div className="contact-small">
               <p>
-                This portfolio preview demonstrates the inquiry experience.
-                Messages are not sent to a brokerage.
+                <strong>Rooted in Tucson</strong>900 E. River Road
+                <br />
+                Tucson, Arizona 85718
               </p>
-              <Button variant="outline" onClick={() => setSent(false)}>
-                Back to your message
-              </Button>
+              <p>
+                <strong>Here for your next move</strong>Buying · Selling ·
+                Relocating
+                <br />
+                Southern Arizona & beyond
+              </p>
             </div>
-          ) : (
-            <form onSubmit={submit}>
-              <Field
-                id="name"
-                label="Your name"
-                value={form.name}
-                onChange={change("name")}
-                required
-              />
-              <Field
-                id="email"
-                label="Email address"
-                type="email"
-                value={form.email}
-                onChange={change("email")}
-                required
-              />
-              <Field
-                id="phone"
-                label="Phone number (optional)"
-                type="tel"
-                value={form.phone}
-                onChange={change("phone")}
-                full
-              />
-              <div className="contact-field full">
-                <label htmlFor="message">
-                  What does your next chapter look like?
-                </label>
-                <textarea
-                  id="message"
-                  rows={3}
-                  value={form.message}
-                  onChange={change("message")}
-                  placeholder="Tell us about the place you’re looking for…"
-                />
-              </div>
-              <div className="form-actions">
-                <Button type="submit" variant="yellow">
-                  Start the conversation
+          </div>
+          <div data-reveal className="contact-form">
+            <h3>Tell us a little about you.</h3>
+            <p>No pressure. Just possibilities.</p>
+            {sent ? (
+              <div className="contact-success" role="status">
+                <h4>Your message is ready.</h4>
+                <p>
+                  This portfolio preview demonstrates the inquiry experience.
+                  Messages are not sent to a brokerage.
+                </p>
+                <Button variant="outline" onClick={() => setSent(false)}>
+                  Back to your message
                 </Button>
-                <small>
-                  We’ll take it one step at a time.
-                  <br />
-                  This is a portfolio preview.
-                </small>
               </div>
-            </form>
-          )}
+            ) : (
+              <form onSubmit={submit}>
+                <Field
+                  id="name"
+                  label="Your name"
+                  value={form.name}
+                  onChange={change("name")}
+                  required
+                />
+                <Field
+                  id="email"
+                  label="Email address"
+                  type="email"
+                  value={form.email}
+                  onChange={change("email")}
+                  required
+                />
+                <Field
+                  id="phone"
+                  label="Phone number (optional)"
+                  type="tel"
+                  value={form.phone}
+                  onChange={change("phone")}
+                  full
+                />
+                <div className="contact-field full">
+                  <label htmlFor="message">
+                    What does your next chapter look like?
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={3}
+                    value={form.message}
+                    onChange={change("message")}
+                    placeholder="Tell us about the place you’re looking for…"
+                  />
+                </div>
+                <div className="form-actions">
+                  <Button type="submit" variant="yellow">
+                    Start the conversation
+                  </Button>
+                  <small>
+                    We’ll take it one step at a time.
+                    <br />
+                    This is a portfolio preview.
+                  </small>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </section>
