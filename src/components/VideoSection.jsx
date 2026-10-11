@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import { FiPlay, FiPause } from "react-icons/fi";
 export default function VideoSection() {
@@ -56,7 +57,7 @@ export default function VideoSection() {
           <br />
           <em>be you.</em>
         </h2>
-        <button
+        <HoverControl as="button"
           className="film-play"
           type="button"
           onClick={toggle}
@@ -65,7 +66,7 @@ export default function VideoSection() {
         >
           <span>{playing ? <FiPause size={20} /> : <FiPlay size={20} />}</span>
           <small>{playing ? "Pause the film" : "A glimpse of home"}</small>
-        </button>
+        </HoverControl>
       </div>
       <div className="film-bottom">
         <span>Space. Light. Possibility.</span>

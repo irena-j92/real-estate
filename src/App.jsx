@@ -1,3 +1,4 @@
+import HoverControl from "./components/ui/HoverControl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
@@ -42,9 +43,9 @@ export default function App() {
   }, [ready]);
   return (
     <div ref={root} className="realty-experience">
-      <a className="skip-link" href="#trending">
+      <HoverControl as="a" className="skip-link" href="#trending">
         Skip to residences
-      </a>
+      </HoverControl>
       {!ready && <Loader onComplete={open} />}
       <div inert={!ready}>
         <Navbar ready={ready} />

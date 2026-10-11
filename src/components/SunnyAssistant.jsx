@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -140,7 +141,7 @@ export default function SunnyAssistant({ visible = true }) {
             How can I help you today?
           </span>
 
-          <button
+          <HoverControl as="button"
             type="button"
             onClick={() => setOpen((o) => !o)}
             aria-haspopup="dialog"
@@ -155,7 +156,7 @@ export default function SunnyAssistant({ visible = true }) {
             ) : (
               <img className="sunny-logo" src="/assets/sun-logo.svg" alt="" width="26" height="26" />
             )}
-          </button>
+          </HoverControl>
         </div>
       </div>
 
@@ -177,14 +178,14 @@ export default function SunnyAssistant({ visible = true }) {
                 </p>
               </div>
             </div>
-            <button
+            <HoverControl as="button"
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close chat"
               className="sunny-chat-close flex h-11 w-11 items-center justify-center"
             >
               <FiX size={22} strokeWidth={1} />
-            </button>
+            </HoverControl>
           </div>
 
           <div
@@ -213,14 +214,14 @@ export default function SunnyAssistant({ visible = true }) {
           {messages.length <= 1 && (
             <div className="sunny-suggestions flex flex-wrap gap-2 px-5 py-4">
               {suggestedPrompts.map((prompt) => (
-                <button
+                <HoverControl as="button"
                   key={prompt}
                   type="button"
                   onClick={() => sendMessage(prompt)}
                   className="sunny-suggestion border border-dark/15 px-3 py-2 text-xs transition-colors"
                 >
                   {prompt}
-                </button>
+                </HoverControl>
               ))}
             </div>
           )}
@@ -241,14 +242,14 @@ export default function SunnyAssistant({ visible = true }) {
               placeholder="Ask Sunny anything…"
               className="flex-1 border border-dark/15 px-4 py-3 text-sm focus:border-yellow focus:outline-none"
             />
-            <button
+            <HoverControl as="button"
               type="submit"
               aria-label="Send message"
               disabled={!input.trim() || typing}
               className="flex h-11 w-11 flex-shrink-0 items-center justify-center bg-yellow text-dark transition-opacity disabled:opacity-40"
             >
               <FiSend size={16} />
-            </button>
+            </HoverControl>
           </form>
         </div>
       )}

@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import useVideoScrub from "../hooks/useVideoScrub";
@@ -61,7 +62,7 @@ export default function Hero({ ready = false }) {
       id="top"
       ref={sectionRef}
       className="cinematic-hero"
-      aria-label="sunter realty Southern Arizona"
+      aria-label="Sunter Realty Southern Arizona"
     >
       <img
         className="hero-fallback"
@@ -102,7 +103,7 @@ export default function Hero({ ready = false }) {
           </span>
         </h1>
         <div className="hero-bottom hero-small">
-          <a
+          <HoverControl as="a"
             className="collection-orbit"
             href="#trending"
             aria-label="View our collection"
@@ -122,25 +123,25 @@ export default function Hero({ ready = false }) {
               <br />
               collection
             </span>
-          </a>
+          </HoverControl>
         </div>
         <div className="hero-contact-actions hero-small">
-          <a
+          <HoverControl as="a"
             className="hero-call-button"
             href="#contact"
             onClick={() =>
               window.dispatchEvent(
                 new CustomEvent("realty-inquiry", {
-                  detail: "I'd like to book a call with sunter realty about my next move.",
+                  detail: "I'd like to book a call with Sunter Realty about my next move.",
                 }),
               )
             }
           >
             Book a call
-          </a>
-          <a className="hero-contact-link" href="#contact">
+          </HoverControl>
+          <HoverControl as="a" className="hero-contact-link" href="#contact">
             Contact
-          </a>
+          </HoverControl>
         </div>
       </div>
       <div className="hero-transition" aria-hidden="true">

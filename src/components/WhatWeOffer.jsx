@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { offerServices } from "../data/offerServices";
@@ -38,7 +39,7 @@ function OfferCard({ service }) {
           <span className="offer-photo-title">{service.title}</span>
         </div>
       </div>
-      <button
+      <HoverControl as="button"
         className="offer-card-toggle"
         type="button"
         aria-label={`Reveal property image for ${service.title}`}
@@ -46,8 +47,8 @@ function OfferCard({ service }) {
         onClick={() => setFlipped((current) => !current)}
       >
         <span className="sr-only">{service.imageAlt}</span>
-      </button>
-      <a
+      </HoverControl>
+      <HoverControl as="a"
         className="offer-card-cta"
         href="#contact"
         aria-label={`Get started with ${service.title}`}
@@ -59,7 +60,7 @@ function OfferCard({ service }) {
       >
         <span>Get started</span>
         <FiArrowRight aria-hidden="true" />
-      </a>
+      </HoverControl>
     </article>
   );
 }

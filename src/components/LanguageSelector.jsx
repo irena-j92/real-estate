@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useState, useRef, useEffect } from "react";
 import { FiChevronDown, FiGlobe } from "react-icons/fi";
 import useGoogleTranslate from "../hooks/useGoogleTranslate";
@@ -35,7 +36,7 @@ export default function LanguageSelector({ variant = "light" }) {
 
   return (
     <div ref={ref} className="notranslate relative">
-      <button
+      <HoverControl as="button"
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
@@ -50,7 +51,7 @@ export default function LanguageSelector({ variant = "light" }) {
           size={12}
           className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}
         />
-      </button>
+      </HoverControl>
 
       {open && (
         <ul
@@ -60,7 +61,7 @@ export default function LanguageSelector({ variant = "light" }) {
         >
           {LANGUAGES.map((lang) => (
             <li key={lang.code}>
-              <button
+              <HoverControl as="button"
                 type="button"
                 role="option"
                 aria-selected={lang.code === current.code}
@@ -71,7 +72,7 @@ export default function LanguageSelector({ variant = "light" }) {
               >
                 {lang.label}
                 <span className="text-dark/40">{lang.short}</span>
-              </button>
+              </HoverControl>
             </li>
           ))}
         </ul>

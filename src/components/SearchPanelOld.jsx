@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useState } from "react";
 import { FiSearch, FiArrowRight, FiHome } from "react-icons/fi";
 import Button from "./ui/Button";
@@ -72,7 +73,7 @@ function SellHomeTab() {
   if (sent) {
     return (
       <p className="border border-white/20 bg-white/5 p-6 text-sm text-white">
-        Thanks, {values.name.split(" ")[0] || "there"} — a sunter realty agent
+        Thanks, {values.name.split(" ")[0] || "there"} — a Sunter Realty agent
         will reach out about {values.address || "your property"} shortly.
       </p>
     );
@@ -222,7 +223,7 @@ export default function SearchPanel() {
         <div className="glass mx-auto w-full max-w-[1280px] p-6 text-white md:p-10">
           <div className="flex flex-wrap gap-2 border-b border-white/15 pb-6 md:gap-8">
             {TABS.map((t) => (
-              <button
+              <HoverControl as="button"
                 key={t}
                 type="button"
                 onClick={() => setTab(t)}
@@ -234,7 +235,7 @@ export default function SearchPanel() {
                 }`}
               >
                 {t}
-              </button>
+              </HoverControl>
             ))}
           </div>
 

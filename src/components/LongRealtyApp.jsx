@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { FiSmartphone } from "react-icons/fi";
 import { FaApple, FaGooglePlay } from "react-icons/fa";
 import Container from "./ui/Container";
@@ -17,7 +18,7 @@ export default function LongRealtyApp() {
             <div className="absolute inset-0 overflow-hidden">
               <img
                 src={PHONE_IMAGE}
-                alt="sunter realty mobile app preview showing property listings"
+                alt="Sunter Realty mobile app preview showing property listings"
                 className="h-full w-full object-cover opacity-90"
                 loading="lazy"
               />
@@ -29,18 +30,18 @@ export default function LongRealtyApp() {
 
           <div data-reveal>
             <p className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-dark/50">
-              <FiSmartphone /> sunter realty App
+              <FiSmartphone /> Sunter Realty App
             </p>
             <h2 className="mt-4 text-4xl font-semibold leading-tight md:text-5xl">
               Your next home, in your pocket.
             </h2>
             <p className="mt-6 max-w-md text-dark/60">
               Save searches, get instant alerts on new listings, and message
-              your agent directly — all from the sunter realty app.
+              your agent directly — all from the Sunter Realty app.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
-              <a
+              <HoverControl as="a"
                 href="#app-store"
                 className="flex items-center gap-3 border border-dark px-6 py-3 text-sm font-medium text-dark transition-colors hover:bg-dark hover:text-white"
               >
@@ -51,8 +52,8 @@ export default function LongRealtyApp() {
                   </span>
                   App Store
                 </span>
-              </a>
-              <a
+              </HoverControl>
+              <HoverControl as="a"
                 href="#google-play"
                 className="flex items-center gap-3 border border-dark px-6 py-3 text-sm font-medium text-dark transition-colors hover:bg-dark hover:text-white"
               >
@@ -63,7 +64,7 @@ export default function LongRealtyApp() {
                   </span>
                   Google Play
                 </span>
-              </a>
+              </HoverControl>
             </div>
           </div>
         </div>

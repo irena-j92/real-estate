@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import gsap from "gsap";
@@ -119,7 +120,7 @@ export default function Navbar({ ready = true }) {
       <header
         className={`experience-nav ${scrolled ? "is-scrolled" : ""} ${ready ? "is-ready" : ""}`}
       >
-        <button
+        <HoverControl as="button"
           ref={menuToggle}
           type="button"
           className="menu-toggle"
@@ -133,13 +134,13 @@ export default function Navbar({ ready = true }) {
               <i key={i} />
             ))}
           </span>
-        </button>
-        <a className="nav-wordmark" href="#top" aria-label="sunter realty home">
-          sunter<span>realty</span>
-        </a>
+        </HoverControl>
+        <HoverControl as="a" className="nav-wordmark" href="#top" aria-label="Sunter Realty home">
+          Sunter<span>Realty</span>
+        </HoverControl>
         <div className="header-right">
           <LanguageSelector />
-          <button
+          <HoverControl as="button"
             ref={searchToggle}
             className="header-search-button"
             type="button"
@@ -149,7 +150,7 @@ export default function Navbar({ ready = true }) {
             onClick={() => setActive("search")}
           >
             <FiSearch size={22} strokeWidth={1.25} aria-hidden="true" />
-          </button>
+          </HoverControl>
         </div>
       </header>
       {active && (
@@ -165,7 +166,7 @@ export default function Navbar({ ready = true }) {
           }}
           onClick={backdrop}
         >
-          <button
+          <HoverControl as="button"
             className="drawer-close"
             type="button"
             onClick={() => setActive(null)}
@@ -180,7 +181,7 @@ export default function Navbar({ ready = true }) {
                 strokeWidth="0.8"
               />
             </svg>
-          </button>
+          </HoverControl>
           {active === "search" ? (
             <SearchOverlay onNavigate={navigate} />
           ) : (

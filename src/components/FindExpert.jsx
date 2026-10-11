@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { agents } from "../data/agents";
@@ -24,7 +25,7 @@ function OrbitStack({ index, setIndex }) {
         if (offset < -2) offset += agents.length;
         const active = offset === 0;
         return (
-          <button
+          <HoverControl as="button"
             key={agent.id}
             onClick={() => setIndex(i)}
             type="button"
@@ -44,7 +45,7 @@ function OrbitStack({ index, setIndex }) {
               aria-label={`Illustrative portrait of ${agent.name}`}
               style={{ backgroundPosition: `${i * 25}% 15%` }}
             />
-          </button>
+          </HoverControl>
         );
       })}
     </div>
@@ -87,26 +88,26 @@ export default function FindExpert() {
           <div data-reveal className="expert-gallery">
             <OrbitStack index={index} setIndex={setIndex} />
             <div className="expert-selection">
-              <button
+              <HoverControl as="button"
                 type="button"
                 className="icon-button"
                 aria-label="Previous adviser"
                 onClick={() => goTo(-1)}
               >
                 <FiChevronLeft />
-              </button>
+              </HoverControl>
               <div className="expert-current" aria-live="polite">
                 <strong>{agent.name}</strong>
                 <p>{specialties[index]}</p>
               </div>
-              <button
+              <HoverControl as="button"
                 type="button"
                 className="icon-button"
                 aria-label="Next adviser"
                 onClick={() => goTo(1)}
               >
                 <FiChevronRight />
-              </button>
+              </HoverControl>
             </div>
             <p className="expert-count">
               0{((index - firstExpert + agents.length) % agents.length) + 1}{" "}
@@ -149,20 +150,20 @@ export default function FindExpert() {
           </ul>
         </div>
         <div className="career-line" data-reveal>
-          <a
+          <HoverControl as="a"
             className="text-link"
             href="#contact"
             onClick={() =>
               window.dispatchEvent(
                 new CustomEvent("realty-inquiry", {
                   detail:
-                    "I'd like to learn more about joining the sunter realty team.",
+                    "I'd like to learn more about joining the Sunter Realty team.",
                 }),
               )
             }
           >
-            Explore a career with sunter realty
-          </a>
+            Explore a career with Sunter Realty
+          </HoverControl>
         </div>
       </div>
     </section>

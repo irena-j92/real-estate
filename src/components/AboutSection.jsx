@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -56,13 +57,13 @@ export default function AboutSection({ ready = true }) {
             </span>
           ))}
         </h2>
-        <a
+        <HoverControl as="a"
           className="text-link description-experts"
           href="#experts"
           data-reveal
         >
           Meet your local perspective
-        </a>
+        </HoverControl>
       </div>
     </section>
   );

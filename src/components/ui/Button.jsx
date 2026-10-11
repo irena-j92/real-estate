@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { HoverContent } from "./HoverControl";
 
 const VARIANTS = {
   yellow: "bg-yellow text-dark hover:bg-white focus-visible:bg-white",
@@ -30,10 +31,10 @@ const Button = forwardRef(
         className={`premium-button group inline-flex items-center justify-center gap-3 ${VARIANTS[variant]} ${className}`}
         {...props}
       >
-        <span>{children}</span>
+        <span><HoverContent>{children}</HoverContent></span>
         {icon && (
           <span className="transition-transform duration-300 ease-cinematic group-hover:translate-x-1">
-            {icon}
+            <HoverContent>{icon}</HoverContent>
           </span>
         )}
       </Tag>

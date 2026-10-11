@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -147,14 +148,15 @@ export default function FeatureServices({ ready = true }) {
         <p>03 / A considered approach</p>
         <nav aria-label="Service chapters">
           {services.map((service, i) => (
-            <button
+            <HoverControl as="button"
               key={service.short}
               type="button"
               aria-pressed={active === i}
+              aria-label={`Show ${service.short}`}
               onClick={() => select(i)}
             >
-              0{i + 1} / {service.short}
-            </button>
+              <span className="service-chapter-dot" aria-hidden="true" />
+            </HoverControl>
           ))}
         </nav>
       </div>
@@ -178,9 +180,9 @@ export default function FeatureServices({ ready = true }) {
                 <p className="service-category">{service.short}</p>
                 <h2>{service.title}</h2>
                 <p>{service.description}</p>
-                <a className="text-link" href={service.link}>
+                <HoverControl as="a" className="text-link" href={service.link}>
                   {service.label}
-                </a>
+                </HoverControl>
               </div>
               <figure>
                 <img src={service.image} alt={service.alt} loading="lazy" />

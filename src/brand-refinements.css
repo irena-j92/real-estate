@@ -9,7 +9,7 @@
   --paper: #1f2532;
   --gold: #1f2532;
   --muted: #1f2532;
-  background: rgba(255, 255, 255, 0.68);
+  background: rgba(255, 255, 255, 0.54);
   backdrop-filter: blur(32px) saturate(110%);
   -webkit-backdrop-filter: blur(32px) saturate(110%);
   color: #1f2532;
@@ -53,11 +53,17 @@
   width: 100%;
   max-width: 1000px;
   margin: 0;
+  text-transform: uppercase;
+  font-size: clamp(64px, 8vw, 120px);
 }
 .hero-line-second {
   margin-left: 0;
 }
 .hero-bottom {
+  position: absolute;
+  bottom: 36px;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,6 +86,7 @@
 }
 .hero-call-button,
 .hero-contact-link {
+  position: relative;
   display: grid;
   place-items: center;
   min-height: 44px;
@@ -87,7 +94,24 @@
   transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
 }
 .hero-call-button {
-  border: 1px solid #ffffff80;
+  border: 0;
+}
+.hero-call-button::after,
+.hero-contact-link::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  left: 16px;
+  right: 16px;
+  bottom: 7px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+.hero-call-button:hover::after,
+.hero-contact-link:hover::after {
+  transform: scaleX(1);
 }
 .hero-call-button:hover,
 .hero-contact-link:hover {
@@ -170,7 +194,7 @@
 .drawer-left .menu-index nav a:focus-visible {
   text-decoration: none;
   outline: none;
-  background: #1f25320d;
+  background: transparent;
 }
 .drawer-left .menu-index nav a .menu-roll-mask {
   display: block;

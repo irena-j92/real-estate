@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 const columns = [
   {
     title: "Find your place",
@@ -29,16 +30,16 @@ export default function Footer() {
     <footer className="premium-footer">
       <div className="site-container">
         <div className="footer-top" data-reveal>
-          <a href="#top" className="footer-brand">
-            sunter realty<small>A DIFFERENT PERSPECTIVE ON HOME.</small>
-          </a>
+          <HoverControl as="a" href="#top" className="footer-brand">
+            Sunter Realty<small>A DIFFERENT PERSPECTIVE ON HOME.</small>
+          </HoverControl>
           {columns.map((col) => (
             <div key={col.title} className="footer-column">
               <h4>{col.title}</h4>
               <ul>
                 {col.links.map(([label, href]) => (
                   <li key={label}>
-                    <a href={href}>{label}</a>
+                    <HoverControl as="a" href={href}>{label}</HoverControl>
                   </li>
                 ))}
               </ul>
@@ -47,17 +48,17 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <p>
-            © {new Date().getFullYear()} sunter realty · Independent portfolio
+            © {new Date().getFullYear()} Sunter Realty · Independent portfolio
             concept
           </p>
           <p>Illustrative homes & advisers · Equal housing opportunity</p>
-          <a href="#top" className="hover:text-yellow">
+          <HoverControl as="a" href="#top" className="hover:text-yellow">
             Back to the beginning
-          </a>
+          </HoverControl>
         </div>
       </div>
       <p aria-hidden="true" className="footer-wordmark">
-        sunter realty
+        Sunter Realty
       </p>
     </footer>
   );

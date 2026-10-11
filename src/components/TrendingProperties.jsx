@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -31,7 +32,7 @@ function inquire(property, offer = false) {
 }
 function SaveButton({ property, saved, toggle }) {
   return (
-    <button
+    <HoverControl as="button"
       type="button"
       className="save-property"
       aria-label={`${saved ? "Unsave" : "Save"} ${property.title}`}
@@ -39,7 +40,7 @@ function SaveButton({ property, saved, toggle }) {
       onClick={() => toggle(property.id)}
     >
       <FiHeart size={18} fill={saved ? "currentColor" : "none"} />
-    </button>
+    </HoverControl>
   );
 }
 function SingleView({ index, setIndex, saved, toggle }) {
@@ -143,13 +144,13 @@ function SingleView({ index, setIndex, saved, toggle }) {
               <Button variant="yellow" onClick={() => inquire(property)}>
                 Arrange a private showing
               </Button>
-              <button
-                className="text-link"
+              <Button
+                variant="outline"
                 type="button"
                 onClick={() => inquire(property, true)}
               >
-                Interested in making an offer?
-              </button>
+                START OFFER
+              </Button>
             </div>
           </div>
         </div>
@@ -162,7 +163,7 @@ function SingleView({ index, setIndex, saved, toggle }) {
           <div className="listing-progress" aria-hidden="true">
             <span ref={progress} />
           </div>
-          <button
+          <HoverControl as="button"
             type="button"
             aria-label={
               paused ? "Resume property slideshow" : "Pause property slideshow"
@@ -172,28 +173,25 @@ function SingleView({ index, setIndex, saved, toggle }) {
             style={{ width: 40, height: 40 }}
           >
             {paused || reduced ? <FiPlay size={13} /> : <FiPause size={13} />}
-          </button>
+          </HoverControl>
         </div>
-        <p className="listing-note">
-          Considered spaces. Endless possibilities.
-        </p>
         <div className="listing-nav-buttons">
-          <button
+          <HoverControl as="button"
             className="icon-button"
             type="button"
             onClick={() => move(-1)}
             aria-label="Previous property"
           >
             <FiChevronLeft size={18} />
-          </button>
-          <button
+          </HoverControl>
+          <HoverControl as="button"
             className="icon-button"
             type="button"
             onClick={() => move(1)}
             aria-label="Next property"
           >
             <FiChevronRight size={18} />
-          </button>
+          </HoverControl>
         </div>
       </div>
     </div>
@@ -205,13 +203,13 @@ function GridView({ saved, toggle, select }) {
       {properties.map((property, i) => (
         <article key={property.id} className="property-grid-card">
           <div className="grid-property-image" data-cursor="EXPLORE">
-            <button
+            <HoverControl as="button"
               onClick={() => select(i)}
               type="button"
               aria-label={`Explore ${property.title}`}
             >
               <img src={property.image} alt={property.title} loading="lazy" />
-            </button>
+            </HoverControl>
             <span className="property-badge">{property.tag}</span>
             <SaveButton
               property={property}
@@ -222,13 +220,13 @@ function GridView({ saved, toggle, select }) {
           <div className="grid-property-info">
             <div>
               <h3>
-                <button
+                <HoverControl as="button"
                   className="text-left"
                   onClick={() => select(i)}
                   type="button"
                 >
                   {property.title}
-                </button>
+                </HoverControl>
               </h3>
               <p>{property.address.split(",")[0]}</p>
             </div>
@@ -239,9 +237,9 @@ function GridView({ saved, toggle, select }) {
               {property.beds} beds · {property.baths} baths · {property.sqft} sq
               ft
             </span>
-            <button type="button" onClick={() => select(i)}>
+            <HoverControl as="button" type="button" onClick={() => select(i)}>
               Explore home
-            </button>
+            </HoverControl>
           </div>
         </article>
       ))}
@@ -317,30 +315,30 @@ export default function TrendingProperties() {
               role="group"
               aria-label="Property display"
             >
-              <button
+              <HoverControl as="button"
                 onClick={() => setView("single")}
                 aria-pressed={view === "single"}
                 type="button"
               >
                 <FiMaximize size={15} />
                 Single
-              </button>
-              <button
+              </HoverControl>
+              <HoverControl as="button"
                 onClick={() => setView("grid")}
                 aria-pressed={view === "grid"}
                 type="button"
               >
                 <FiGrid size={15} />
                 Grid
-              </button>
+              </HoverControl>
             </div>
-            <button
+            <HoverControl as="button"
               className="text-link"
               type="button"
               onClick={() => setView("grid")}
             >
               Explore all homes
-            </button>
+            </HoverControl>
           </div>
         </div>
         {view === "single" ? (
@@ -353,12 +351,6 @@ export default function TrendingProperties() {
         ) : (
           <GridView saved={saved} toggle={toggle} select={select} />
         )}
-        <p className="eyebrow listing-disclosure">
-          {saved.length
-            ? `${saved.length} ${saved.length === 1 ? "home" : "homes"} saved · `
-            : ""}
-          A selection of illustrative residences
-        </p>
       </div>
     </section>
   );

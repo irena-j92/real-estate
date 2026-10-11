@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import { FiX } from "react-icons/fi";
 import { posts } from "../data/posts";
@@ -57,7 +58,7 @@ export default function BlogSection() {
         <div className="journal-layout journal-grid">
           {posts.map((post, index) => (
             <article data-reveal key={post.id} className="journal-card">
-              <button
+              <HoverControl as="button"
                 className="journal-card-image"
                 data-cursor="READ"
                 type="button"
@@ -65,17 +66,17 @@ export default function BlogSection() {
                 aria-label={`Read ${post.title}`}
               >
                 <img src={post.image} alt={post.title} loading="lazy" />
-              </button>
+              </HoverControl>
               <p className="eyebrow">{post.date}</p>
               <h3>{post.title}</h3>
               <p className="journal-card-description">{post.description}</p>
-              <button
+              <HoverControl as="button"
                 className="text-link"
                 type="button"
                 onClick={() => setSelected(index)}
               >
                 Read the story
-              </button>
+              </HoverControl>
             </article>
           ))}
         </div>
@@ -93,7 +94,7 @@ export default function BlogSection() {
               if (e.key === "Escape") setSelected(null);
             }}
           >
-            <button
+            <HoverControl as="button"
               autoFocus
               className="icon-button"
               type="button"
@@ -101,19 +102,19 @@ export default function BlogSection() {
               onClick={() => setSelected(null)}
             >
               <FiX />
-            </button>
+            </HoverControl>
             <p className="section-kicker">{posts[selected].date}</p>
             <h2 id="article-title" className="section-title">
               {posts[selected].title}
             </h2>
             <p className="body-copy">{reads[selected]}</p>
-            <a
+            <HoverControl as="a"
               className="text-link"
               href="#contact"
               onClick={() => setSelected(null)}
             >
               Talk to a local adviser
-            </a>
+            </HoverControl>
           </div>
         </div>
       )}

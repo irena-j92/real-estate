@@ -28,6 +28,34 @@ export default function useExperienceMotion(rootRef, ready) {
       { threshold: 0.08, rootMargin: "0px 0px -35px 0px" },
     );
     const seen = new WeakSet();
+    // Delegate to the root: drawers and changing controls work immediately,
+    // without retaining listeners for controls that have already unmounted.
+    const roll = (event, entered) => {
+      if (reduced.matches || !fine.matches) return;
+      const control = event.target.closest?.("a, button");
+      if (!control || !root.contains(control) || control.disabled ||
+          (event.relatedTarget instanceof window.Node && control.contains(event.relatedTarget))) return;
+      const faces = [...control.querySelectorAll(".hover-roll-track")];
+      if (!faces.length) return;
+      gsap.to(faces, {
+        yPercent: entered ? -100 : 0,
+        duration: 0.45,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+    };
+    const enter = (event) => roll(event, true), leave = (event) => roll(event, false);
+    root.addEventListener("pointerover", enter);
+    root.addEventListener("pointerout", leave);
+    cleanups.push(() => {
+      root.removeEventListener("pointerover", enter);
+      root.removeEventListener("pointerout", leave);
+      const faces = [...root.querySelectorAll(".hover-roll-track")];
+      if (faces.length) {
+        gsap.killTweensOf(faces);
+        gsap.set(faces, { yPercent: 0 });
+      }
+    });
     const context = gsap.context(() => {
       const register = () => {
         root.querySelectorAll("[data-reveal]").forEach((el) => {

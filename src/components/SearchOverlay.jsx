@@ -1,3 +1,4 @@
+import HoverControl from "./ui/HoverControl";
 import { useState } from "react";
 import { properties } from "../data/properties";
 export const SEARCH_TABS = [
@@ -9,9 +10,12 @@ export function searchHomes({
   location = "",
   type = "Any type",
   price = "Any price",
+  beds = "Any bedrooms",
+  baths = "Any bathrooms",
+  sort = "Featured order",
 }) {
   const query = location.trim().toLowerCase();
-  return properties.filter((p) => {
+  const matches = properties.filter((p) => {
     const amount = Number(p.price.replace(/[^0-9]/g, ""));
     const propertyType = p.title.includes("Estate")
       ? "Estate"
@@ -19,12 +23,23 @@ export function searchHomes({
     return (
       (!query || `${p.title} ${p.address}`.toLowerCase().includes(query)) &&
       (type === "Any type" || type === propertyType) &&
+      (beds === "Any bedrooms" || p.beds >= parseInt(beds, 10)) &&
+      (baths === "Any bathrooms" || p.baths >= parseInt(baths, 10)) &&
       (price === "Any price" ||
         (price === "$500k – $1M" && amount >= 500000 && amount < 1000000) ||
         (price === "$1M – $2M" && amount >= 1000000 && amount < 2000000) ||
         (price === "$2M+" && amount >= 2000000))
     );
   });
+  const amount = (p) => Number(p.price.replace(/[^0-9]/g, ""));
+  const area = (p) => Number(String(p.sqft).replace(/[^0-9]/g, ""));
+  const comparators = {
+    "Price: low to high": (a, b) => amount(a) - amount(b),
+    "Price: high to low": (a, b) => amount(b) - amount(a),
+    "Most bedrooms": (a, b) => b.beds - a.beds,
+    "Largest floor area": (a, b) => area(b) - area(a),
+  };
+  return comparators[sort] ? matches.sort(comparators[sort]) : matches;
 }
 function Field({
   id,
@@ -69,6 +84,9 @@ export default function SearchOverlay({ onNavigate }) {
     location: "",
     type: "Any type",
     price: "Any price",
+    beds: "Any bedrooms",
+    baths: "Any bathrooms",
+    sort: "Featured order",
   });
   const [seller, setSeller] = useState({
     name: "",
@@ -84,6 +102,11 @@ export default function SearchOverlay({ onNavigate }) {
     timeline: "0–3 months",
   });
   const [results, setResults] = useState(null);
+  const changeFind = (field) => (e) => {
+    const next = { ...find, [field]: e.target.value };
+    setFind(next);
+    if (results !== null) setResults(searchHomes(next));
+  };
   const change = (setter, field) => (e) =>
     setter((v) => ({ ...v, [field]: e.target.value }));
   const draft = (e) => {
@@ -97,7 +120,6 @@ export default function SearchOverlay({ onNavigate }) {
   };
   return (
     <div className="search-overlay-content">
-      <p className="drawer-eyebrow">Your next chapter starts here</p>
       <h2 id="search-heading">
         Find your <em>place.</em>
       </h2>
@@ -107,7 +129,7 @@ export default function SearchOverlay({ onNavigate }) {
         aria-label="Property search options"
       >
         {SEARCH_TABS.map((label, i) => (
-          <button
+          <HoverControl as="button"
             id={`search-tab-${i}`}
             key={label}
             role="tab"
@@ -131,7 +153,7 @@ export default function SearchOverlay({ onNavigate }) {
             }}
           >
             {label}
-          </button>
+          </HoverControl>
         ))}
       </div>
       <div
@@ -153,7 +175,7 @@ export default function SearchOverlay({ onNavigate }) {
                 id="search-location"
                 label="Location"
                 value={find.location}
-                onChange={change(setFind, "location")}
+                onChange={changeFind("location")}
                 placeholder="Tucson, Catalina Foothills…"
               />
               <div className="search-field-row">
@@ -161,7 +183,7 @@ export default function SearchOverlay({ onNavigate }) {
                   id="search-type"
                   label="Property Type"
                   value={find.type}
-                  onChange={change(setFind, "type")}
+                  onChange={changeFind("type")}
                   options={[
                     "Any type",
                     "Single Family",
@@ -174,13 +196,24 @@ export default function SearchOverlay({ onNavigate }) {
                   id="search-price"
                   label="Price Range"
                   value={find.price}
-                  onChange={change(setFind, "price")}
+                  onChange={changeFind("price")}
                   options={["Any price", "$500k – $1M", "$1M – $2M", "$2M+"]}
                 />
               </div>
-              <button className="search-submit" type="submit">
+              <div className="search-field-row">
+                <SelectField id="search-beds" label="Bedrooms" value={find.beds}
+                  onChange={changeFind("beds")}
+                  options={["Any bedrooms", "3+ bedrooms", "4+ bedrooms", "5+ bedrooms", "6+ bedrooms"]} />
+                <SelectField id="search-baths" label="Bathrooms" value={find.baths}
+                  onChange={changeFind("baths")}
+                  options={["Any bathrooms", "2+ bathrooms", "3+ bathrooms", "4+ bathrooms", "5+ bathrooms"]} />
+              </div>
+              <SelectField id="search-sort" label="Sort by" value={find.sort}
+                onChange={changeFind("sort")}
+                options={["Featured order", "Price: low to high", "Price: high to low", "Most bedrooms", "Largest floor area"]} />
+              <HoverControl as="button" className="search-submit" type="submit">
                 Search homes
-              </button>
+              </HoverControl>
             </form>
             {results !== null && (
               <div className="search-results">
@@ -190,7 +223,7 @@ export default function SearchOverlay({ onNavigate }) {
                     : "No homes match these details. Try a wider search."}
                 </p>
                 {results.map((p) => (
-                  <button
+                  <HoverControl as="button"
                     key={p.id}
                     type="button"
                     onClick={() => {
@@ -207,7 +240,7 @@ export default function SearchOverlay({ onNavigate }) {
                       <small>{p.address}</small>
                     </span>
                     <strong>{p.price}</strong>
-                  </button>
+                  </HoverControl>
                 ))}
               </div>
             )}
@@ -278,9 +311,9 @@ export default function SearchOverlay({ onNavigate }) {
                 onChange={change(setSeller, "note")}
               />
             </div>
-            <button className="search-submit" type="submit">
+            <HoverControl as="button" className="search-submit" type="submit">
               Prepare seller inquiry
-            </button>
+            </HoverControl>
           </form>
         )}
         {tab === SEARCH_TABS[2] && (
@@ -310,20 +343,12 @@ export default function SearchOverlay({ onNavigate }) {
                 "Just curious",
               ]}
             />
-            <p className="search-help">
-              A home’s value deserves a local perspective. Share your details to
-              prepare a valuation inquiry.
-            </p>
-            <button className="search-submit" type="submit">
+            <HoverControl as="button" className="search-submit" type="submit">
               Prepare valuation request
-            </button>
+            </HoverControl>
           </form>
         )}
       </div>
-      <p className="search-disclosure">
-        Portfolio preview. Listings are illustrative. Inquiries are prepared
-        locally; no messages are sent.
-      </p>
     </div>
   );
 }
