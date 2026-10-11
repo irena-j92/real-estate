@@ -9,6 +9,12 @@ export default function Hero({ ready = false }) {
   const [failed, setFailed] = useState(false);
   useVideoScrub({ sectionRef, videoRef, ready, metadataReady });
   useEffect(() => {
+    // Cached media can become ready before React attaches its event handlers.
+    const video = videoRef.current;
+    if (video?.readyState >= 1 && Number.isFinite(video.duration))
+      setMetadataReady(true);
+  }, []);
+  useEffect(() => {
     if (!ready) return;
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
@@ -58,11 +64,17 @@ export default function Hero({ ready = false }) {
         ref={videoRef}
         data-hero-video
         src="/assets/hero-video.mp4"
-        className={`hero-film ${metadataReady && !failed ? "is-ready" : ""}`}
+        className={`hero-film ${failed ? "has-error" : "is-ready"}`}
+        poster="/assets/properties-2.jpg"
+        autoPlay={
+          typeof window !== "undefined" &&
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        }
         muted
         playsInline
         preload="auto"
         onLoadedMetadata={() => setMetadataReady(true)}
+        onLoadedData={() => setMetadataReady(true)}
         onError={() => setFailed(true)}
         aria-hidden="true"
       />

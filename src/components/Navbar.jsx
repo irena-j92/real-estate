@@ -90,20 +90,19 @@ export default function Navbar({ ready = true }) {
         </a>
         <div className="header-right">
           <LanguageSelector />
-          <button
-            ref={searchToggle}
-            className="header-search-button"
-            type="button"
-            aria-label="Open property search"
-            aria-expanded={active === "search"}
-            aria-controls="property-search"
-            onClick={() => setActive("search")}
-          >
-            <FiSearch size={19} />
-            <span>Search</span>
-          </button>
         </div>
       </header>
+      <button
+        ref={searchToggle}
+        className={`header-search-button ${ready ? "is-ready" : ""}`}
+        type="button"
+        aria-label="Open property search"
+        aria-expanded={active === "search"}
+        aria-controls="property-search"
+        onClick={() => setActive("search")}
+      >
+        <FiSearch size={23} aria-hidden="true" />
+      </button>
       {active && (
         <dialog
           ref={drawer}
