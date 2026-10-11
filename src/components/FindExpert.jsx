@@ -10,6 +10,11 @@ const specialties = [
   "Seller representation & estates",
 ];
 
+const firstExpert = Math.max(
+  0,
+  agents.findIndex((agent) => agent.id === "helena-marsh"),
+);
+
 function OrbitStack({ index, setIndex }) {
   return (
     <div className="expert-stage" aria-label="Choose your adviser">
@@ -53,7 +58,7 @@ function OrbitStack({ index, setIndex }) {
 }
 
 export default function FindExpert() {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(firstExpert);
   const agent = agents[index];
   const goTo = (dir) =>
     setIndex((i) => (i + dir + agents.length) % agents.length);
@@ -114,7 +119,8 @@ export default function FindExpert() {
           <div data-reveal>
             <OrbitStack index={index} setIndex={setIndex} />
             <p className="expert-count">
-              0{index + 1} <span className="mx-3">/</span> 0{agents.length}
+              0{((index - firstExpert + agents.length) % agents.length) + 1}{" "}
+              <span className="mx-3">/</span> 0{agents.length}
             </p>
           </div>
         </div>

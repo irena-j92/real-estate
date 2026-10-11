@@ -106,11 +106,6 @@ export default function Hero({ ready = false }) {
           </span>
         </h1>
         <div className="hero-bottom hero-small">
-          <p>
-            Exceptional homes.
-            <br />
-            An unmistakable sense of place.
-          </p>
           <a
             className="collection-orbit"
             href="#trending"
@@ -132,19 +127,10 @@ export default function Hero({ ready = false }) {
               collection
             </span>
           </a>
-          <p className="hero-edition">
-            Long Realty
-            <br />
-            <span>A different perspective.</span>
-          </p>
         </div>
       </div>
       <div className="hero-transition" aria-hidden="true">
         <div className="hero-transition-panel" />
-      </div>
-      <div className="hero-frame-meta" aria-hidden="true">
-        <span>THE ART OF FEELING AT HOME</span>
-        <span>EST. IN SOUTHERN ARIZONA</span>
       </div>
     </section>
   );

@@ -1,23 +1,31 @@
 export const offerServices = [
   {
     number: "01",
-    title: "OnePoint",
+    title: "Quick Buy",
     description:
-      "A single point of contact for every service around your move — inspections, insurance, title, and utilities coordinated in one place.",
-    image: "/assets/offerservices-1.jpg",
+      "Explore a simpler way to sell your home. Discover your options with Long Realty’s QuickBuy program and plan your next move with confidence.",
+    image: "/assets/properties-1.jpg",
+    imageAlt: "Contemporary property with a pool and landscaped garden",
+    inquiry: "I'd like to learn more about the QuickBuy program for my home.",
   },
   {
     number: "02",
-    title: "Military Relocation",
+    title: "Communities",
     description:
-      "PCS orders, VA loans, and tight timelines — our certified military relocation specialists know the process inside and out.",
-    image: "/assets/offerservices-2.jpg",
+      "Take the first step in finding a community that is perfect for you. From deserts to mountains, Arizona and our communities have so much to offer.",
+    image: "/assets/properties-3.jpg",
+    imageAlt: "Property surrounded by mature trees and greenery",
+    inquiry:
+      "I'd like help finding the right Arizona community for my next home.",
   },
   {
     number: "03",
-    title: "Networks",
+    title: "Mortgage",
     description:
-      "Part of HomeServices of America and Leading Real Estate Companies of the World® — local roots with a genuinely global referral network.",
-    image: "/assets/offerservices-3.jpg",
+      "Get a clearer picture of your buying power. Connect with a lending professional to explore financing options and prepare for your next home.",
+    image: "/assets/properties-2.jpg",
+    imageAlt: "Modern property with a sunlit terrace and swimming pool",
+    inquiry:
+      "I'd like to connect with a lending professional about financing my next home.",
   },
 ];

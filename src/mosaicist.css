@@ -1,9 +1,9 @@
 /* Architectural gallery edition: inspiration from Mosaicist's visual rhythm. */
 :root {
   --display: "Instrument Sans", sans-serif;
-  --ink: #051523;
-  --deep: #03111d;
-  --panel: #0a2132;
+  --ink: #1b243b;
+  --deep: #1b243b;
+  --panel: #1b243b;
 }
 body {
   background: var(--ink);
@@ -50,7 +50,7 @@ body {
 }
 .experience-nav.is-scrolled {
   padding-block: 16px;
-  background: #051523d9;
+  background: #1b243b;
 }
 .nav-wordmark {
   grid-column: 2;
@@ -169,10 +169,10 @@ body {
 .hero-scrim {
   background: linear-gradient(
     180deg,
-    #05152355,
+    #1b243b55,
     transparent 28%,
-    #05152330 55%,
-    #051523e8
+    #1b243b30 55%,
+    #1b243be8
   );
 }
 .hero-final-caption {
@@ -208,12 +208,12 @@ body {
   background:
     linear-gradient(
       90deg,
-      #051523f2 0%,
-      #051523cc 37%,
-      #05152377 63%,
-      #05152322
+      #1b243bf2 0%,
+      #1b243bcc 37%,
+      #1b243b77 63%,
+      #1b243b22
     ),
-    linear-gradient(0deg, #05152377, transparent 50%);
+    linear-gradient(0deg, #1b243b77, transparent 50%);
   z-index: -1;
 }
 .manifesto-content {
@@ -306,9 +306,9 @@ body {
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    #05152310 30%,
-    #05152380 65%,
-    #051523f5 100%
+    #1b243b10 30%,
+    #1b243b80 65%,
+    #1b243bf5 100%
   );
 }
 .property-visual > img {
@@ -318,7 +318,7 @@ body {
   left: 32px;
   top: 32px;
   font-size: 12px;
-  background: #05152399;
+  background: #1b243b99;
   backdrop-filter: blur(8px);
 }
 .save-property {
@@ -860,8 +860,8 @@ body {
   }
   .architectural-manifesto::before {
     background:
-      linear-gradient(90deg, #051523ec, #051523aa),
-      linear-gradient(0deg, #05152366, transparent);
+      linear-gradient(90deg, #1b243bec, #1b243baa),
+      linear-gradient(0deg, #1b243b66, transparent);
   }
   .manifesto-backdrop img {
     object-position: 65%;
@@ -912,7 +912,7 @@ body {
     height: 460px;
   }
   .property-visual::after {
-    background: linear-gradient(180deg, transparent 60%, #05152388);
+    background: linear-gradient(180deg, transparent 60%, #1b243b88);
   }
   .property-info {
     position: relative;

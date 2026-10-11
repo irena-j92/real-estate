@@ -135,7 +135,7 @@ export default function SunnyAssistant({ visible = true }) {
         <div className="group relative">
           <span
             role="tooltip"
-            className="pointer-events-none absolute bottom-full right-0 mb-3 whitespace-nowrap bg-[#141721] px-3 py-2 text-xs text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+            className="pointer-events-none absolute bottom-full right-0 mb-3 whitespace-nowrap bg-[#1B243B] px-3 py-2 text-xs text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
           >
             How can I help you today?
           </span>
@@ -163,7 +163,7 @@ export default function SunnyAssistant({ visible = true }) {
           aria-label="Sunny AI assistant chat"
           className="sunny-dialog fixed bottom-[104px] right-6 z-[70] flex h-[520px] w-[92vw] max-w-[380px] flex-col border border-dark/10 bg-white shadow-2xl"
         >
-          <div className="flex items-center justify-between border-b border-dark/10 bg-[#141721] px-5 py-4 text-white">
+          <div className="flex items-center justify-between border-b border-dark/10 bg-[#1B243B] px-5 py-4 text-white">
             <div className="flex items-center gap-2">
               <FiSun className="text-yellow" />
               <div>

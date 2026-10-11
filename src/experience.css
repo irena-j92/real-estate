@@ -1,8 +1,8 @@
 :root {
-  --ink: #061524;
-  --deep: #03101c;
-  --panel: #0b2033;
-  --panel-light: #123049;
+  --ink: #1b243b;
+  --deep: #1b243b;
+  --panel: #1b243b;
+  --panel-light: #1b243b;
   --paper: #f5f3eb;
   --muted: #a9b7c4;
   --gold: #f4ba51;
@@ -404,7 +404,7 @@ img {
   transform: none;
 }
 .experience-nav.is-scrolled {
-  background: #061524e8;
+  background: #1b243be8;
   backdrop-filter: blur(16px);
   border-color: var(--line);
   padding-block: 18px;
@@ -600,10 +600,10 @@ img {
   inset: 0;
   background: linear-gradient(
     180deg,
-    #06152480 0%,
-    #06152410 35%,
-    #06152480 70%,
-    #061524d9 100%
+    #1b243b80 0%,
+    #1b243b10 35%,
+    #1b243b80 70%,
+    #1b243bd9 100%
   );
 }
 .hero-scene-copy {
@@ -928,7 +928,7 @@ img {
   place-items: center;
   border: 1px solid #ffffff44;
   border-radius: 50%;
-  background: #06152455;
+  background: #1b243b55;
   color: white;
   z-index: 2;
   transition:
@@ -948,7 +948,7 @@ img {
   display: flex;
   justify-content: space-between;
   padding: 40px 24px 24px;
-  background: linear-gradient(transparent, #061524b0);
+  background: linear-gradient(transparent, #1b243bb0);
   font-size: 11px;
   letter-spacing: 0.05em;
 }
@@ -1153,7 +1153,7 @@ img {
 .film-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(#06152440, #06152415 45%, #061524b0);
+  background: linear-gradient(#1b243b40, #1b243b15 45%, #1b243bb0);
 }
 .film-top,
 .film-bottom {
@@ -1352,7 +1352,7 @@ img {
   content: "";
   position: absolute;
   inset: 60% 0 0;
-  background: linear-gradient(transparent, #061524ed);
+  background: linear-gradient(transparent, #1b243bed);
 }
 .expert-card-name {
   position: absolute;
@@ -1478,7 +1478,7 @@ img {
   content: "";
   position: absolute;
   inset: 60% 0 0;
-  background: linear-gradient(transparent, #061524a0);
+  background: linear-gradient(transparent, #1b243ba0);
 }
 .offer-layout .section-title {
   font-size: clamp(48px, 5.7vw, 86px);
@@ -1618,7 +1618,7 @@ img {
   position: fixed;
   inset: 0;
   z-index: 110;
-  background: #03101cec;
+  background: #1b243bec;
   overflow-y: auto;
   display: flex;
   justify-content: center;
@@ -1654,8 +1654,7 @@ img {
 /* 07 — a high-contrast close, warm yellow as the action cue. */
 .contact-section {
   border-top: 1px solid var(--line);
-  background:
-    radial-gradient(ellipse at 0 100%, #17334955, transparent 60%), var(--panel);
+  background: var(--panel);
 }
 .contact-layout {
   display: grid;
@@ -2049,7 +2048,7 @@ img {
     font-size: 50px;
   }
   .hero-scrim {
-    background: linear-gradient(#06152480, #06152430 30%, #061524b0 100%);
+    background: linear-gradient(#1b243b80, #1b243b30 30%, #1b243bb0 100%);
   }
   .loader-top,
   .loader-bottom {

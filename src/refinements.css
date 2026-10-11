@@ -1,6 +1,10 @@
 /* Phase one: split glass navigation, scroll choreography, and blue services. */
 :root {
   --gold: #f4ba51;
+  --ink: #1b243b;
+  --deep: #1b243b;
+  --panel: #1b243b;
+  --panel-light: #1b243b;
   --display: "Instrument Sans", sans-serif;
   --serif: "Instrument Serif", Georgia, serif;
 }
@@ -16,6 +20,8 @@ body {
   align-self: center;
 }
 .header-right {
+  justify-self: end;
+  justify-content: flex-end;
   grid-column: 3;
   grid-row: 1;
   display: flex;
@@ -97,10 +103,10 @@ body {
   max-height: none;
   padding: 95px clamp(25px, 3vw, 55px) 35px;
   border: 0;
-  color: #1b243b;
-  background: rgba(255, 255, 255, 0.84);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  color: var(--paper);
+  background: rgba(27, 36, 59, 0.48);
+  backdrop-filter: blur(32px) saturate(130%);
+  -webkit-backdrop-filter: blur(32px) saturate(130%);
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -110,15 +116,15 @@ body {
 .drawer-left {
   left: 0;
   right: auto;
-  box-shadow: 15px 0 60px #05152315;
+  box-shadow: 15px 0 60px #1b243b15;
 }
 .drawer-right {
   right: 0;
   left: auto;
-  box-shadow: -15px 0 60px #05152315;
+  box-shadow: -15px 0 60px #1b243b15;
 }
 .header-drawer::backdrop {
-  background: #05152330;
+  background: #1b243b30;
 }
 @keyframes glass-enter {
   from {
@@ -139,16 +145,16 @@ body {
   gap: 12px;
   min-height: 44px;
   font-size: 14px;
-  color: #1b243b;
+  color: var(--paper);
 }
 .drawer-close:hover {
-  color: #87600d;
+  color: var(--gold);
 }
 .drawer-eyebrow {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  color: #1b243ba6;
+  color: #ffffffa6;
   margin-bottom: 25px;
 }
 .header-drawer h2 {
@@ -175,10 +181,10 @@ body {
   gap: 20px;
   align-items: baseline;
   padding: 17px 0;
-  border-bottom: 1px solid #1b243b22;
+  border-bottom: 1px solid #ffffff33;
 }
 .header-drawer .menu-index nav a > small {
-  color: #1b243b80;
+  color: #ffffff80;
   font-size: 12px;
 }
 .header-drawer .menu-index nav a > span {
@@ -188,16 +194,16 @@ body {
   transition: color 0.25s var(--ease);
 }
 .header-drawer .menu-index nav a:hover > span {
-  color: #997023;
+  color: var(--gold);
 }
 .header-drawer .menu-footer {
-  color: #1b243ba6;
-  border-color: #1b243b33;
+  color: #ffffffa6;
+  border-color: #ffffff33;
   flex-wrap: wrap;
   font-size: 13px;
 }
 .header-drawer :focus-visible {
-  outline-color: #8c5e00;
+  outline-color: var(--gold);
 }
 .header-drawer,
 .header-drawer input,
@@ -213,25 +219,25 @@ body {
   display: flex;
   gap: 18px;
   flex-wrap: wrap;
-  border-bottom: 1px solid #1b243b33;
+  border-bottom: 1px solid #ffffff33;
   margin-bottom: 35px;
 }
 .search-tabs button {
   min-height: 48px;
   font-size: 13px;
   padding: 12px 0;
-  color: #1b243b99;
+  color: #ffffff99;
   border-bottom: 2px solid transparent;
   transition:
     color 0.25s var(--ease),
     border-color 0.25s var(--ease);
 }
 .search-tabs button[aria-selected="true"] {
-  color: #1b243b;
-  border-color: #1b243b;
+  color: var(--gold);
+  border-color: var(--gold);
 }
 .search-tabs button:hover {
-  color: #1b243b;
+  color: var(--paper);
 }
 .search-form {
   display: grid;
@@ -250,37 +256,37 @@ body {
 }
 .search-field label {
   font-size: 14px;
-  color: #1b243bcc;
+  color: #ffffffcc;
 }
 .search-field input,
 .search-field select,
 .search-field textarea {
   width: 100%;
   border: 0;
-  border-bottom: 1px solid #1b243b55;
+  border-bottom: 1px solid #ffffff55;
   padding: 10px 0 13px;
   background: transparent;
   font-size: 16px;
   border-radius: 0;
-  color: #1b243b;
+  color: var(--paper);
   transition: border-color 0.25s var(--ease);
 }
 .search-field select option {
-  color: #1b243b;
-  background: #fff;
+  color: var(--paper);
+  background: #1b243b;
 }
 .search-field input::placeholder {
-  color: #1b243b70;
+  color: #ffffff70;
 }
 .search-field input:focus,
 .search-field select:focus,
 .search-field textarea:focus {
-  border-color: #1b243b;
+  border-color: var(--gold);
 }
 .search-submit {
   min-height: 52px;
-  background: #1b243b;
-  color: white;
+  background: var(--gold);
+  color: #1b243b;
   font-size: 14px;
   padding: 15px 22px;
   transition:
@@ -290,6 +296,7 @@ body {
 .search-submit:hover {
   background: var(--gold);
   color: #1b243b;
+  opacity: 0.9;
 }
 .search-submit:active {
   transform: scale(0.985);
@@ -298,7 +305,7 @@ body {
 .search-disclosure {
   font-size: 13px;
   line-height: 1.6;
-  color: #1b243b99;
+  color: #ffffff99;
 }
 .search-disclosure {
   margin-top: 35px;
@@ -317,14 +324,14 @@ body {
   align-items: center;
   gap: 20px;
   padding: 18px 0;
-  border-bottom: 1px solid #1b243b33;
+  border-bottom: 1px solid #ffffff33;
   text-align: left;
   font-size: 16px;
 }
 .search-results small {
   display: block;
   font-size: 12px;
-  color: #1b243b99;
+  color: #ffffff99;
   margin-top: 6px;
 }
 .search-results strong {
@@ -333,14 +340,251 @@ body {
   white-space: nowrap;
 }
 .search-results button:hover {
-  color: #87600d;
+  color: var(--gold);
 }
 
 /* An open circle, with a yellow arc that completes on hover or keyboard focus. */
 .hero-bottom {
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding: 0;
+}
+
+/* Reference-led offer cards: frosted fronts turn into property photographs. */
+.offer-gallery {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #1b243b;
+  padding: 100px 0 120px;
+}
+.offer-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+  z-index: -2;
+}
+.offer-gallery::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(#1b243b, #1b243b22 28%, #1b243b22 75%, #1b243b);
+  pointer-events: none;
+}
+.offer-gallery-inner {
+  width: min(1270px, calc(100% - 12vw));
+  margin-inline: auto;
+}
+.offer-heading {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(44px, 5vw, 72px);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  margin: 0 0 60px;
+  color: white;
+}
+.offer-heading em {
+  font-family: var(--serif);
+  font-weight: 400;
+  color: var(--gold);
+}
+.offer-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+.offer-flip-card {
+  position: relative;
+  height: 580px;
+  min-width: 0;
+  perspective: 1400px;
+}
+.offer-card-rotor {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.22, 0.68, 0, 1);
+}
+.offer-flip-card.is-flipped .offer-card-rotor {
+  transform: rotateY(180deg);
+}
+.offer-card-face {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #ffffff80;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.offer-card-front {
+  background: rgba(255, 255, 255, 0.56);
+  backdrop-filter: blur(25px) saturate(75%);
+  -webkit-backdrop-filter: blur(25px) saturate(75%);
+  color: #1b243b;
+}
+.offer-card-number {
+  position: absolute;
+  left: 20px;
+  top: 23px;
+  font-family: var(--serif);
+  font-size: 34px;
+  line-height: 1;
+}
+.offer-card-front h3 {
+  position: absolute;
+  top: 35%;
+  left: 15px;
+  right: 15px;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(42px, 3.9vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+.offer-card-front > p {
+  position: absolute;
+  bottom: 118px;
+  left: 30px;
+  right: 30px;
+  font-size: 14px;
+  line-height: 1.25;
+  text-align: center;
+  text-wrap: pretty;
+}
+.offer-card-back {
+  transform: rotateY(180deg);
+  background: #1b243b;
+  color: white;
+}
+.offer-card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.offer-card-back::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(#1b243b80, transparent 35%, #1b243bcc);
+}
+.offer-card-back .offer-card-number,
+.offer-photo-title {
+  z-index: 1;
+}
+.offer-photo-title {
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  bottom: 125px;
+  text-align: center;
+  font: italic 48px / 1.1 var(--serif);
+}
+.offer-card-toggle {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+}
+.offer-card-toggle:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 6px;
+}
+.offer-card-cta {
+  position: absolute;
+  z-index: 3;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
+  min-height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  background: var(--gold);
+  color: #1b243b;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.offer-card-cta svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s var(--ease);
+}
+.offer-card-cta:hover svg,
+.offer-card-cta:focus-visible svg {
+  transform: translateX(6px);
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .offer-gallery-inner {
+    width: calc(100% - 64px);
+  }
+  .offer-card-grid {
+    gap: 20px;
+  }
+  .offer-card-front h3 {
+    font-size: 42px;
+  }
+  .offer-card-front > p {
+    left: 20px;
+    right: 20px;
+  }
+  .offer-card-cta {
+    left: 20px;
+    right: 20px;
+  }
+}
+@media (max-width: 899px) {
+  .offer-gallery {
+    padding: 85px 0;
+  }
+  .offer-gallery-inner {
+    width: calc(100% - 40px);
+    max-width: 540px;
+  }
+  .offer-heading {
+    margin-bottom: 40px;
+  }
+  .offer-card-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .offer-flip-card {
+    height: 540px;
+  }
+  .offer-card-front h3 {
+    font-size: clamp(44px, 10vw, 60px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .offer-card-rotor,
+  .offer-flip-card.is-flipped .offer-card-rotor,
+  .offer-card-back {
+    transform: none;
+    transition: none;
+  }
+  .offer-card-back {
+    opacity: 0;
+  }
+  .offer-flip-card.is-flipped .offer-card-front {
+    opacity: 0;
+  }
+  .offer-flip-card.is-flipped .offer-card-back {
+    opacity: 1;
+  }
+  .offer-card-cta svg {
+    transition: none;
+  }
 }
 .hero-bottom > p {
   align-self: flex-start;
@@ -483,7 +727,7 @@ body {
 /* Three blue chapters: vertical scroll carries the desktop stage horizontally. */
 .horizontal-services {
   position: relative;
-  background: #2f72c8;
+  background: #1b243b;
   color: white;
   height: 100svh;
   min-height: 650px;
