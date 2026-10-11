@@ -167,13 +167,7 @@ body {
   bottom: 20px;
 }
 .hero-scrim {
-  background: linear-gradient(
-    180deg,
-    #1b243b55,
-    transparent 28%,
-    #1b243b30 55%,
-    #1b243be8
-  );
+  background: #1b243b66;
 }
 .hero-final-caption {
   padding-inline: 25px;
@@ -205,15 +199,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(
-      90deg,
-      #1b243bf2 0%,
-      #1b243bcc 37%,
-      #1b243b77 63%,
-      #1b243b22
-    ),
-    linear-gradient(0deg, #1b243b77, transparent 50%);
+  background: #1b243b66;
   z-index: -1;
 }
 .manifesto-content {
@@ -304,12 +290,7 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    #1b243b10 30%,
-    #1b243b80 65%,
-    #1b243bf5 100%
-  );
+  background: #1b243b66;
 }
 .property-visual > img {
   object-position: center;
@@ -859,9 +840,7 @@ body {
     padding: 90px 20px 110px;
   }
   .architectural-manifesto::before {
-    background:
-      linear-gradient(90deg, #1b243bec, #1b243baa),
-      linear-gradient(0deg, #1b243b66, transparent);
+    background: #1b243b66;
   }
   .manifesto-backdrop img {
     object-position: 65%;
@@ -912,7 +891,7 @@ body {
     height: 460px;
   }
   .property-visual::after {
-    background: linear-gradient(180deg, transparent 60%, #1b243b88);
+    background: #1b243b66;
   }
   .property-info {
     position: relative;

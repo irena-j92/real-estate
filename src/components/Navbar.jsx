@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { FiSearch, FiX } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
 import LanguageSelector from "./LanguageSelector";
 import SearchOverlay from "./SearchOverlay";
 const links = [
@@ -77,7 +77,6 @@ export default function Navbar({ ready = true }) {
           aria-controls="main-menu"
           aria-label="Open menu"
         >
-          <span>Menu</span>
           <span className="architecture-mark" aria-hidden="true">
             {Array.from({ length: 9 }, (_, i) => (
               <i key={i} />
@@ -90,27 +89,26 @@ export default function Navbar({ ready = true }) {
         </a>
         <div className="header-right">
           <LanguageSelector />
+          <button
+            ref={searchToggle}
+            className="header-search-button"
+            type="button"
+            aria-label="Open property search"
+            aria-expanded={active === "search"}
+            aria-controls="property-search"
+            onClick={() => setActive("search")}
+          >
+            <FiSearch size={22} strokeWidth={1.25} aria-hidden="true" />
+          </button>
         </div>
       </header>
-      <button
-        ref={searchToggle}
-        className={`header-search-button ${ready ? "is-ready" : ""}`}
-        type="button"
-        aria-label="Open property search"
-        aria-expanded={active === "search"}
-        aria-controls="property-search"
-        onClick={() => setActive("search")}
-      >
-        <FiSearch size={23} aria-hidden="true" />
-      </button>
       {active && (
         <dialog
           ref={drawer}
           id={active === "menu" ? "main-menu" : "property-search"}
           className={`header-drawer ${active === "menu" ? "drawer-left" : "drawer-right"}`}
-          aria-labelledby={
-            active === "menu" ? "menu-heading" : "search-heading"
-          }
+          aria-label={active === "menu" ? "Main navigation" : undefined}
+          aria-labelledby={active === "search" ? "search-heading" : undefined}
           onCancel={(e) => {
             e.preventDefault();
             setActive(null);
@@ -125,17 +123,18 @@ export default function Navbar({ ready = true }) {
               active === "menu" ? "Close menu" : "Close property search"
             }
           >
-            <span>Close</span>
-            <FiX size={22} />
+            <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path
+                d="M7 7L25 25M25 7L7 25"
+                stroke="currentColor"
+                strokeWidth="0.8"
+              />
+            </svg>
           </button>
           {active === "search" ? (
             <SearchOverlay onNavigate={navigate} />
           ) : (
             <div className="menu-index">
-              <p className="drawer-eyebrow">Long Realty / Southern Arizona</p>
-              <h2 id="menu-heading">
-                A different <em>perspective.</em>
-              </h2>
               <nav aria-label="Full navigation">
                 {links.map(([num, label, href]) => (
                   <a
@@ -151,10 +150,6 @@ export default function Navbar({ ready = true }) {
                   </a>
                 ))}
               </nav>
-              <div className="menu-footer">
-                <span>Home begins with a conversation.</span>
-                <span>Tucson, Arizona</span>
-              </div>
             </div>
           )}
         </dialog>

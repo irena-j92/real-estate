@@ -598,13 +598,7 @@ img {
 .hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    #1b243b80 0%,
-    #1b243b10 35%,
-    #1b243b80 70%,
-    #1b243bd9 100%
-  );
+  background: #1b243b66;
 }
 .hero-scene-copy {
   position: absolute;
@@ -948,7 +942,7 @@ img {
   display: flex;
   justify-content: space-between;
   padding: 40px 24px 24px;
-  background: linear-gradient(transparent, #1b243bb0);
+  background: #1b243b66;
   font-size: 11px;
   letter-spacing: 0.05em;
 }
@@ -1153,7 +1147,7 @@ img {
 .film-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(#1b243b40, #1b243b15 45%, #1b243bb0);
+  background: #1b243b66;
 }
 .film-top,
 .film-bottom {
@@ -1352,7 +1346,7 @@ img {
   content: "";
   position: absolute;
   inset: 60% 0 0;
-  background: linear-gradient(transparent, #1b243bed);
+  background: #1b243b66;
 }
 .expert-card-name {
   position: absolute;
@@ -1478,7 +1472,7 @@ img {
   content: "";
   position: absolute;
   inset: 60% 0 0;
-  background: linear-gradient(transparent, #1b243ba0);
+  background: #1b243b66;
 }
 .offer-layout .section-title {
   font-size: clamp(48px, 5.7vw, 86px);
@@ -2048,7 +2042,7 @@ img {
     font-size: 50px;
   }
   .hero-scrim {
-    background: linear-gradient(#1b243b80, #1b243b30 30%, #1b243bb0 100%);
+    background: #1b243b66;
   }
   .loader-top,
   .loader-bottom {

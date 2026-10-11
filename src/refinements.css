@@ -372,7 +372,7 @@ body {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(#1b243b, #1b243b22 28%, #1b243b22 75%, #1b243b);
+  background: #1b243b66;
   pointer-events: none;
 }
 .offer-gallery-inner {
@@ -471,7 +471,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(#1b243b80, transparent 35%, #1b243bcc);
+  background: #1b243b66;
 }
 .offer-card-back .offer-card-number,
 .offer-photo-title {

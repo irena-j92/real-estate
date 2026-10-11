@@ -150,10 +150,6 @@ export default function FeatureServices({ ready = true }) {
               inert={active !== i}
               aria-hidden={active !== i}
             >
-              <figure>
-                <img src={service.image} alt={service.alt} loading="lazy" />
-                <figcaption>0{i + 1} / 03 — Southern Arizona</figcaption>
-              </figure>
               <div className="horizontal-service-copy">
                 <p className="service-category">{service.short}</p>
                 <h2>{service.title}</h2>
@@ -162,6 +158,10 @@ export default function FeatureServices({ ready = true }) {
                   {service.label}
                 </a>
               </div>
+              <figure>
+                <img src={service.image} alt={service.alt} loading="lazy" />
+                <figcaption>0{i + 1} / 03 — Southern Arizona</figcaption>
+              </figure>
             </article>
           ))}
         </div>

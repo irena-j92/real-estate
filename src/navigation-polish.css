@@ -1,0 +1,316 @@
+/* Clear edges, quiet navigation, and uniform brand surfaces. */
+:root {
+  --nav-control-size: 48px;
+}
+
+button,
+.premium-button,
+.text-link,
+.collection-orbit,
+.offer-card-cta {
+  text-transform: uppercase;
+}
+.collection-orbit {
+  font-size: 15px;
+  letter-spacing: 0.03em;
+}
+
+.experience-nav {
+  align-items: center;
+}
+.header-right,
+.experience-nav.is-scrolled .header-right {
+  flex-direction: row;
+  align-items: center;
+  justify-self: end;
+  justify-content: flex-end;
+  gap: 20px;
+}
+.menu-toggle,
+.header-search-button {
+  width: var(--nav-control-size);
+  height: var(--nav-control-size);
+  min-height: var(--nav-control-size);
+  padding: 0;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.menu-toggle {
+  gap: 0;
+}
+.architecture-mark {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  place-content: center;
+}
+.header-search-button {
+  position: static;
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+  border: 1px solid #f4ba5155;
+  background: transparent;
+  color: var(--gold);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.header-search-button:hover {
+  background: transparent;
+  border-color: var(--gold);
+}
+.experience-nav.is-scrolled {
+  background: #1b243b;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Pale glass remains translucent; dark typography keeps the form readable. */
+.header-drawer {
+  color: #1b243b;
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(32px) saturate(110%);
+  -webkit-backdrop-filter: blur(32px) saturate(110%);
+  box-shadow: none;
+  color-scheme: light;
+}
+.header-drawer::backdrop {
+  background: #1b243b26;
+}
+.header-drawer .menu-index {
+  min-height: calc(100svh - 150px);
+  justify-content: center;
+}
+.header-drawer .menu-index nav {
+  margin: 0;
+}
+.header-drawer .menu-index nav a {
+  border: 0;
+  padding-block: 22px;
+}
+.header-drawer .menu-index nav a > small {
+  color: #1b243b99;
+}
+.header-drawer .menu-index nav a:hover > span {
+  color: #725112;
+}
+.drawer-close {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  color: #1b243b;
+}
+.drawer-close svg {
+  width: 32px;
+  height: 32px;
+}
+.drawer-close:hover {
+  color: #725112;
+}
+.header-drawer .drawer-eyebrow,
+.search-help,
+.search-disclosure,
+.search-results small {
+  color: #1b243b99;
+}
+.search-tabs {
+  border-color: #1b243b33;
+}
+.search-tabs button {
+  color: #1b243b99;
+}
+.search-tabs button:hover,
+.search-tabs button[aria-selected="true"] {
+  color: #1b243b;
+}
+.search-tabs button[aria-selected="true"] {
+  border-color: #1b243b;
+}
+.search-field label {
+  color: #1b243bcc;
+}
+.search-field input,
+.search-field select,
+.search-field textarea {
+  color: #1b243b;
+  border-color: #1b243b55;
+}
+.search-field input::placeholder {
+  color: #1b243b99;
+}
+.search-field select option {
+  color: #1b243b;
+  background: #fff;
+}
+.search-field input:focus,
+.search-field select:focus,
+.search-field textarea:focus {
+  border-color: #1b243b;
+}
+.search-results button {
+  border-color: #1b243b33;
+}
+.search-results button:hover {
+  color: #725112;
+}
+.header-drawer :focus-visible {
+  outline-color: #725112;
+}
+
+/* Each horizontal panel reads as copy, then photograph, on every screen. */
+.horizontal-service-copy {
+  padding-right: 0;
+}
+
+/* The adviser stage and partner strip have no decorative rules. */
+.experts-section,
+.experts-section .expert-selection,
+.experts-section .partner-band,
+.experts-section .expert-portrait-card,
+.experts-section .icon-button,
+.experts-section .text-link,
+.experts-section .premium-button,
+.offer-section {
+  border: 0;
+}
+.experts-section .expert-selection {
+  padding-top: 0;
+  margin-top: 30px;
+}
+.expert-description {
+  margin-top: 18px;
+}
+.experts-section .partner-band {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  padding-block: 30px;
+  text-align: center;
+}
+.partner-heading {
+  font: 400 clamp(30px, 3vw, 44px) / 1.1 var(--serif);
+  letter-spacing: -0.025em;
+  color: var(--paper);
+}
+.partner-placeholder-logos {
+  width: min(1100px, 100%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px 60px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #ffffffa6;
+}
+.partner-placeholder-logos li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+}
+.partner-placeholder-logos svg {
+  width: 36px;
+  height: 36px;
+}
+.partner-placeholder-logos span {
+  font: 26px / 1 var(--serif);
+}
+.partner-placeholder-logos li:nth-child(1) span,
+.partner-placeholder-logos li:nth-child(4) span {
+  font: 500 15px / 1 var(--display);
+  letter-spacing: 0.12em;
+}
+.partner-placeholder-logos li:nth-child(2) span {
+  font-style: italic;
+  font-size: 34px;
+}
+.partner-placeholder-logos li:nth-child(3) span {
+  font-size: 20px;
+}
+.experts-section .career-line {
+  justify-content: center;
+  margin-top: 22px;
+}
+
+/* Photo sections meet the next canvas at a crisp rectangular boundary. */
+main > section {
+  border-block: 0;
+  border-radius: 0;
+}
+.offer-gallery::before {
+  display: none;
+}
+.offer-scene {
+  opacity: 0.45;
+}
+.property-visual::after {
+  background: #1b243b4d;
+}
+.property-info {
+  background: #1b243be6;
+}
+.expert-portrait-card::after {
+  inset: auto 0 0;
+  height: 100px;
+  background: #1b243be6;
+}
+.offer-card-back::after {
+  background: #1b243b66;
+}
+.property-badge {
+  background: #1b243b;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.property-grid-card .property-grid-image::after {
+  background: #1b243b66;
+}
+.premium-button {
+  box-shadow: none;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --nav-control-size: 44px;
+  }
+  .experience-nav {
+    gap: 12px;
+    padding-inline: 16px;
+  }
+  .header-right,
+  .experience-nav.is-scrolled .header-right {
+    gap: 12px;
+  }
+  .header-drawer .menu-index {
+    min-height: calc(100svh - 130px);
+  }
+  .header-drawer .menu-index nav a {
+    padding-block: 18px;
+  }
+  .partner-placeholder-logos {
+    gap: 25px 35px;
+  }
+  .collection-orbit {
+    font-size: 12px;
+  }
+  .property-info {
+    background: #1b243b;
+  }
+}
+@media (max-width: 480px) {
+  .header-right [aria-label^="Language"] > svg:first-child {
+    display: none;
+  }
+  .nav-wordmark {
+    font-size: 24px;
+  }
+  .nav-wordmark small {
+    font-size: 8px;
+  }
+}

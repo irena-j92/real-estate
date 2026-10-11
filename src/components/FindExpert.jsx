@@ -80,11 +80,7 @@ export default function FindExpert() {
         <div className="experts-layout">
           <div data-reveal>
             <p className="section-kicker">04 / The human connection</p>
-            <h2 className="section-title">
-              Good people.
-              <br />
-              <em>Great perspective.</em>
-            </h2>
+            <h2 className="sr-only">Meet your local expert</h2>
             <p className="body-copy expert-description">
               The best advice comes from someone who knows the streets, the
               stories, and what makes a place feel like home. Find the person
@@ -125,17 +121,40 @@ export default function FindExpert() {
           </div>
         </div>
         <div className="partner-band" data-reveal>
-          <span>Local roots. Global reach.</span>
-          <div className="partner-names">
-            <span>HomeServices of America</span>
-            <span>LeadingRE</span>
-            <span>Long Realty</span>
-          </div>
+          <p className="partner-heading">Local Roots</p>
+          <ul
+            className="partner-placeholder-logos"
+            aria-label="Placeholder partner logos"
+          >
+            {[
+              { name: "NORTH", mark: "M6 31L20 7L34 31M12 23H28" },
+              {
+                name: "arc",
+                mark: "M8 32V20C8 4 32 4 32 20V32M14 32V20C14 12 26 12 26 20V32",
+              },
+              {
+                name: "HOME & CO.",
+                mark: "M6 20L20 7L34 20M10 17V33H30V17M17 33V24H23V33",
+              },
+              {
+                name: "SOLSTICE",
+                mark: "M20 2V8M20 32V38M2 20H8M32 20H38M7 7L11 11M29 29L33 33M7 33L11 29M29 11L33 7M20 12A8 8 0 1 0 20 28A8 8 0 1 0 20 12",
+              },
+              {
+                name: "field",
+                mark: "M7 8V32M14 8V32M21 8V32M28 8V32M35 8V32",
+              },
+            ].map(({ name, mark }) => (
+              <li key={name} aria-label={`Placeholder logo: ${name}`}>
+                <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                  <path d={mark} stroke="currentColor" strokeWidth="1.25" />
+                </svg>
+                <span>{name}</span>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="career-line" data-reveal>
-          <p>
-            Good people make a great company. Build your next chapter with us.
-          </p>
           <a
             className="text-link"
             href="#contact"
