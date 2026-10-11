@@ -1,31 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import useVideoScrub from "../hooks/useVideoScrub";
-import useLocalVideoSource from "../hooks/useLocalVideoSource";
-import heroVideo from "../assets/hero-video.mp4";
-import Button from "./ui/Button";
 
 export default function Hero({ ready = false }) {
   const sectionRef = useRef(null),
     videoRef = useRef(null);
   const [metadataReady, setMetadataReady] = useState(false);
   const [failed, setFailed] = useState(false);
-  const videoSource = useLocalVideoSource(heroVideo);
   useVideoScrub({ sectionRef, videoRef, ready, metadataReady });
   useEffect(() => {
+    // Cached media can become ready before React attaches its event handlers.
     const video = videoRef.current;
-    if (!videoSource || !video) return;
-    const onReady = () => {
-      if (video.readyState >= 2) setMetadataReady(true);
-    };
-    onReady();
-    video.addEventListener("loadeddata", onReady);
-    video.addEventListener("canplay", onReady);
-    return () => {
-      video.removeEventListener("loadeddata", onReady);
-      video.removeEventListener("canplay", onReady);
-    };
-  }, [videoSource]);
+    if (video?.readyState >= 1 && Number.isFinite(video.duration))
+      setMetadataReady(true);
+  }, []);
   useEffect(() => {
     if (!ready) return;
     const reduced = window.matchMedia(
@@ -75,11 +63,17 @@ export default function Hero({ ready = false }) {
       <video
         ref={videoRef}
         data-hero-video
-        src={videoSource || undefined}
-        className={`hero-film ${metadataReady && !failed ? "is-ready" : ""}`}
+        src="/assets/hero-video.mp4"
+        className={`hero-film ${failed ? "has-error" : "is-ready"}`}
+        poster="/assets/properties-2.jpg"
+        autoPlay={
+          typeof window !== "undefined" &&
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        }
         muted
         playsInline
         preload="auto"
+        onLoadedMetadata={() => setMetadataReady(true)}
         onLoadedData={() => setMetadataReady(true)}
         onError={() => setFailed(true)}
         aria-hidden="true"
@@ -106,9 +100,27 @@ export default function Hero({ ready = false }) {
             <br />
             An unmistakable sense of place.
           </p>
-          <Button as="a" href="#trending" variant="yellow">
-            Discover the collection
-          </Button>
+          <a
+            className="collection-orbit"
+            href="#trending"
+            aria-label="View our collection"
+          >
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <circle className="orbit-track" cx="100" cy="100" r="98" />
+              <circle
+                className="orbit-progress"
+                cx="100"
+                cy="100"
+                r="98"
+                pathLength="100"
+              />
+            </svg>
+            <span>
+              View our
+              <br />
+              collection
+            </span>
+          </a>
           <p className="hero-edition">
             Long Realty
             <br />
@@ -116,9 +128,8 @@ export default function Hero({ ready = false }) {
           </p>
         </div>
       </div>
-      <div className="hero-final-caption">
-        <span>A little closer to</span>
-        <p>your next chapter.</p>
+      <div className="hero-transition" aria-hidden="true">
+        <div className="hero-transition-panel" />
       </div>
       <div className="hero-frame-meta" aria-hidden="true">
         <span>THE ART OF FEELING AT HOME</span>

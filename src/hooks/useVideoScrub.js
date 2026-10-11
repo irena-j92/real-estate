@@ -123,27 +123,34 @@ export default function useVideoScrub({
           trigger: section,
           start: "top top",
           end: () =>
-            `+=${videoDistances(video.duration, window.innerHeight).total * 0.6}`,
+            `+=${videoDistances(video.duration, window.innerHeight).playback}`,
           scrub: 0.65,
         },
       });
-      gsap.fromTo(
-        ".hero-final-caption",
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          ease: "none",
+      gsap
+        .timeline({
           scrollTrigger: {
+            id: "hero-description-transition",
             trigger: section,
             start: () =>
-              `top+=${videoDistances(video.duration, window.innerHeight).playback * 0.85} top`,
+              `top+=${videoDistances(video.duration, window.innerHeight).playback} top`,
             end: () =>
-              `top+=${videoDistances(video.duration, window.innerHeight).playback * 1.05} top`,
+              `top+=${videoDistances(video.duration, window.innerHeight).total} top`,
             scrub: 0.65,
+            invalidateOnRefresh: true,
           },
-        },
-      );
+        })
+        .fromTo(
+          ".hero-transition-panel",
+          { scaleX: 0.07, scaleY: 0 },
+          { scaleX: 0.07, scaleY: 1, duration: 0.45, ease: "none" },
+          0,
+        )
+        .to(
+          ".hero-transition-panel",
+          { scaleX: 1, duration: 0.6, ease: "none" },
+          0.4,
+        );
       const refresh = () => {
         if (!disposed) ScrollTrigger.refresh();
       };
