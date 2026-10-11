@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
+import gsap from "gsap";
 import LanguageSelector from "./LanguageSelector";
 import SearchOverlay from "./SearchOverlay";
 const links = [
@@ -9,6 +10,56 @@ const links = [
   ["04", "The local edit", "#journal"],
   ["05", "Let’s talk", "#contact"],
 ];
+
+function MenuLink({ num, label, href, navigate }) {
+  const roll = useRef(null);
+  useEffect(() => {
+    const track = roll.current;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const reset = () => {
+      if (reduced.matches) {
+        gsap.killTweensOf(track);
+        gsap.set(track, { yPercent: 0 });
+      }
+    };
+    reduced.addEventListener("change", reset);
+    return () => {
+      reduced.removeEventListener("change", reset);
+      gsap.killTweensOf(track);
+    };
+  }, []);
+  const hover = (entered) => {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    const yPercent = entered ? -50 : 0;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.to(roll.current, {
+      yPercent,
+      duration: 0.45,
+      ease: "power3.out",
+      overwrite: "auto",
+    });
+  };
+  return (
+    <a
+      href={href}
+      aria-label={`${num} ${label}`}
+      onPointerEnter={() => hover(true)}
+      onPointerLeave={() => hover(false)}
+      onClick={(e) => {
+        e.preventDefault();
+        navigate(href);
+      }}
+    >
+      <small>{num}</small>
+      <span className="menu-roll-mask" aria-hidden="true">
+        <span className="menu-roll-track" ref={roll}>
+          <span className="menu-roll-face">{label}</span>
+          <span className="menu-roll-face">{label}</span>
+        </span>
+      </span>
+    </a>
+  );
+}
 export default function Navbar({ ready = true }) {
   const [active, setActive] = useState(null),
     [scrolled, setScrolled] = useState(false);
@@ -83,9 +134,8 @@ export default function Navbar({ ready = true }) {
             ))}
           </span>
         </button>
-        <a className="nav-wordmark" href="#top" aria-label="Long Realty home">
-          Long<span>Realty</span>
-          <small>SOUTHERN ARIZONA</small>
+        <a className="nav-wordmark" href="#top" aria-label="sunter realty home">
+          sunter<span>realty</span>
         </a>
         <div className="header-right">
           <LanguageSelector />
@@ -137,17 +187,13 @@ export default function Navbar({ ready = true }) {
             <div className="menu-index">
               <nav aria-label="Full navigation">
                 {links.map(([num, label, href]) => (
-                  <a
+                  <MenuLink
                     key={href}
+                    num={num}
+                    label={label}
                     href={href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate(href);
-                    }}
-                  >
-                    <small>{num}</small>
-                    <span>{label}</span>
-                  </a>
+                    navigate={navigate}
+                  />
                 ))}
               </nav>
             </div>

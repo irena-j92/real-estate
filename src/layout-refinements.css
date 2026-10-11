@@ -17,19 +17,19 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: 14px;
 }
 .loader-logo {
-  width: 211px;
+  width: 105.5px;
   height: auto;
 }
 .loader-rule {
-  width: 251px;
-  height: 1pt;
+  width: 125.5px;
+  height: 0.5pt;
   background: var(--gold);
 }
 .loader-counter {
-  font: 400 120px / 1 var(--serif);
+  font: 400 60px / 1 var(--serif);
   font-variant-numeric: lining-nums tabular-nums;
   color: var(--gold);
   letter-spacing: -0.035em;

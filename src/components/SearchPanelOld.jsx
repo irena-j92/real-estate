@@ -72,7 +72,7 @@ function SellHomeTab() {
   if (sent) {
     return (
       <p className="border border-white/20 bg-white/5 p-6 text-sm text-white">
-        Thanks, {values.name.split(" ")[0] || "there"} — a Long Realty agent
+        Thanks, {values.name.split(" ")[0] || "there"} — a sunter realty agent
         will reach out about {values.address || "your property"} shortly.
       </p>
     );

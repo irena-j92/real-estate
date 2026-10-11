@@ -30,7 +30,7 @@ export default function Footer() {
       <div className="site-container">
         <div className="footer-top" data-reveal>
           <a href="#top" className="footer-brand">
-            Long Realty<small>A DIFFERENT PERSPECTIVE ON HOME.</small>
+            sunter realty<small>A DIFFERENT PERSPECTIVE ON HOME.</small>
           </a>
           {columns.map((col) => (
             <div key={col.title} className="footer-column">
@@ -47,7 +47,7 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <p>
-            © {new Date().getFullYear()} Long Realty · Independent portfolio
+            © {new Date().getFullYear()} sunter realty · Independent portfolio
             concept
           </p>
           <p>Illustrative homes & advisers · Equal housing opportunity</p>
@@ -57,7 +57,7 @@ export default function Footer() {
         </div>
       </div>
       <p aria-hidden="true" className="footer-wordmark">
-        Long Realty
+        sunter realty
       </p>
     </footer>
   );

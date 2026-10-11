@@ -3,7 +3,7 @@ export const offerServices = [
     number: "01",
     title: "Quick Buy",
     description:
-      "Explore a simpler way to sell your home. Discover your options with Long Realty’s QuickBuy program and plan your next move with confidence.",
+      "Explore a simpler way to sell your home. Discover your options with sunter realty’s QuickBuy program and plan your next move with confidence.",
     image: "/assets/properties-1.jpg",
     imageAlt: "Contemporary property with a pool and landscaped garden",
     inquiry: "I'd like to learn more about the QuickBuy program for my home.",

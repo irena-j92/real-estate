@@ -17,7 +17,7 @@ export default function LongRealtyApp() {
             <div className="absolute inset-0 overflow-hidden">
               <img
                 src={PHONE_IMAGE}
-                alt="Long Realty mobile app preview showing property listings"
+                alt="sunter realty mobile app preview showing property listings"
                 className="h-full w-full object-cover opacity-90"
                 loading="lazy"
               />
@@ -29,14 +29,14 @@ export default function LongRealtyApp() {
 
           <div data-reveal>
             <p className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-dark/50">
-              <FiSmartphone /> Long Realty App
+              <FiSmartphone /> sunter realty App
             </p>
             <h2 className="mt-4 text-4xl font-semibold leading-tight md:text-5xl">
               Your next home, in your pocket.
             </h2>
             <p className="mt-6 max-w-md text-dark/60">
               Save searches, get instant alerts on new listings, and message
-              your agent directly — all from the Long Realty app.
+              your agent directly — all from the sunter realty app.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">

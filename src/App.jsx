@@ -12,6 +12,7 @@ import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import SunnyAssistant from "./components/SunnyAssistant";
 import CustomCursor from "./components/experience/CustomCursor";
+import ScrollRail from "./components/experience/ScrollRail";
 import useExperienceMotion from "./hooks/useExperienceMotion";
 export default function App() {
   const [ready, setReady] = useState(false),
@@ -47,6 +48,7 @@ export default function App() {
       {!ready && <Loader onComplete={open} />}
       <div inert={!ready}>
         <Navbar ready={ready} />
+        <ScrollRail ready={ready} />
         <main>
           <Hero ready={ready} />
           <AboutSection ready={ready} />

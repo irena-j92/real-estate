@@ -83,8 +83,8 @@ export default function Loader({ onComplete }) {
           className="loader-logo"
           src="/assets/sun-logo.svg"
           alt=""
-          width="211"
-          height="210.25"
+          width="105.5"
+          height="105.125"
         />
         <div className="loader-rule" />
         <span className="loader-counter" data-loader-count>

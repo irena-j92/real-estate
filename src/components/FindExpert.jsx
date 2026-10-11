@@ -156,12 +156,12 @@ export default function FindExpert() {
               window.dispatchEvent(
                 new CustomEvent("realty-inquiry", {
                   detail:
-                    "I'd like to learn more about joining the Long Realty team.",
+                    "I'd like to learn more about joining the sunter realty team.",
                 }),
               )
             }
           >
-            Explore a career with Long Realty
+            Explore a career with sunter realty
           </a>
         </div>
       </div>

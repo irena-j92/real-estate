@@ -61,7 +61,7 @@ export default function Hero({ ready = false }) {
       id="top"
       ref={sectionRef}
       className="cinematic-hero"
-      aria-label="Long Realty Southern Arizona"
+      aria-label="sunter realty Southern Arizona"
     >
       <img
         className="hero-fallback"
@@ -91,10 +91,6 @@ export default function Hero({ ready = false }) {
       />
       <div className="hero-scrim" aria-hidden="true" />
       <div className="hero-scene-copy">
-        <div className="hero-coordinate hero-small">
-          <span>Southern Arizona</span>
-          <span>32°13′ N / 110°58′ W</span>
-        </div>
         <h1 aria-label="A place to belong.">
           <span className="hero-line">
             <span className="hero-word">A place</span>
@@ -126,6 +122,24 @@ export default function Hero({ ready = false }) {
               <br />
               collection
             </span>
+          </a>
+        </div>
+        <div className="hero-contact-actions hero-small">
+          <a
+            className="hero-call-button"
+            href="#contact"
+            onClick={() =>
+              window.dispatchEvent(
+                new CustomEvent("realty-inquiry", {
+                  detail: "I'd like to book a call with sunter realty about my next move.",
+                }),
+              )
+            }
+          >
+            Book a call
+          </a>
+          <a className="hero-contact-link" href="#contact">
+            Contact
           </a>
         </div>
       </div>

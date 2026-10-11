@@ -1,0 +1,261 @@
+/* The fixed navigation shares the drawers' pale glass surface. */
+.experience-nav {
+  border: 0;
+}
+.experience-nav .menu-toggle .architecture-mark {
+  display: grid;
+}
+.experience-nav.is-scrolled {
+  --paper: #1f2532;
+  --gold: #1f2532;
+  --muted: #1f2532;
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(32px) saturate(110%);
+  -webkit-backdrop-filter: blur(32px) saturate(110%);
+  color: #1f2532;
+  box-shadow: none;
+  border: 0;
+}
+.experience-nav.is-scrolled .architecture-mark,
+.experience-nav.is-scrolled .header-search-button {
+  border-color: #1f253255;
+  color: #1f2532;
+}
+.experience-nav.is-scrolled .header-right [aria-label^="Language"],
+.experience-nav.is-scrolled .header-right [role="option"],
+.experience-nav.is-scrolled .header-right [role="option"] > span {
+  color: #1f2532;
+}
+.experience-nav.is-scrolled .header-right [role="listbox"] {
+  background: rgba(255, 255, 255, 0.85);
+  color: #1f2532;
+  border-color: #1f253233;
+}
+.nav-wordmark {
+  padding-top: 0;
+}
+.experience-nav.is-scrolled :focus-visible {
+  outline-color: #1f2532;
+}
+
+/* Center the title and orbit over the preserved scroll-controlled film. */
+.hero-scene-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 110px 160px 55px;
+  text-align: center;
+}
+.cinematic-hero h1 {
+  align-self: center;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0;
+}
+.hero-line-second {
+  margin-left: 0;
+}
+.hero-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+.hero-contact-actions {
+  position: absolute;
+  top: 110px;
+  right: 32px;
+  width: 138px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: white;
+  font-size: 12px;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+.hero-call-button,
+.hero-contact-link {
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  padding: 12px 16px;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.hero-call-button {
+  border: 1px solid #ffffff80;
+}
+.hero-call-button:hover,
+.hero-contact-link:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* Permanent reading rail: neutral track, warm progress, square-ended arrow. */
+.scroll-rail {
+  position: fixed;
+  z-index: 60;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  color: #f5f3eb;
+  pointer-events: none;
+}
+.scroll-rail-count {
+  font: 400 20px / 1 var(--serif);
+  font-variant-numeric: tabular-nums;
+}
+.scroll-rail-track {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: clamp(120px, 25svh, 230px);
+  background: #f5f3eb55;
+}
+.scroll-rail-track > span {
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+.scroll-rail-label {
+  writing-mode: vertical-rl;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.scroll-rail-arrow {
+  width: 14px;
+  height: 76px;
+}
+.scroll-rail.on-light {
+  color: #1f2532;
+}
+.scroll-rail.on-light .scroll-rail-track {
+  background: #1f253244;
+}
+.scroll-rail.on-light .scroll-rail-track > span {
+  background: #1f2532;
+}
+.site-container,
+.featured-property {
+  width: min(calc(100% - 160px), 1440px);
+}
+.horizontal-services-track {
+  padding-inline: 80px;
+}
+.horizontal-service-panel {
+  flex-basis: calc(100vw - 160px);
+  width: calc(100vw - 160px);
+}
+.scroll-description {
+  padding-inline: 80px;
+}
+.scroll-description .description-inner {
+  width: min(100%, 1120px);
+}
+
+/* GSAP rolls the paired faces upward; no decorative link underlines. */
+.drawer-left .menu-index nav a:focus-visible {
+  text-decoration: none;
+  outline: none;
+  background: #1f25320d;
+}
+.drawer-left .menu-index nav a .menu-roll-mask {
+  display: block;
+  height: 1.15em;
+  overflow: hidden;
+  line-height: 1.15;
+}
+.menu-roll-track,
+.menu-roll-face {
+  display: block;
+  line-height: 1.15;
+}
+.menu-roll-face {
+  font: inherit;
+}
+.menu-roll-face:last-child {
+  color: var(--gold);
+}
+
+@media (max-width: 767px) {
+  .hero-scene-copy {
+    padding: 150px 60px 45px;
+    gap: 24px;
+  }
+  .cinematic-hero h1 {
+    font-size: clamp(46px, 11vw, 80px);
+  }
+  .collection-orbit {
+    width: 150px;
+    height: 150px;
+  }
+  .hero-contact-actions {
+    right: 16px;
+    top: 92px;
+    width: 120px;
+    font-size: 11px;
+  }
+  .hero-call-button,
+  .hero-contact-link {
+    padding-inline: 10px;
+  }
+  .scroll-rail {
+    left: 11px;
+    width: 16px;
+    gap: 12px;
+  }
+  .scroll-rail-count {
+    font-size: 16px;
+  }
+  .scroll-rail-arrow {
+    height: 62px;
+  }
+  .site-container,
+  .featured-property {
+    width: calc(100% - 68px);
+    margin-left: 48px;
+    margin-right: 20px;
+  }
+  .horizontal-services-track {
+    padding-left: 48px;
+    padding-right: 20px;
+  }
+  .horizontal-service-panel {
+    flex-basis: calc(100vw - 68px);
+    width: calc(100vw - 68px);
+  }
+  .horizontal-services-top,
+  .horizontal-services-bottom {
+    padding-left: 48px;
+    padding-right: 20px;
+  }
+  .scroll-description {
+    padding-left: 48px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-height: 550px) {
+  .scroll-rail {
+    gap: 8px;
+  }
+  .scroll-rail-track {
+    height: 90px;
+  }
+  .scroll-rail-arrow {
+    height: 48px;
+  }
+}
