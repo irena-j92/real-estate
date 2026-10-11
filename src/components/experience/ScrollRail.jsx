@@ -6,12 +6,14 @@ const chapters = ["top", "about", "trending", "services", "experts", "offer", "j
 export default function ScrollRail({ ready }) {
   const [chapter, setChapter] = useState(0);
   const fill = useRef(null);
+  const marker = useRef(null);
   useEffect(() => {
     if (!ready) return;
     let frame = 0;
     let starts = [];
     let distance = 1;
     let measureNeeded = true;
+    let trackHeight = 1;
     const measure = () => {
       starts = chapters.map((id) => {
         const section = document.getElementById(id);
@@ -23,6 +25,7 @@ export default function ScrollRail({ ready }) {
         return anchor.getBoundingClientRect().top + window.scrollY;
       });
       distance = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      trackHeight = fill.current?.parentElement.clientHeight || 1;
       measureNeeded = false;
     };
     const update = () => {
@@ -34,8 +37,9 @@ export default function ScrollRail({ ready }) {
         if (readingPosition >= start) current = i;
       });
       setChapter((previous) => previous === current ? previous : current);
-      if (fill.current)
-        fill.current.style.transform = `scaleY(${Math.max(0, Math.min(1, window.scrollY / distance))})`;
+      const progress = Math.max(0, Math.min(1, window.scrollY / distance));
+      if (fill.current) fill.current.style.transform = `scaleY(${progress})`;
+      if (marker.current) marker.current.style.transform = `translate3d(0,${progress * trackHeight}px,0)`;
     };
     const queue = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -61,7 +65,7 @@ export default function ScrollRail({ ready }) {
   return (
     <aside className={`scroll-rail ${chapter === 3 || chapter === 6 ? "on-light" : ""}`} aria-hidden="true">
       <span className="scroll-rail-count">{String(chapter).padStart(2, "0")}</span>
-      <span className="scroll-rail-track"><span ref={fill} /></span>
+      <span className="scroll-rail-track"><span ref={fill} /><span ref={marker} className="scroll-rail-marker" /></span>
       <span className="scroll-rail-label">Scroll</span>
       <svg className="scroll-rail-arrow" viewBox="0 0 14 76" fill="none">
         <path d="M7 1V73M1 66L7 73L13 66" stroke="currentColor" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" />

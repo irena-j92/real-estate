@@ -18,16 +18,17 @@ export default function CustomCursor() {
       point.style.transform = `translate3d(${e.clientX}px,${e.clientY}px,0)`;
       x(e.clientX);
       y(e.clientY);
-      circle.style.opacity = "1";
-      point.style.opacity = "1";
+      circle.style.opacity = circle.dataset.active === "true" ? "1" : "0";
+      point.style.opacity = circle.dataset.active === "true" ? "0" : "1";
     };
     const over = (e) => {
-      const target = e.target.closest("[data-cursor],a,button,input,textarea");
+      const target = e.target.closest("[data-cursor],a,button,input,textarea,select");
       const text = target?.dataset.cursor || "";
       circle.dataset.active = target ? "true" : "false";
       circle.dataset.label = text ? "true" : "false";
       label.current.textContent = text;
-      point.style.opacity = text ? "0" : "1";
+      point.style.opacity = target ? "0" : "1";
+      circle.style.opacity = target ? "1" : "0";
     };
     const leave = () => {
       circle.style.opacity = "0";

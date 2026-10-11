@@ -1,10 +1,21 @@
 import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef } from "react";
+import { FiArrowRight } from "react-icons/fi";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 const statement =
   "A home is more than architecture. It’s the light in the morning. The space to gather. A landscape that becomes part of you. We bring a local perspective to the places you’ll call home.";
+const phrases = [
+  ["A home is more than ", false], ["architecture.", true],
+  [" It’s the light in the morning. The space to gather. ", false],
+  ["A landscape that becomes part of you.", true],
+  [" We bring a ", false], ["local perspective", true],
+  [" to the places you’ll call home.", false],
+];
+const words = phrases.flatMap(([text, italic]) =>
+  text.trim().split(/\s+/).map((word) => ({ word, italic })),
+);
 export default function AboutSection({ ready = true }) {
   const root = useRef(null);
   useEffect(() => {
@@ -50,8 +61,8 @@ export default function AboutSection({ ready = true }) {
           01 / A sense of place
         </p>
         <h2 className="description-statement" aria-label={statement}>
-          {statement.split(" ").map((word, i) => (
-            <span key={i} className="description-word" aria-hidden="true">
+          {words.map(({ word, italic }, i) => (
+            <span key={i} className={`description-word ${italic ? "description-serif" : ""}`} aria-hidden="true">
               {word}
               <span className="description-word-fill">{word}</span>
             </span>
@@ -62,7 +73,7 @@ export default function AboutSection({ ready = true }) {
           href="#experts"
           data-reveal
         >
-          Meet your local perspective
+          About Us <FiArrowRight aria-hidden="true" />
         </HoverControl>
       </div>
     </section>

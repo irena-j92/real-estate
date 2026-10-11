@@ -75,7 +75,7 @@ export default function FindExpert() {
         <div className="experts-layout">
           <div data-reveal className="expert-intro">
             <p className="section-kicker">04 / The human connection</p>
-            <h2 className="expert-headline">Find an Expert</h2>
+            <h2 className="expert-headline">FIND AN EXPERT</h2>
             <p className="body-copy expert-description">
               The best advice comes from someone who knows the streets, the
               stories, and what makes a place feel like home. Find the person
@@ -116,7 +116,6 @@ export default function FindExpert() {
           </div>
         </div>
         <div className="partner-band" data-reveal>
-          <p className="partner-heading">Local Roots</p>
           <ul
             className="partner-placeholder-logos"
             aria-label="Placeholder partner logos"

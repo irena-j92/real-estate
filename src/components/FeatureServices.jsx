@@ -1,5 +1,5 @@
 import HoverControl from "./ui/HoverControl";
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -67,12 +67,13 @@ export default function FeatureServices({ ready = true }) {
     });
     return closest;
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!ready) return;
     const media = gsap.matchMedia();
     media.add(
       "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
       () => {
+        const viewportElement = viewport.current;
         setPinned(true);
         setActive(0);
         viewport.current.scrollLeft = 0;
@@ -99,13 +100,40 @@ export default function FeatureServices({ ready = true }) {
           },
         });
         scroll.current = tween.scrollTrigger;
+        // At entry the two halves overlap by 15% of the photograph's width.
+        // Their transforms settle at zero, leaving the exact 80px layout gap.
+        [...track.current.children].forEach((panel, i) => {
+          const copy = panel.querySelector(".horizontal-service-copy");
+          const photo = panel.querySelector("figure");
+          const offset = () => 40 + photo.offsetWidth * 0.075;
+          const sequence = gsap.timeline({
+            scrollTrigger: i === 0 ? {
+              id: `service-separation-${i + 1}`,
+              trigger: root.current,
+              start: "top 85%",
+              end: "top top",
+              scrub: 0.8,
+              invalidateOnRefresh: true,
+            } : {
+              id: `service-separation-${i + 1}`,
+              trigger: panel,
+              containerAnimation: tween,
+              start: "left 85%",
+              end: "left 15%",
+              scrub: 0.8,
+              invalidateOnRefresh: true,
+            },
+          });
+          sequence.fromTo(copy, { x: offset }, { x: 0, ease: "none" }, 0)
+            .fromTo(photo, { x: () => -offset() }, { x: 0, ease: "none" }, 0);
+        });
         const refresh = () => ScrollTrigger.refresh();
         window.addEventListener("load", refresh, { once: true });
         return () => {
           scroll.current = null;
           setPinned(false);
           setActive(0);
-          if (viewport.current) viewport.current.scrollLeft = 0;
+          viewportElement.scrollLeft = 0;
           window.removeEventListener("load", refresh);
         };
       },
@@ -186,7 +214,6 @@ export default function FeatureServices({ ready = true }) {
               </div>
               <figure>
                 <img src={service.image} alt={service.alt} loading="lazy" />
-                <figcaption>0{i + 1} / 03 — Southern Arizona</figcaption>
               </figure>
             </article>
           ))}

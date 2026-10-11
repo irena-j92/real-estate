@@ -87,6 +87,7 @@ function SingleView({ index, setIndex, saved, toggle }) {
   return (
     <div
       ref={root}
+      className="single-property-view"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
       onFocus={() => setFocused(true)}
@@ -128,14 +129,17 @@ function SingleView({ index, setIndex, saved, toggle }) {
             <p className="property-price">{property.price}</p>
             <div className="property-specs">
               <div>
+                <span className="property-metric-icon metric-bed" aria-hidden="true" />
                 <strong>{property.beds}</strong>
                 <span>Bedrooms</span>
               </div>
               <div>
+                <span className="property-metric-icon metric-bath" aria-hidden="true" />
                 <strong>{property.baths}</strong>
                 <span>Bathrooms</span>
               </div>
               <div>
+                <span className="property-metric-icon metric-area" aria-hidden="true" />
                 <strong>{property.sqft}</strong>
                 <span>Square feet</span>
               </div>
@@ -303,11 +307,7 @@ export default function TrendingProperties() {
         <div className="section-heading" data-reveal>
           <div>
             <p className="section-kicker">02 / The collection</p>
-            <h2 className="section-title">
-              The residences.
-              <br />
-              <em>Extraordinary by nature.</em>
-            </h2>
+            <h2 className="section-title trending-title">Trending Properties</h2>
           </div>
           <div className="listing-tools">
             <div
@@ -318,27 +318,20 @@ export default function TrendingProperties() {
               <HoverControl as="button"
                 onClick={() => setView("single")}
                 aria-pressed={view === "single"}
+                aria-label="Single property view"
                 type="button"
               >
                 <FiMaximize size={15} />
-                Single
               </HoverControl>
               <HoverControl as="button"
                 onClick={() => setView("grid")}
                 aria-pressed={view === "grid"}
+                aria-label="Property grid view"
                 type="button"
               >
                 <FiGrid size={15} />
-                Grid
               </HoverControl>
             </div>
-            <HoverControl as="button"
-              className="text-link"
-              type="button"
-              onClick={() => setView("grid")}
-            >
-              Explore all homes
-            </HoverControl>
           </div>
         </div>
         {view === "single" ? (
@@ -351,6 +344,16 @@ export default function TrendingProperties() {
         ) : (
           <GridView saved={saved} toggle={toggle} select={select} />
         )}
+        <div className="listing-bottom-action">
+          <HoverControl as="button" className="text-link" type="button" onClick={() => {
+            setView("grid");
+            requestAnimationFrame(() => document.getElementById("trending")?.scrollIntoView({
+              behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+            }));
+          }}>
+            Explore all homes
+          </HoverControl>
+        </div>
       </div>
     </section>
   );
