@@ -74,6 +74,8 @@ export default function FeatureServices({ ready = true }) {
       "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
       () => {
         const viewportElement = viewport.current;
+        let refreshFrame = 0;
+        let disposed = false;
         setPinned(true);
         setActive(0);
         viewport.current.scrollLeft = 0;
@@ -82,11 +84,15 @@ export default function FeatureServices({ ready = true }) {
           ease: "none",
           scrollTrigger: {
             id: "horizontal-services",
+            // The hero pin is created later as its media becomes ready.
+            // Measure this lower section after that upstream spacer exists.
+            refreshPriority: -10,
             trigger: root.current,
             start: "top top",
             end: () =>
               `+=${track.current.scrollWidth - viewport.current.clientWidth}`,
             pin: true,
+            pinSpacing: true,
             anticipatePin: 1,
             scrub: 0.8,
             invalidateOnRefresh: true,
@@ -109,6 +115,7 @@ export default function FeatureServices({ ready = true }) {
           const sequence = gsap.timeline({
             scrollTrigger: i === 0 ? {
               id: `service-separation-${i + 1}`,
+              refreshPriority: -11,
               trigger: root.current,
               start: "top 85%",
               end: "top top",
@@ -116,6 +123,7 @@ export default function FeatureServices({ ready = true }) {
               invalidateOnRefresh: true,
             } : {
               id: `service-separation-${i + 1}`,
+              refreshPriority: -11,
               trigger: panel,
               containerAnimation: tween,
               start: "left 85%",
@@ -127,9 +135,20 @@ export default function FeatureServices({ ready = true }) {
           sequence.fromTo(copy, { x: offset }, { x: 0, ease: "none" }, 0)
             .fromTo(photo, { x: () => -offset() }, { x: 0, ease: "none" }, 0);
         });
-        const refresh = () => ScrollTrigger.refresh();
+        const refresh = () => {
+          if (disposed || refreshFrame) return;
+          refreshFrame = requestAnimationFrame(() => {
+            refreshFrame = 0;
+            if (!disposed) ScrollTrigger.refresh();
+          });
+        };
+        // Wait until React's later effects have installed the hero pin.
+        refresh();
+        document.fonts?.ready.then(refresh);
         window.addEventListener("load", refresh, { once: true });
         return () => {
+          disposed = true;
+          cancelAnimationFrame(refreshFrame);
           scroll.current = null;
           setPinned(false);
           setActive(0);
