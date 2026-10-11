@@ -32,7 +32,7 @@ function OrbitStack({ index, setIndex }) {
             aria-label={`Select ${agent.name}`}
             aria-pressed={active}
             style={{
-              transform: `translateX(${offset * 91}px) translateY(${Math.abs(offset) * 13}px) rotate(${offset * 7}deg) scale(${1 - Math.abs(offset) * 0.09})`,
+              transform: `translateX(calc(${offset} * var(--expert-card-step))) translateY(${Math.abs(offset) * 13}px) rotate(${offset * 7}deg) scale(${1 - Math.abs(offset) * 0.09})`,
               zIndex: 10 - Math.abs(offset),
               filter: active ? "none" : "brightness(.62)",
               opacity: Math.abs(offset) > 1 ? 0.5 : 1,
@@ -74,7 +74,7 @@ export default function FindExpert() {
         <div className="experts-layout">
           <div data-reveal className="expert-intro">
             <p className="section-kicker">04 / The human connection</p>
-            <h2 className="sr-only">Meet your local expert</h2>
+            <h2 className="expert-headline">Find an Expert</h2>
             <p className="body-copy expert-description">
               The best advice comes from someone who knows the streets, the
               stories, and what makes a place feel like home. Find the person

@@ -1,6 +1,6 @@
-/* Light canvases for services and advisers; keep brand-yellow accents. */
+/* Light canvases for services and news; advisers retain the navy canvas. */
 .horizontal-services,
-.experts-section {
+.journal-section {
   --paper: #1f2532;
   --muted: #1f2532;
   background: #d0d0d0;
@@ -14,14 +14,53 @@
 .horizontal-service-panel figcaption,
 .horizontal-service-copy > p:not(.service-category),
 .horizontal-service-copy .text-link,
-.horizontal-services-bottom,
-.experts-section .partner-placeholder-logos {
+.horizontal-services-bottom {
   color: #1f2532;
 }
-.experts-section .premium-button[data-variant="yellow"]:hover,
-.experts-section .premium-button[data-variant="yellow"]:focus-visible {
-  background: #e2e2e2;
+.experts-section {
+  background: #1f2532;
+  color: var(--paper);
+}
+.expert-headline {
+  font: 400 clamp(64px, 7vw, 110px) / 1.02 var(--serif);
+  letter-spacing: -0.035em;
+  max-width: 580px;
+  text-wrap: balance;
+}
+.expert-stage {
+  --expert-card-step: clamp(35px, 5vw, 76px);
+  overflow: visible;
+}
+.expert-portrait-card {
+  width: clamp(180px, 19vw, 270px);
+  height: auto;
+  aspect-ratio: 27 / 41;
+}
+
+/* Menu text is navy at rest. Focus uses an underline, never a yellow box. */
+.drawer-left .menu-index nav a,
+.drawer-left .menu-index nav a > small,
+.drawer-left .menu-index nav a > span {
   color: #1f2532;
+  border: 0;
+  outline: none;
+  box-shadow: none;
+}
+.drawer-left .menu-index nav a:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 8px;
+}
+.drawer-left .menu-index nav a:hover,
+.drawer-left .menu-index nav a:hover > small,
+.drawer-left .menu-index nav a:hover > span {
+  color: var(--gold);
+}
+.drawer-left .drawer-close:focus-visible {
+  outline-color: #1f2532;
+}
+.drawer-left .drawer-close:hover {
+  color: var(--gold);
 }
 
 /* Portrait-led experts, split residences, compact services, and equal news cards. */
@@ -177,11 +216,12 @@
   padding-inline: 32px;
 }
 .horizontal-service-panel {
-  flex: 0 0 auto;
-  width: auto;
+  flex: 0 0 calc(100vw - 64px);
+  width: calc(100vw - 64px);
   grid-template-columns: var(--service-copy-width) var(--service-photo-width);
   gap: var(--service-gap);
   padding: 0;
+  justify-content: center;
 }
 .horizontal-service-copy {
   width: 100%;
@@ -195,6 +235,9 @@
 }
 .horizontal-service-panel img {
   height: calc(100% - 40px);
+}
+.horizontal-services-bottom {
+  justify-content: flex-end;
 }
 
 /* All three news articles use the same columns, image ratio, and content hierarchy. */
@@ -226,12 +269,12 @@
 }
 .journal-card > .eyebrow {
   font-size: 12px;
-  color: var(--gold);
+  color: #1f2532;
   margin-top: 24px;
 }
 .journal-card h3 {
-  font: 400 clamp(28px, 2.6vw, 38px) / 1.12 var(--serif);
-  letter-spacing: -0.025em;
+  font: 400 20px / 1.35 var(--display);
+  letter-spacing: -0.015em;
   margin-top: 16px;
 }
 .journal-card-description {
@@ -243,6 +286,11 @@
 .journal-card .text-link {
   margin-top: auto;
   font-size: 13px;
+}
+.journal-dialog {
+  --paper: #f5f3eb;
+  --muted: #a9b7c4;
+  color: var(--paper);
 }
 .journal-section,
 .contact-section,
@@ -291,6 +339,7 @@
     padding-inline: 20px;
   }
   .horizontal-service-panel {
+    flex-basis: calc(100vw - 40px);
     width: calc(100vw - 40px);
     gap: var(--service-gap);
     padding: 0;
@@ -310,7 +359,16 @@
     gap: 48px;
   }
   .journal-card h3 {
-    font-size: 34px;
+    font-size: 20px;
+  }
+  .expert-stage {
+    --expert-card-step: clamp(24px, 6vw, 45px);
+    min-height: 390px;
+    margin-inline: 0;
+  }
+  .expert-portrait-card {
+    width: clamp(145px, 40vw, 230px);
+    height: auto;
   }
   .expert-gallery .expert-selection {
     gap: 12px;

@@ -191,7 +191,6 @@ export default function FeatureServices({ ready = true }) {
         </div>
       </div>
       <div className="horizontal-services-bottom">
-        <span>One move. Every detail, considered.</span>
         <span aria-live="polite">0{active + 1} / 03</span>
       </div>
     </section>

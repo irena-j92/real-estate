@@ -1,11 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { FiX } from "react-icons/fi";
 import { posts } from "../data/posts";
-const categories = [
-  "The neighborhood edit",
-  "Architecture & design",
-  "Making your move",
-];
 const reads = [
   "Start with the rhythms of your day: the route to work, the places you spend weekends, and the kind of space that makes you feel at ease. In the Foothills, a property's orientation, elevation, and relationship to the landscape can be as important as its floor plan. Visit at different times of day, notice the light, and take time to explore the surrounding streets. Your adviser can help you ask the right questions about access, upkeep, and the details behind a beautiful view.",
   "Desert modern design begins with the landscape. Deep overhangs frame the views, shaded courtyards create outdoor rooms, and restrained materials allow the surroundings to take center stage. When exploring a home, look beyond the first impression. Consider how it handles afternoon light, where the shade falls, and how the living spaces connect to the outdoors. The most inviting architecture feels beautiful and comfortable in equal measure.",
@@ -71,7 +66,7 @@ export default function BlogSection() {
               >
                 <img src={post.image} alt={post.title} loading="lazy" />
               </button>
-              <p className="eyebrow">{categories[index]} · 3 min read</p>
+              <p className="eyebrow">{post.date}</p>
               <h3>{post.title}</h3>
               <p className="journal-card-description">{post.description}</p>
               <button
@@ -107,7 +102,7 @@ export default function BlogSection() {
             >
               <FiX />
             </button>
-            <p className="section-kicker">{categories[selected]}</p>
+            <p className="section-kicker">{posts[selected].date}</p>
             <h2 id="article-title" className="section-title">
               {posts[selected].title}
             </h2>
