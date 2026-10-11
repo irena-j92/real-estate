@@ -43,3 +43,7 @@ The existing components for unused sections remain in the source for reference; 
 ## Mosaicist-inspired edition
 
 Full-bleed architectural manifesto, a centered minimal header, panoramic residence presentation, native-scroll service chapters with a sticky photographic stage, and a monumental closing invitation. The original hero film and scrub mapping remain unchanged. See [the reference translation](docs/MOSAICIST_DIRECTION.md).
+
+## Phase one refinements
+
+Instrument Sans / Instrument Serif, updated yellow `#F4BA51`, split white glass search and menu panels, an outlined circle action, a solid-blue scroll-fill description, and horizontal services. The original film and its final hold are preserved; the hold now drives the background transition. Sunny appears only after the hero leaves the screen. See [the implementation notes](docs/PHASE_ONE_REFINEMENTS.md).

@@ -5,7 +5,7 @@
   --panel-light: #123049;
   --paper: #f5f3eb;
   --muted: #a9b7c4;
-  --gold: #f8d34e;
+  --gold: #f4ba51;
   --line: rgba(195, 213, 229, 0.19);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --dramatic: cubic-bezier(0.77, 0, 0.175, 1);
@@ -24,13 +24,13 @@
     1.005 67%,
     1
   );
-  --display: "Space Grotesk", sans-serif;
-  --serif: "Cormorant Garamond", Georgia, serif;
+  --display: "Instrument Sans", sans-serif;
+  --serif: "Instrument Serif", Georgia, serif;
 }
 body {
   background: var(--ink);
   color: var(--paper);
-  font-family: "Inter Tight", sans-serif;
+  font-family: "Instrument Sans", sans-serif;
 }
 html {
   scroll-padding-top: 96px;
@@ -184,7 +184,7 @@ img {
 }
 .premium-button[data-variant="yellow"]:hover {
   background: var(--paper);
-  box-shadow: 0 8px 35px #f8d34e17;
+  box-shadow: 0 8px 35px #f4ba5117;
 }
 .premium-button[data-variant="outline"],
 .premium-button[data-variant="outline-dark"] {
@@ -291,7 +291,7 @@ img {
 .loader-shutter {
   background: var(--ink);
   height: 100%;
-  border-right: 1px solid #f8d34e0c;
+  border-right: 1px solid #f4ba510c;
 }
 .loader-top,
 .loader-bottom {
@@ -361,13 +361,13 @@ img {
   letter-spacing: -0.05em;
 }
 .loader-count small {
-  font-family: "Inter Tight", sans-serif;
+  font-family: "Instrument Sans", sans-serif;
   font-size: 11px;
   letter-spacing: 0.05em;
 }
 .loader-track {
   height: 1px;
-  background: #f8d34e22;
+  background: #f4ba5122;
 }
 .loader-track span {
   height: 1px;
@@ -424,7 +424,7 @@ img {
 }
 .nav-wordmark small {
   display: block;
-  font-family: "Inter Tight", sans-serif;
+  font-family: "Instrument Sans", sans-serif;
   font-size: 8px;
   letter-spacing: 0.14em;
   line-height: 1;
@@ -724,7 +724,7 @@ img {
   top: -20px;
   width: 40px;
   height: 40px;
-  border: 1px solid #f8d34e80;
+  border: 1px solid #f4ba5180;
   border-radius: 50%;
   opacity: 0;
   display: grid;
@@ -735,8 +735,8 @@ img {
 }
 .cursor-ring[data-active="true"] {
   border-color: var(--gold);
-  background: #f8d34e12;
-  box-shadow: 0 0 25px #f8d34e0c;
+  background: #f4ba5112;
+  box-shadow: 0 0 25px #f4ba510c;
 }
 .cursor-ring[data-label="true"] {
   width: 76px;
@@ -1366,7 +1366,7 @@ img {
   text-align: left;
 }
 .expert-card-name small {
-  font-family: "Inter Tight", sans-serif;
+  font-family: "Instrument Sans", sans-serif;
   font-size: 9px;
   letter-spacing: 0.1em;
   color: var(--gold);
@@ -1785,7 +1785,7 @@ img {
   font-size: 38px;
 }
 .footer-brand small {
-  font-family: "Inter Tight", sans-serif;
+  font-family: "Instrument Sans", sans-serif;
   display: block;
   font-size: 9px;
   letter-spacing: 0.1em;

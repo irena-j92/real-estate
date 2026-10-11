@@ -1,6 +1,6 @@
 /* Architectural gallery edition: inspiration from Mosaicist's visual rhythm. */
 :root {
-  --display: "Inter Tight", sans-serif;
+  --display: "Instrument Sans", sans-serif;
   --ink: #051523;
   --deep: #03111d;
   --panel: #0a2132;
@@ -86,7 +86,7 @@ body {
   grid-template-columns: repeat(3, 4px);
   gap: 3px;
   padding: 13px;
-  border: 1px solid #f8d34e55;
+  border: 1px solid #f4ba5155;
 }
 .architecture-mark i {
   width: 4px;

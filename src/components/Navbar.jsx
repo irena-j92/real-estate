@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { FiPlus, FiX } from "react-icons/fi";
+import { FiSearch, FiX } from "react-icons/fi";
 import LanguageSelector from "./LanguageSelector";
+import SearchOverlay from "./SearchOverlay";
 const links = [
   ["01", "The residences", "#trending"],
   ["02", "Our perspective", "#about"],
@@ -10,10 +10,11 @@ const links = [
   ["05", "Let’s talk", "#contact"],
 ];
 export default function Navbar({ ready = true }) {
-  const [open, setOpen] = useState(false),
+  const [active, setActive] = useState(null),
     [scrolled, setScrolled] = useState(false);
-  const panel = useRef(null),
-    toggle = useRef(null);
+  const drawer = useRef(null),
+    menuToggle = useRef(null),
+    searchToggle = useRef(null);
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 80);
     update();
@@ -21,125 +22,143 @@ export default function Navbar({ ready = true }) {
     return () => window.removeEventListener("scroll", update);
   }, []);
   useEffect(() => {
-    if (!open) return;
-    const toggleElement = toggle.current;
-    const previous = document.body.style.overflow;
+    if (!active) return;
+    const dialog = drawer.current,
+      opener = active === "menu" ? menuToggle.current : searchToggle.current;
+    const overflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const first = panel.current?.querySelector("a");
-    first?.focus();
-    const onKey = (e) => {
-      if (e.key === "Escape") setOpen(false);
-      if (e.key === "Tab") {
-        const nodes = [
-          toggle.current,
-          ...panel.current.querySelectorAll("a[href],button"),
-        ];
-        const first = nodes[0],
-          last = nodes[nodes.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        }
-        if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
-    };
-    document.addEventListener("keydown", onKey);
+    dialog.showModal();
+    const focusFrame = requestAnimationFrame(() =>
+      dialog.querySelector(active === "search" ? "input" : "nav a")?.focus(),
+    );
     return () => {
-      document.body.style.overflow = previous;
-      document.removeEventListener("keydown", onKey);
-      toggleElement?.focus();
+      cancelAnimationFrame(focusFrame);
+      dialog.close();
+      document.body.style.overflow = overflow;
+      opener?.focus();
     };
-  }, [open]);
-  useEffect(() => {
-    if (!open || !panel.current) return;
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".menu-link-text",
-        { yPercent: reduced ? 0 : 110 },
-        {
-          yPercent: 0,
-          duration: reduced ? 0.01 : 0.75,
-          stagger: reduced ? 0 : 0.07,
-          ease: "power3.out",
-        },
-      );
-    }, panel);
-    return () => ctx.revert();
-  }, [open]);
+  }, [active]);
+  const navigate = (href) => {
+    setActive(null);
+    requestAnimationFrame(() => {
+      const target = document.querySelector(href);
+      if (target)
+        window.scrollTo({
+          top: target.getBoundingClientRect().top + window.scrollY - 90,
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+            .matches
+            ? "instant"
+            : "smooth",
+        });
+    });
+  };
+  const backdrop = (e) => {
+    if (e.target !== e.currentTarget) return;
+    const b = e.currentTarget.getBoundingClientRect();
+    if (
+      e.clientX < b.left ||
+      e.clientX > b.right ||
+      e.clientY < b.top ||
+      e.clientY > b.bottom
+    )
+      setActive(null);
+  };
   return (
     <>
       <header
         className={`experience-nav ${scrolled ? "is-scrolled" : ""} ${ready ? "is-ready" : ""}`}
       >
+        <button
+          ref={menuToggle}
+          type="button"
+          className="menu-toggle"
+          onClick={() => setActive("menu")}
+          aria-expanded={active === "menu"}
+          aria-controls="main-menu"
+          aria-label="Open menu"
+        >
+          <span>Menu</span>
+          <span className="architecture-mark" aria-hidden="true">
+            {Array.from({ length: 9 }, (_, i) => (
+              <i key={i} />
+            ))}
+          </span>
+        </button>
         <a className="nav-wordmark" href="#top" aria-label="Long Realty home">
           Long<span>Realty</span>
           <small>SOUTHERN ARIZONA</small>
         </a>
-        <div className="nav-controls">
+        <div className="header-right">
           <LanguageSelector />
           <button
-            ref={toggle}
+            ref={searchToggle}
+            className="header-search-button"
             type="button"
-            className="menu-toggle"
-            onClick={() => setOpen((o) => !o)}
-            aria-expanded={open}
-            aria-controls="main-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label="Open property search"
+            aria-expanded={active === "search"}
+            aria-controls="property-search"
+            onClick={() => setActive("search")}
           >
-            <span>{open ? "Close" : "Menu"}</span>
-            <span className="architecture-mark" aria-hidden="true">
-              {Array.from({ length: 9 }, (_, i) => (
-                <i key={i} />
-              ))}
-            </span>
-            {open ? <FiX size={19} /> : <FiPlus size={19} />}
+            <FiSearch size={19} />
+            <span>Search</span>
           </button>
         </div>
       </header>
-      {open && (
-        <div
-          id="main-menu"
-          ref={panel}
-          className="experience-menu"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Site navigation"
+      {active && (
+        <dialog
+          ref={drawer}
+          id={active === "menu" ? "main-menu" : "property-search"}
+          className={`header-drawer ${active === "menu" ? "drawer-left" : "drawer-right"}`}
+          aria-labelledby={
+            active === "menu" ? "menu-heading" : "search-heading"
+          }
+          onCancel={(e) => {
+            e.preventDefault();
+            setActive(null);
+          }}
+          onClick={backdrop}
         >
-          <div className="menu-index">
-            <span className="micro-label">A different perspective.</span>
-            <nav aria-label="Full navigation">
-              {links.map(([num, label, href]) => (
-                <a key={href} href={href} onClick={() => setOpen(false)}>
-                  <small>{num}</small>
-                  <span className="menu-link-mask">
-                    <span className="menu-link-text">{label}</span>
-                  </span>
-                </a>
-              ))}
-            </nav>
-            <div className="menu-footer">
-              <span>Tucson / Southern Arizona</span>
-              <span>Home begins with a conversation.</span>
+          <button
+            className="drawer-close"
+            type="button"
+            onClick={() => setActive(null)}
+            aria-label={
+              active === "menu" ? "Close menu" : "Close property search"
+            }
+          >
+            <span>Close</span>
+            <FiX size={22} />
+          </button>
+          {active === "search" ? (
+            <SearchOverlay onNavigate={navigate} />
+          ) : (
+            <div className="menu-index">
+              <p className="drawer-eyebrow">Long Realty / Southern Arizona</p>
+              <h2 id="menu-heading">
+                A different <em>perspective.</em>
+              </h2>
+              <nav aria-label="Full navigation">
+                {links.map(([num, label, href]) => (
+                  <a
+                    key={href}
+                    href={href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate(href);
+                    }}
+                  >
+                    <small>{num}</small>
+                    <span>{label}</span>
+                  </a>
+                ))}
+              </nav>
+              <div className="menu-footer">
+                <span>Home begins with a conversation.</span>
+                <span>Tucson, Arizona</span>
+              </div>
             </div>
-          </div>
-          <div className="menu-image">
-            <img
-              src="/assets/properties-4.jpg"
-              alt="An architectural residence with an outdoor terrace"
-            />
-            <p>
-              Some places
-              <br />
-              <em>change everything.</em>
-            </p>
-          </div>
-        </div>
+          )}
+        </dialog>
       )}
     </>
   );

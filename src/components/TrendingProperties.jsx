@@ -251,6 +251,19 @@ function GridView({ saved, toggle, select }) {
 export default function TrendingProperties() {
   const [view, setView] = useState("single");
   const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const receive = (e) => {
+      const selected = properties.findIndex(
+        (property) => property.id === e.detail,
+      );
+      if (selected >= 0) {
+        setIndex(selected);
+        setView("single");
+      }
+    };
+    window.addEventListener("realty-select-property", receive);
+    return () => window.removeEventListener("realty-select-property", receive);
+  }, []);
   const [saved, setSaved] = useState(() => {
     try {
       return JSON.parse(
@@ -270,7 +283,7 @@ export default function TrendingProperties() {
   useEffect(() => {
     const frame = requestAnimationFrame(() => ScrollTrigger.refresh());
     return () => cancelAnimationFrame(frame);
-  }, [view]);
+  }, [view, index]);
   const toggle = (id) =>
     setSaved((list) =>
       list.includes(id) ? list.filter((item) => item !== id) : [...list, id],

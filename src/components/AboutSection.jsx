@@ -1,32 +1,69 @@
-export default function AboutSection() {
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+const statement =
+  "A home is more than architecture. It’s the light in the morning. The space to gather. A landscape that becomes part of you. We bring a local perspective to the places you’ll call home.";
+export default function AboutSection({ ready = true }) {
+  const root = useRef(null);
+  useEffect(() => {
+    if (!ready) return;
+    const media = gsap.matchMedia();
+    media.add(
+      {
+        animated: "(prefers-reduced-motion: no-preference)",
+        reduced: "(prefers-reduced-motion: reduce)",
+      },
+      (context) => {
+        const words = root.current.querySelectorAll(".description-word-fill");
+        if (context.conditions.reduced) {
+          gsap.set(words, { clipPath: "inset(0 0% 0 0)" });
+          return;
+        }
+        gsap.fromTo(
+          words,
+          { clipPath: "inset(0 100% 0 0)" },
+          {
+            clipPath: "inset(0 0% 0 0)",
+            stagger: 0.1,
+            duration: 0.3,
+            ease: "none",
+            scrollTrigger: {
+              id: "description-text-fill",
+              trigger: root.current,
+              start: "top 55%",
+              end: "bottom 65%",
+              scrub: 0.5,
+            },
+          },
+        );
+      },
+      root,
+    );
+    return () => media.revert();
+  }, [ready]);
   return (
-    <section id="about" className="intro-section architectural-manifesto">
-      <div className="manifesto-backdrop" aria-hidden="true">
-        <img src="/assets/properties-4.jpg" alt="" loading="lazy" />
-      </div>
-      <div className="manifesto-content">
+    <section ref={root} id="about" className="intro-section scroll-description">
+      <div className="description-inner">
         <p className="section-kicker" data-reveal>
           01 / A sense of place
         </p>
-        <h2 className="manifesto-statement" data-reveal>
-          A home is more than <em>architecture.</em> It’s the light in the
-          morning. The space to gather. A landscape that becomes part of you. We
-          bring a <em>local perspective</em> to the places you’ll call home.
+        <h2 className="description-statement" aria-label={statement}>
+          {statement.split(" ").map((word, i) => (
+            <span key={i} className="description-word" aria-hidden="true">
+              {word}
+              <span className="description-word-fill">{word}</span>
+            </span>
+          ))}
         </h2>
-        <div className="manifesto-footer" data-reveal>
-          <a className="premium-button" data-variant="yellow" href="#experts">
-            Meet your local perspective
-          </a>
-          <p>
-            Rooted in Tucson.
-            <br />
-            Connected to your next chapter.
-          </p>
-        </div>
+        <a
+          className="text-link description-experts"
+          href="#experts"
+          data-reveal
+        >
+          Meet your local perspective
+        </a>
       </div>
-      <span className="manifesto-coordinate" aria-hidden="true">
-        SOUTHERN ARIZONA / A LIFE WELL LIVED
-      </span>
     </section>
   );
 }

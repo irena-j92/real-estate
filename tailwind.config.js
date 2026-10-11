@@ -5,14 +5,14 @@ export default {
     extend: {
       colors: {
         dark: "#071525",
-        yellow: "#F4CF67",
+        yellow: "#F4BA51",
         light: "#F5F3EC",
         white: "#FFFFFF",
         secondary: "#122B42",
       },
       fontFamily: {
-        sans: ["'Inter Tight'", "sans-serif"],
-        accent: ["'Merriweather'", "serif"],
+        sans: ["'Instrument Sans'", "sans-serif"],
+        accent: ["'Instrument Serif'", "serif"],
       },
       maxWidth: {
         site: "1440px",

@@ -62,7 +62,7 @@ function TypingBubble() {
   );
 }
 
-export default function SunnyAssistant() {
+export default function SunnyAssistant({ visible = true }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([WELCOME]);
   const [input, setInput] = useState("");
@@ -70,6 +70,9 @@ export default function SunnyAssistant() {
   const modalRef = useRef(null);
   const inputRef = useRef(null);
   const scrollRef = useRef(null);
+  useEffect(() => {
+    if (!visible) setOpen(false);
+  }, [visible]);
 
   useGSAP(() => {
     if (!modalRef.current) return;
@@ -125,6 +128,7 @@ export default function SunnyAssistant() {
     sendMessage(input);
   };
 
+  if (!visible) return null;
   return (
     <>
       <div className="sunny-launcher fixed bottom-10 right-12 z-[70]">

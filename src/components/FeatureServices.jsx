@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import ChapterTitle from "./experience/ChapterTitle";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 const services = [
   {
     title: "A place that feels like you.",
@@ -32,116 +34,141 @@ const services = [
     label: "Discover the support around you",
   },
 ];
-export default function FeatureServices() {
-  const [active, setActive] = useState(0);
-  const chapters = useRef([]);
+export default function FeatureServices({ ready = true }) {
+  const root = useRef(null),
+    viewport = useRef(null),
+    track = useRef(null),
+    scroll = useRef(null);
+  const [active, setActive] = useState(0),
+    [pinned, setPinned] = useState(false);
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting)
-            setActive(Number(entry.target.dataset.serviceChapter));
+    if (!ready) return;
+    const media = gsap.matchMedia();
+    media.add(
+      "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
+      () => {
+        setPinned(true);
+        setActive(0);
+        viewport.current.scrollLeft = 0;
+        const tween = gsap.to(track.current, {
+          x: () => -(track.current.scrollWidth - viewport.current.clientWidth),
+          ease: "none",
+          scrollTrigger: {
+            id: "horizontal-services",
+            trigger: root.current,
+            start: "top top",
+            end: () =>
+              `+=${track.current.scrollWidth - viewport.current.clientWidth}`,
+            pin: true,
+            anticipatePin: 1,
+            scrub: 0.8,
+            invalidateOnRefresh: true,
+            onUpdate: (self) =>
+              setActive(Math.round(self.progress * (services.length - 1))),
+          },
         });
+        scroll.current = tween.scrollTrigger;
+        const refresh = () => ScrollTrigger.refresh();
+        window.addEventListener("load", refresh, { once: true });
+        return () => {
+          scroll.current = null;
+          setPinned(false);
+          setActive(0);
+          if (viewport.current) viewport.current.scrollLeft = 0;
+          window.removeEventListener("load", refresh);
+        };
       },
-      { rootMargin: "-30% 0px -45% 0px", threshold: 0 },
+      root,
     );
-    chapters.current.forEach((chapter) => chapter && observer.observe(chapter));
-    return () => observer.disconnect();
-  }, []);
+    return () => media.revert();
+  }, [ready]);
   const select = (i) => {
     setActive(i);
-    const chapter = chapters.current[i];
-    if (chapter)
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches
+      ? "instant"
+      : "smooth";
+    if (scroll.current) {
+      const trigger = scroll.current;
       window.scrollTo({
-        top: chapter.getBoundingClientRect().top + window.scrollY - 135,
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "instant"
-          : "smooth",
+        top:
+          trigger.start +
+          ((trigger.end - trigger.start) * i) / (services.length - 1),
+        behavior,
+      });
+    } else
+      viewport.current.scrollTo({
+        left: i * viewport.current.clientWidth,
+        behavior,
       });
   };
   return (
     <section
+      ref={root}
       id="services"
-      className="premium-section services-section service-story"
+      className={`horizontal-services ${pinned ? "is-pinned" : ""}`}
+      aria-label="Buying, selling and relocating"
     >
-      <div className="site-container">
-        <div className="chapter-topline" data-reveal>
-          <p className="section-kicker">03 / A considered approach</p>
-          <span className="micro-label">
-            From a first conversation to a new beginning.
-          </span>
-        </div>
-        <div className="service-story-layout">
-          <div className="service-story-visual">
-            <div className="service-image-stack">
-              {services.map((service, i) => (
-                <img
-                  key={service.short}
-                  src={service.image}
-                  alt={service.alt}
-                  loading="lazy"
-                  className={active === i ? "is-active" : ""}
-                  aria-hidden={active !== i}
-                />
-              ))}
-            </div>
-            <div className="service-image-caption">
-              <span>0{active + 1} / 03</span>
-              <span>{services[active].short}, with perspective.</span>
-            </div>
-          </div>
-          <div className="service-story-content">
-            <div className="service-story-heading" data-reveal>
-              <ChapterTitle
-                lines={[
-                  { text: "Your move." },
-                  { text: "Our perspective.", italic: true },
-                ]}
-              />
-              <p className="body-copy">
-                The right home. The right people. A little clarity at every
-                step.
-              </p>
-            </div>
-            <nav className="service-chapter-nav" aria-label="Service chapters">
-              {services.map((service, i) => (
-                <button
-                  key={service.short}
-                  type="button"
-                  aria-pressed={active === i}
-                  onClick={() => select(i)}
-                >
-                  0{i + 1} / {service.short}
-                </button>
-              ))}
-            </nav>
-            {services.map((service, i) => (
-              <article
-                key={service.short}
-                ref={(el) => {
-                  chapters.current[i] = el;
-                }}
-                data-service-chapter={i}
-                className={`service-chapter ${active === i ? "is-active" : ""}`}
-              >
-                <img
-                  className="service-mobile-photo"
-                  src={service.image}
-                  alt={service.alt}
-                  loading="lazy"
-                />
-                <p className="section-kicker">
-                  /0{i + 1} — {service.short}
-                </p>
-                <h3>{service.title}</h3>
-                <p className="body-copy">{service.description}</p>
+      <div className="horizontal-services-top">
+        <p>03 / A considered approach</p>
+        <nav aria-label="Service chapters">
+          {services.map((service, i) => (
+            <button
+              key={service.short}
+              type="button"
+              aria-pressed={active === i}
+              onClick={() => select(i)}
+            >
+              0{i + 1} / {service.short}
+            </button>
+          ))}
+        </nav>
+      </div>
+      <div
+        ref={viewport}
+        className="horizontal-services-viewport"
+        onScroll={() => {
+          if (!scroll.current && viewport.current.clientWidth)
+            setActive(
+              Math.max(
+                0,
+                Math.min(
+                  services.length - 1,
+                  Math.round(
+                    viewport.current.scrollLeft / viewport.current.clientWidth,
+                  ),
+                ),
+              ),
+            );
+        }}
+      >
+        <div ref={track} className="horizontal-services-track">
+          {services.map((service, i) => (
+            <article
+              key={service.short}
+              className="horizontal-service-panel"
+              inert={active !== i}
+              aria-hidden={active !== i}
+            >
+              <figure>
+                <img src={service.image} alt={service.alt} loading="lazy" />
+                <figcaption>0{i + 1} / 03 — Southern Arizona</figcaption>
+              </figure>
+              <div className="horizontal-service-copy">
+                <p className="service-category">{service.short}</p>
+                <h2>{service.title}</h2>
+                <p>{service.description}</p>
                 <a className="text-link" href={service.link}>
                   {service.label}
                 </a>
-              </article>
-            ))}
-          </div>
+              </div>
+            </article>
+          ))}
         </div>
+      </div>
+      <div className="horizontal-services-bottom">
+        <span>One move. Every detail, considered.</span>
+        <span aria-live="polite">0{active + 1} / 03</span>
       </div>
     </section>
   );

@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import AboutSection from "./components/AboutSection";
 import TrendingProperties from "./components/TrendingProperties";
-import VideoSection from "./components/VideoSection";
 import FeatureServices from "./components/FeatureServices";
 import FindExpert from "./components/FindExpert";
 import WhatWeOffer from "./components/WhatWeOffer";
@@ -18,6 +17,20 @@ export default function App() {
   const [ready, setReady] = useState(false),
     root = useRef(null);
   const open = useCallback(() => setReady(true), []);
+  const [heroPassed, setHeroPassed] = useState(false);
+  useEffect(() => {
+    if (!ready) return;
+    const hero = document.getElementById("top");
+    const observer = new IntersectionObserver(
+      ([entry]) =>
+        setHeroPassed(
+          !entry.isIntersecting && entry.boundingClientRect.bottom <= 0,
+        ),
+      { threshold: 0 },
+    );
+    if (hero) observer.observe(hero);
+    return () => observer.disconnect();
+  }, [ready]);
   useExperienceMotion(root, ready);
   useEffect(() => {
     const old = document.body.style.overflow;
@@ -36,17 +49,16 @@ export default function App() {
         <Navbar ready={ready} />
         <main>
           <Hero ready={ready} />
-          <AboutSection />
+          <AboutSection ready={ready} />
           <TrendingProperties />
-          <VideoSection />
-          <FeatureServices />
+          <FeatureServices ready={ready} />
           <FindExpert />
           <WhatWeOffer />
           <BlogSection />
           <ContactSection />
         </main>
         <Footer />
-        <SunnyAssistant />
+        <SunnyAssistant visible={ready && heroPassed} />
       </div>
       <CustomCursor />
     </div>

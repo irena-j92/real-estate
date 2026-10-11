@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import useVideoScrub from "../hooks/useVideoScrub";
-import Button from "./ui/Button";
 
 export default function Hero({ ready = false }) {
   const sectionRef = useRef(null),
@@ -89,9 +88,27 @@ export default function Hero({ ready = false }) {
             <br />
             An unmistakable sense of place.
           </p>
-          <Button as="a" href="#trending" variant="yellow">
-            Discover the collection
-          </Button>
+          <a
+            className="collection-orbit"
+            href="#trending"
+            aria-label="View our collection"
+          >
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <circle className="orbit-track" cx="100" cy="100" r="98" />
+              <circle
+                className="orbit-progress"
+                cx="100"
+                cy="100"
+                r="98"
+                pathLength="100"
+              />
+            </svg>
+            <span>
+              View our
+              <br />
+              collection
+            </span>
+          </a>
           <p className="hero-edition">
             Long Realty
             <br />
@@ -99,9 +116,8 @@ export default function Hero({ ready = false }) {
           </p>
         </div>
       </div>
-      <div className="hero-final-caption">
-        <span>A little closer to</span>
-        <p>your next chapter.</p>
+      <div className="hero-transition" aria-hidden="true">
+        <div className="hero-transition-panel" />
       </div>
       <div className="hero-frame-meta" aria-hidden="true">
         <span>THE ART OF FEELING AT HOME</span>

@@ -14,13 +14,13 @@ body {
   margin: 0;
   background-color: #151717;
   color: #151717;
-  font-family: "Inter Tight", sans-serif;
+  font-family: "Instrument Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 ::selection {
-  background-color: #FFC522;
+  background-color: #F4BA51;
   color: #151717;
 }
 
@@ -30,7 +30,7 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid #FFC522;
+  outline: 2px solid #F4BA51;
   outline-offset: 3px;
 }
 
@@ -44,7 +44,7 @@ select:focus-visible {
 }
 
 .font-accent-light {
-  font-family: "Merriweather", serif;
+  font-family: "Instrument Serif", serif;
   font-style: light;
   font-optical-sizing: auto;
 }
