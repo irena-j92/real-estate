@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import useVideoScrub from "../hooks/useVideoScrub";
+import useLocalVideoSource from "../hooks/useLocalVideoSource";
+import heroVideo from "../assets/hero-video.mp4";
 import Button from "./ui/Button";
 
 export default function Hero({ ready = false }) {
@@ -8,7 +10,22 @@ export default function Hero({ ready = false }) {
     videoRef = useRef(null);
   const [metadataReady, setMetadataReady] = useState(false);
   const [failed, setFailed] = useState(false);
+  const videoSource = useLocalVideoSource(heroVideo);
   useVideoScrub({ sectionRef, videoRef, ready, metadataReady });
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!videoSource || !video) return;
+    const onReady = () => {
+      if (video.readyState >= 2) setMetadataReady(true);
+    };
+    onReady();
+    video.addEventListener("loadeddata", onReady);
+    video.addEventListener("canplay", onReady);
+    return () => {
+      video.removeEventListener("loadeddata", onReady);
+      video.removeEventListener("canplay", onReady);
+    };
+  }, [videoSource]);
   useEffect(() => {
     if (!ready) return;
     const reduced = window.matchMedia(
@@ -58,12 +75,12 @@ export default function Hero({ ready = false }) {
       <video
         ref={videoRef}
         data-hero-video
-        src="/assets/hero-video.mp4"
+        src={videoSource || undefined}
         className={`hero-film ${metadataReady && !failed ? "is-ready" : ""}`}
         muted
         playsInline
         preload="auto"
-        onLoadedMetadata={() => setMetadataReady(true)}
+        onLoadedData={() => setMetadataReady(true)}
         onError={() => setFailed(true)}
         aria-hidden="true"
       />
