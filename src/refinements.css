@@ -61,8 +61,11 @@ body {
   color: white;
   opacity: 0;
   visibility: hidden;
-  transition: color 0.25s var(--ease), border-color 0.25s var(--ease),
-    background-color 0.25s var(--ease), opacity 0.4s var(--ease);
+  transition:
+    color 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    background-color 0.25s var(--ease),
+    opacity 0.4s var(--ease);
 }
 .header-search-button.is-ready {
   opacity: 1;
@@ -409,6 +412,18 @@ body {
 }
 .hero-film.has-error {
   opacity: 0;
+}
+.hero-frame-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+.hero-frame-canvas.is-ready {
+  opacity: 1;
 }
 .hero-scrim {
   z-index: 2;

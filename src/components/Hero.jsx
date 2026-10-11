@@ -1,13 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import useVideoScrub from "../hooks/useVideoScrub";
+import useHeroFrames, { HERO_DURATION } from "../hooks/useHeroFrames";
 
 export default function Hero({ ready = false }) {
   const sectionRef = useRef(null),
-    videoRef = useRef(null);
+    videoRef = useRef(null),
+    canvasRef = useRef(null);
   const [metadataReady, setMetadataReady] = useState(false);
   const [failed, setFailed] = useState(false);
-  useVideoScrub({ sectionRef, videoRef, ready, metadataReady });
+  const film = useHeroFrames(canvasRef);
+  useVideoScrub({
+    sectionRef,
+    videoRef,
+    ready,
+    metadataReady: metadataReady || film.ready,
+    duration: HERO_DURATION,
+    onTimeChange: film.seek,
+  });
   useEffect(() => {
     // Cached media can become ready before React attaches its event handlers.
     const video = videoRef.current;
@@ -55,7 +65,7 @@ export default function Hero({ ready = false }) {
     >
       <img
         className="hero-fallback"
-        src="/assets/properties-2.jpg"
+        src="/assets/hero-poster.webp"
         alt=""
         fetchPriority="high"
         aria-hidden="true"
@@ -65,17 +75,18 @@ export default function Hero({ ready = false }) {
         data-hero-video
         src="/assets/hero-video.mp4"
         className={`hero-film ${failed ? "has-error" : "is-ready"}`}
-        poster="/assets/properties-2.jpg"
-        autoPlay={
-          typeof window !== "undefined" &&
-          !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        }
+        poster="/assets/hero-poster.webp"
         muted
         playsInline
-        preload="auto"
+        preload="none"
         onLoadedMetadata={() => setMetadataReady(true)}
         onLoadedData={() => setMetadataReady(true)}
         onError={() => setFailed(true)}
+        aria-hidden="true"
+      />
+      <canvas
+        ref={canvasRef}
+        className={`hero-frame-canvas ${film.ready ? "is-ready" : ""}`}
         aria-hidden="true"
       />
       <div className="hero-scrim" aria-hidden="true" />

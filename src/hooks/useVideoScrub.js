@@ -22,6 +22,8 @@ export default function useVideoScrub({
   videoRef,
   ready,
   metadataReady,
+  duration,
+  onTimeChange,
 }) {
   const [motionReduced, setMotionReduced] = useState(false);
   useEffect(() => {
@@ -39,7 +41,7 @@ export default function useVideoScrub({
       !metadataReady ||
       !section ||
       !video ||
-      !Number.isFinite(video.duration)
+      !Number.isFinite(duration)
     )
       return;
     let frame = 0,
@@ -52,7 +54,10 @@ export default function useVideoScrub({
       let lastSeek = -1;
       const syncFrame = () => {
         frame = 0;
+        if (disposed || document.hidden) return;
+        onTimeChange?.(target);
         if (disposed || document.hidden || video.error) return;
+        if (video.readyState < 2 || !Number.isFinite(video.duration)) return;
         const delta = Math.abs(video.currentTime - target);
         if (
           !video.seeking &&
@@ -78,29 +83,24 @@ export default function useVideoScrub({
       document.addEventListener("visibilitychange", resume);
       video.pause();
       if (media.matches) {
-        video.currentTime = Math.min(
-          video.duration - 0.045,
-          video.duration * 0.65,
-        );
+        target = Math.min(duration - 0.045, duration * 0.65);
+        onTimeChange?.(target);
+        if (video.readyState >= 2 && Number.isFinite(video.duration))
+          video.currentTime = target;
         return () => document.removeEventListener("visibilitychange", resume);
       }
       const tween = gsap.to(playhead, {
         progress: 1,
         ease: "none",
         onUpdate: () => {
-          target = videoTimeAt(
-            playhead.progress,
-            video.duration,
-            window.innerHeight,
-          );
+          target = videoTimeAt(playhead.progress, duration, window.innerHeight);
           queue();
         },
         scrollTrigger: {
           id: "long-realty-hero",
           trigger: section,
           start: "top top",
-          end: () =>
-            `+=${videoDistances(video.duration, window.innerHeight).total}`,
+          end: () => `+=${videoDistances(duration, window.innerHeight).total}`,
           pin: true,
           anticipatePin: 1,
           scrub: 0.65,
@@ -108,7 +108,7 @@ export default function useVideoScrub({
           onRefresh: () => {
             target = videoTimeAt(
               playhead.progress,
-              video.duration,
+              duration,
               window.innerHeight,
             );
             queue();
@@ -123,7 +123,7 @@ export default function useVideoScrub({
           trigger: section,
           start: "top top",
           end: () =>
-            `+=${videoDistances(video.duration, window.innerHeight).playback}`,
+            `+=${videoDistances(duration, window.innerHeight).playback}`,
           scrub: 0.65,
         },
       });
@@ -133,9 +133,9 @@ export default function useVideoScrub({
             id: "hero-description-transition",
             trigger: section,
             start: () =>
-              `top+=${videoDistances(video.duration, window.innerHeight).playback} top`,
+              `top+=${videoDistances(duration, window.innerHeight).playback} top`,
             end: () =>
-              `top+=${videoDistances(video.duration, window.innerHeight).total} top`,
+              `top+=${videoDistances(duration, window.innerHeight).total} top`,
             scrub: 0.65,
             invalidateOnRefresh: true,
           },
@@ -167,5 +167,13 @@ export default function useVideoScrub({
       cancelAnimationFrame(refreshFrame);
       context.revert();
     };
-  }, [sectionRef, videoRef, ready, metadataReady, motionReduced]);
+  }, [
+    sectionRef,
+    videoRef,
+    ready,
+    metadataReady,
+    motionReduced,
+    duration,
+    onTimeChange,
+  ]);
 }
