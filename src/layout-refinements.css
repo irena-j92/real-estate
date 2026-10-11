@@ -1,3 +1,29 @@
+/* Light canvases for services and advisers; keep brand-yellow accents. */
+.horizontal-services,
+.experts-section {
+  --paper: #1f2532;
+  --muted: #1f2532;
+  background: #d0d0d0;
+  color: #1f2532;
+  color-scheme: light;
+}
+.horizontal-services-top > p,
+.horizontal-services-top button,
+.horizontal-services-top button[aria-pressed="true"],
+.horizontal-services-top button:hover,
+.horizontal-service-panel figcaption,
+.horizontal-service-copy > p:not(.service-category),
+.horizontal-service-copy .text-link,
+.horizontal-services-bottom,
+.experts-section .partner-placeholder-logos {
+  color: #1f2532;
+}
+.experts-section .premium-button[data-variant="yellow"]:hover,
+.experts-section .premium-button[data-variant="yellow"]:focus-visible {
+  background: #e2e2e2;
+  color: #1f2532;
+}
+
 /* Portrait-led experts, split residences, compact services, and equal news cards. */
 .expert-intro {
   min-width: 0;
