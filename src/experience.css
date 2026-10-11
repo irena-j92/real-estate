@@ -24,13 +24,13 @@
     1.005 67%,
     1
   );
-  --display: "Instrument Sans", sans-serif;
+  --display: "Inter Tight", sans-serif;
   --serif: "Instrument Serif", Georgia, serif;
 }
 body {
   background: var(--ink);
   color: var(--paper);
-  font-family: "Instrument Sans", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 html {
   scroll-padding-top: 96px;
@@ -361,7 +361,7 @@ img {
   letter-spacing: -0.05em;
 }
 .loader-count small {
-  font-family: "Instrument Sans", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 11px;
   letter-spacing: 0.05em;
 }
@@ -424,7 +424,7 @@ img {
 }
 .nav-wordmark small {
   display: block;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 8px;
   letter-spacing: 0.14em;
   line-height: 1;
@@ -1360,7 +1360,7 @@ img {
   text-align: left;
 }
 .expert-card-name small {
-  font-family: "Instrument Sans", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 9px;
   letter-spacing: 0.1em;
   color: var(--gold);
@@ -1778,7 +1778,7 @@ img {
   font-size: 38px;
 }
 .footer-brand small {
-  font-family: "Instrument Sans", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   display: block;
   font-size: 9px;
   letter-spacing: 0.1em;

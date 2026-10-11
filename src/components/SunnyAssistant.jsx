@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { FiSun, FiX, FiSend } from "react-icons/fi";
+import { FiX, FiSend } from "react-icons/fi";
 import { suggestedPrompts } from "../data/sunnyPrompts";
 
 const WELCOME = {
@@ -153,7 +153,7 @@ export default function SunnyAssistant({ visible = true }) {
             {open ? (
               <FiX size={22} strokeWidth={1.25} />
             ) : (
-              <FiSun size={22} strokeWidth={1.25} />
+              <img className="sunny-logo" src="/assets/sun-logo.svg" alt="" width="26" height="26" />
             )}
           </button>
         </div>
@@ -169,7 +169,7 @@ export default function SunnyAssistant({ visible = true }) {
         >
           <div className="sunny-chat-header flex items-center justify-between px-5 py-4">
             <div className="flex items-center gap-2">
-              <FiSun className="text-yellow" />
+              <img className="sunny-logo" src="/assets/sun-logo.svg" alt="" width="24" height="24" />
               <div>
                 <p className="text-sm font-semibold leading-none">Sunny</p>
                 <p className="sunny-chat-subtitle text-[11px]">

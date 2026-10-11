@@ -11,7 +11,7 @@ export default {
         secondary: "#1f2532",
       },
       fontFamily: {
-        sans: ["'Instrument Sans'", "sans-serif"],
+        sans: ["'Inter Tight'", "sans-serif"],
         accent: ["'Instrument Serif'", "serif"],
       },
       maxWidth: {

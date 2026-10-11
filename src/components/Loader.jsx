@@ -20,10 +20,11 @@ export default function Loader({ onComplete }) {
       const update = () => {
         scope.querySelector("[data-loader-count]").textContent = String(
           Math.round(progress.value),
-        ).padStart(3, "0");
-        gsap.set("[data-loader-line]", { scaleX: progress.value / 100 });
+        ).padStart(2, "0");
       };
       if (reduced) {
+        progress.value = 100;
+        update();
         gsap.to(scope, {
           opacity: 0,
           duration: 0.15,
@@ -31,21 +32,12 @@ export default function Loader({ onComplete }) {
         });
         return;
       }
-      gsap.set(".loader-word", { yPercent: 110, rotate: 3 });
-      gsap.set(".loader-meta", { opacity: 0 });
       const opening = gsap.timeline({ defaults: { ease: "power3.out" } });
-      opening
-        .to(
-          ".loader-word",
-          { yPercent: 0, rotate: 0, stagger: 0.12, duration: 0.8 },
-          0,
-        )
-        .to(".loader-meta", { opacity: 1, stagger: 0.08, duration: 0.4 }, 0.15)
-        .to(
-          progress,
-          { value: 94, duration: 1.3, ease: "power2.inOut", onUpdate: update },
-          0.1,
-        );
+      opening.to(
+        progress,
+        { value: 94, duration: 1.3, ease: "power2.inOut", onUpdate: update },
+        0.1,
+      );
       const leave = () => {
         if (!alive || finish) return;
         clearTimeout(timeout);
@@ -57,17 +49,7 @@ export default function Loader({ onComplete }) {
         });
         finish
           .to(progress, { value: 100, duration: 0.22, onUpdate: update })
-          .to(
-            ".loader-word",
-            { yPercent: -115, rotate: -3, stagger: 0.06, duration: 0.5 },
-            0.2,
-          )
-          .to(".loader-meta", { opacity: 0, duration: 0.25 }, 0.2)
-          .to(
-            ".loader-shutter",
-            { yPercent: -105, stagger: 0.065, duration: 0.7 },
-            0.4,
-          )
+          .to(scope, { opacity: 0, duration: 0.5 }, "+=0.18")
           .set(scope, { visibility: "hidden" });
       };
       opening.eventCallback("onComplete", () => {
@@ -96,34 +78,18 @@ export default function Loader({ onComplete }) {
   }, []);
   return (
     <div ref={root} className="opening-loader" aria-hidden="true">
-      <div className="loader-shutters">
-        <div className="loader-shutter" />
-        <div className="loader-shutter" />
-        <div className="loader-shutter" />
-      </div>
-      <div className="loader-top loader-meta">
-        <span>LONG REALTY</span>
-        <span>Southern Arizona / A new perspective</span>
-      </div>
-      <div className="loader-type">
-        <span className="loader-mask">
-          <span className="loader-word">A new</span>
+      <div className="loader-lockup">
+        <img
+          className="loader-logo"
+          src="/assets/sun-logo.svg"
+          alt=""
+          width="211"
+          height="210.25"
+        />
+        <div className="loader-rule" />
+        <span className="loader-counter" data-loader-count>
+          00
         </span>
-        <span className="loader-mask">
-          <em className="loader-word">perspective.</em>
-        </span>
-      </div>
-      <div className="loader-bottom">
-        <div className="loader-meta">
-          <span>Opening a world of possibility</span>
-          <span className="loader-count">
-            <span data-loader-count>000</span>
-            <small> / 100</small>
-          </span>
-        </div>
-        <div className="loader-track">
-          <span data-loader-line />
-        </div>
       </div>
     </div>
   );
