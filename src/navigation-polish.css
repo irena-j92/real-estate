@@ -27,7 +27,8 @@ button,
   gap: 20px;
 }
 .menu-toggle,
-.header-search-button {
+.header-search-button,
+.sunny-launcher .sunny-toggle {
   width: var(--nav-control-size);
   height: var(--nav-control-size);
   min-height: var(--nav-control-size);
@@ -45,7 +46,8 @@ button,
   padding: 0;
   place-content: center;
 }
-.header-search-button {
+.header-search-button,
+.sunny-launcher .sunny-toggle {
   position: static;
   transform: none;
   opacity: 1;
@@ -55,20 +57,26 @@ button,
   color: var(--gold);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  border-radius: 0;
+  box-shadow: none;
+  transition:
+    border-color 0.25s var(--ease),
+    color 0.25s var(--ease);
 }
-.header-search-button:hover {
+.header-search-button:hover,
+.sunny-launcher .sunny-toggle:hover {
   background: transparent;
   border-color: var(--gold);
 }
 .experience-nav.is-scrolled {
-  background: #1b243b;
+  background: #1f2532;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
 
 /* Pale glass remains translucent; dark typography keeps the form readable. */
 .header-drawer {
-  color: #1b243b;
+  color: #1f2532;
   background: rgba(255, 255, 255, 0.68);
   backdrop-filter: blur(32px) saturate(110%);
   -webkit-backdrop-filter: blur(32px) saturate(110%);
@@ -76,7 +84,7 @@ button,
   color-scheme: light;
 }
 .header-drawer::backdrop {
-  background: #1b243b26;
+  background: #1f253226;
 }
 .header-drawer .menu-index {
   min-height: calc(100svh - 150px);
@@ -90,10 +98,10 @@ button,
   padding-block: 22px;
 }
 .header-drawer .menu-index nav a > small {
-  color: #1b243b99;
+  color: var(--gold);
 }
 .header-drawer .menu-index nav a:hover > span {
-  color: #725112;
+  color: var(--gold);
 }
 .drawer-close {
   width: 44px;
@@ -101,63 +109,63 @@ button,
   padding: 0;
   display: grid;
   place-items: center;
-  color: #1b243b;
+  color: #1f2532;
 }
 .drawer-close svg {
   width: 32px;
   height: 32px;
 }
 .drawer-close:hover {
-  color: #725112;
+  color: var(--gold);
 }
 .header-drawer .drawer-eyebrow,
 .search-help,
 .search-disclosure,
 .search-results small {
-  color: #1b243b99;
+  color: #1f253299;
 }
 .search-tabs {
-  border-color: #1b243b33;
+  border-color: #1f253233;
 }
 .search-tabs button {
-  color: #1b243b99;
+  color: #1f253299;
 }
 .search-tabs button:hover,
 .search-tabs button[aria-selected="true"] {
-  color: #1b243b;
+  color: #1f2532;
 }
 .search-tabs button[aria-selected="true"] {
-  border-color: #1b243b;
+  border-color: #1f2532;
 }
 .search-field label {
-  color: #1b243bcc;
+  color: #1f2532cc;
 }
 .search-field input,
 .search-field select,
 .search-field textarea {
-  color: #1b243b;
-  border-color: #1b243b55;
+  color: #1f2532;
+  border-color: #1f253255;
 }
 .search-field input::placeholder {
-  color: #1b243b99;
+  color: #1f253299;
 }
 .search-field select option {
-  color: #1b243b;
+  color: #1f2532;
   background: #fff;
 }
 .search-field input:focus,
 .search-field select:focus,
 .search-field textarea:focus {
-  border-color: #1b243b;
+  border-color: #1f2532;
 }
 .search-results button {
-  border-color: #1b243b33;
+  border-color: #1f253233;
 }
 .search-results button:hover {
-  color: #725112;
+  color: var(--gold);
 }
 .header-drawer :focus-visible {
-  outline-color: #725112;
+  outline-color: var(--gold);
 }
 
 /* Each horizontal panel reads as copy, then photograph, on every screen. */
@@ -250,26 +258,26 @@ main > section {
   opacity: 0.45;
 }
 .property-visual::after {
-  background: #1b243b4d;
+  background: #1f25324d;
 }
 .property-info {
-  background: #1b243be6;
+  background: #1f2532e6;
 }
 .expert-portrait-card::after {
   inset: auto 0 0;
   height: 100px;
-  background: #1b243be6;
+  background: #1f2532e6;
 }
 .offer-card-back::after {
-  background: #1b243b66;
+  background: #1f253266;
 }
 .property-badge {
-  background: #1b243b;
+  background: #1f2532;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
 .property-grid-card .property-grid-image::after {
-  background: #1b243b66;
+  background: #1f253266;
 }
 .premium-button {
   box-shadow: none;
@@ -300,7 +308,7 @@ main > section {
     font-size: 12px;
   }
   .property-info {
-    background: #1b243b;
+    background: #1f2532;
   }
 }
 @media (max-width: 480px) {

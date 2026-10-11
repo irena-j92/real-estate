@@ -41,6 +41,31 @@ export default function FeatureServices({ ready = true }) {
     scroll = useRef(null);
   const [active, setActive] = useState(0),
     [pinned, setPinned] = useState(false);
+  // Chapter positions follow the compact strip rather than viewport-sized slides.
+  const chapterOffset = (index) => {
+    const panels = track.current?.children;
+    if (!panels?.length || !viewport.current) return 0;
+    const distance = Math.max(
+      0,
+      track.current.scrollWidth - viewport.current.clientWidth,
+    );
+    return Math.min(
+      distance,
+      Math.max(0, panels[index].offsetLeft - panels[0].offsetLeft),
+    );
+  };
+  const chapterAt = (position) => {
+    let closest = 0,
+      difference = Infinity;
+    services.forEach((_, index) => {
+      const delta = Math.abs(position - chapterOffset(index));
+      if (delta < difference) {
+        closest = index;
+        difference = delta;
+      }
+    });
+    return closest;
+  };
   useEffect(() => {
     if (!ready) return;
     const media = gsap.matchMedia();
@@ -64,7 +89,12 @@ export default function FeatureServices({ ready = true }) {
             scrub: 0.8,
             invalidateOnRefresh: true,
             onUpdate: (self) =>
-              setActive(Math.round(self.progress * (services.length - 1))),
+              setActive(
+                chapterAt(
+                  self.progress *
+                    (track.current.scrollWidth - viewport.current.clientWidth),
+                ),
+              ),
           },
         });
         scroll.current = tween.scrollTrigger;
@@ -93,12 +123,16 @@ export default function FeatureServices({ ready = true }) {
       window.scrollTo({
         top:
           trigger.start +
-          ((trigger.end - trigger.start) * i) / (services.length - 1),
+          ((trigger.end - trigger.start) * chapterOffset(i)) /
+            Math.max(
+              1,
+              track.current.scrollWidth - viewport.current.clientWidth,
+            ),
         behavior,
       });
     } else
       viewport.current.scrollTo({
-        left: i * viewport.current.clientWidth,
+        left: chapterOffset(i),
         behavior,
       });
   };
@@ -129,17 +163,7 @@ export default function FeatureServices({ ready = true }) {
         className="horizontal-services-viewport"
         onScroll={() => {
           if (!scroll.current && viewport.current.clientWidth)
-            setActive(
-              Math.max(
-                0,
-                Math.min(
-                  services.length - 1,
-                  Math.round(
-                    viewport.current.scrollLeft / viewport.current.clientWidth,
-                  ),
-                ),
-              ),
-            );
+            setActive(chapterAt(viewport.current.scrollLeft));
         }}
       >
         <div ref={track} className="horizontal-services-track">

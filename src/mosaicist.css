@@ -1,9 +1,9 @@
 /* Architectural gallery edition: inspiration from Mosaicist's visual rhythm. */
 :root {
   --display: "Instrument Sans", sans-serif;
-  --ink: #1b243b;
-  --deep: #1b243b;
-  --panel: #1b243b;
+  --ink: #1f2532;
+  --deep: #1f2532;
+  --panel: #1f2532;
 }
 body {
   background: var(--ink);
@@ -50,7 +50,7 @@ body {
 }
 .experience-nav.is-scrolled {
   padding-block: 16px;
-  background: #1b243b;
+  background: #1f2532;
 }
 .nav-wordmark {
   grid-column: 2;
@@ -167,7 +167,7 @@ body {
   bottom: 20px;
 }
 .hero-scrim {
-  background: #1b243b66;
+  background: #1f253266;
 }
 .hero-final-caption {
   padding-inline: 25px;
@@ -199,7 +199,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: #1b243b66;
+  background: #1f253266;
   z-index: -1;
 }
 .manifesto-content {
@@ -290,7 +290,7 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: #1b243b66;
+  background: #1f253266;
 }
 .property-visual > img {
   object-position: center;
@@ -299,7 +299,7 @@ body {
   left: 32px;
   top: 32px;
   font-size: 12px;
-  background: #1b243b99;
+  background: #1f253299;
   backdrop-filter: blur(8px);
 }
 .save-property {
@@ -840,7 +840,7 @@ body {
     padding: 90px 20px 110px;
   }
   .architectural-manifesto::before {
-    background: #1b243b66;
+    background: #1f253266;
   }
   .manifesto-backdrop img {
     object-position: 65%;
@@ -891,7 +891,7 @@ body {
     height: 460px;
   }
   .property-visual::after {
-    background: #1b243b66;
+    background: #1f253266;
   }
   .property-info {
     position: relative;

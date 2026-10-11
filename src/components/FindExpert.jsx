@@ -44,12 +44,6 @@ function OrbitStack({ index, setIndex }) {
               aria-label={`Illustrative portrait of ${agent.name}`}
               style={{ backgroundPosition: `${i * 25}% 15%` }}
             />
-            {active && (
-              <span className="expert-card-name">
-                {agent.name}
-                <small>YOUR LOCAL PERSPECTIVE</small>
-              </span>
-            )}
           </button>
         );
       })}
@@ -78,7 +72,7 @@ export default function FindExpert() {
     <section id="experts" className="premium-section experts-section">
       <div className="site-container">
         <div className="experts-layout">
-          <div data-reveal>
+          <div data-reveal className="expert-intro">
             <p className="section-kicker">04 / The human connection</p>
             <h2 className="sr-only">Meet your local expert</h2>
             <p className="body-copy expert-description">
@@ -86,6 +80,12 @@ export default function FindExpert() {
               stories, and what makes a place feel like home. Find the person
               who sees your vision.
             </p>
+            <Button className="mt-7" variant="yellow" onClick={connect}>
+              Let’s connect
+            </Button>
+          </div>
+          <div data-reveal className="expert-gallery">
+            <OrbitStack index={index} setIndex={setIndex} />
             <div className="expert-selection">
               <button
                 type="button"
@@ -108,12 +108,6 @@ export default function FindExpert() {
                 <FiChevronRight />
               </button>
             </div>
-            <Button className="mt-7" variant="yellow" onClick={connect}>
-              Let’s connect
-            </Button>
-          </div>
-          <div data-reveal>
-            <OrbitStack index={index} setIndex={setIndex} />
             <p className="expert-count">
               0{((index - firstExpert + agents.length) % agents.length) + 1}{" "}
               <span className="mx-3">/</span> 0{agents.length}

@@ -45,7 +45,6 @@ export default function BlogSection() {
       previousFocus?.focus();
     };
   }, [selected]);
-  const lead = posts[0];
   return (
     <section id="journal" className="premium-section journal-section">
       <div className="site-container">
@@ -60,63 +59,30 @@ export default function BlogSection() {
             Places, people, and ideas for your next chapter.
           </p>
         </div>
-        <div className="journal-layout">
-          <article data-reveal className="journal-feature">
-            <button
-              className="journal-feature-image"
-              data-cursor="READ"
-              type="button"
-              onClick={() => setSelected(0)}
-              aria-label={`Read ${lead.title}`}
-            >
-              <img
-                src={lead.image}
-                alt="A home framed by mature trees"
-                loading="lazy"
-              />
-            </button>
-            <div className="eyebrow">{categories[0]} · 3 min read</div>
-            <h3>{lead.title}</h3>
-            <p>{lead.description}</p>
-            <button
-              className="text-link"
-              type="button"
-              onClick={() => setSelected(0)}
-            >
-              Read the story
-            </button>
-          </article>
-          <div>
-            {posts.slice(1).map((post, i) => (
-              <article data-reveal key={post.id} className="journal-small">
-                <button
-                  className="journal-small-image"
-                  data-cursor="READ"
-                  type="button"
-                  onClick={() => setSelected(i + 1)}
-                  aria-label={`Read ${post.title}`}
-                >
-                  <img src={post.image} alt={post.title} loading="lazy" />
-                </button>
-                <div>
-                  <p className="eyebrow">{categories[i + 1]}</p>
-                  <h3>{post.title}</h3>
-                  <button
-                    className="text-link"
-                    type="button"
-                    onClick={() => setSelected(i + 1)}
-                  >
-                    Read the story
-                  </button>
-                </div>
-              </article>
-            ))}
-            <p className="body-copy" data-reveal>
-              Every neighborhood has a story.
-              <br />
-              Let’s help you find yours.
-            </p>
-          </div>
+        <div className="journal-layout journal-grid">
+          {posts.map((post, index) => (
+            <article data-reveal key={post.id} className="journal-card">
+              <button
+                className="journal-card-image"
+                data-cursor="READ"
+                type="button"
+                onClick={() => setSelected(index)}
+                aria-label={`Read ${post.title}`}
+              >
+                <img src={post.image} alt={post.title} loading="lazy" />
+              </button>
+              <p className="eyebrow">{categories[index]} · 3 min read</p>
+              <h3>{post.title}</h3>
+              <p className="journal-card-description">{post.description}</p>
+              <button
+                className="text-link"
+                type="button"
+                onClick={() => setSelected(index)}
+              >
+                Read the story
+              </button>
+            </article>
+          ))}
         </div>
       </div>
       {selected !== null && (

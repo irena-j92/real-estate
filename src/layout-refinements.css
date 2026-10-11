@@ -1,0 +1,300 @@
+/* Portrait-led experts, split residences, compact services, and equal news cards. */
+.expert-intro {
+  min-width: 0;
+}
+.expert-gallery {
+  min-width: 0;
+}
+.expert-gallery .expert-selection {
+  width: min(430px, 100%);
+  margin: 18px auto 24px;
+  justify-content: center;
+  gap: 20px;
+}
+.expert-current {
+  text-align: center;
+}
+.expert-gallery .icon-button {
+  width: 44px;
+  height: 44px;
+}
+.expert-current strong {
+  font: 400 30px / 1.1 var(--serif);
+}
+.expert-current p {
+  margin-top: 8px;
+}
+.expert-portrait-card::after {
+  display: none;
+}
+
+/* Sunny shares the header controls and the same pale glass as the drawers. */
+.sunny-dialog {
+  background: rgba(255, 255, 255, 0.68) !important;
+  backdrop-filter: blur(32px) saturate(110%);
+  -webkit-backdrop-filter: blur(32px) saturate(110%);
+  color: var(--ink);
+  border-color: #1f253226 !important;
+  border-radius: 0;
+  box-shadow: none;
+  color-scheme: light;
+}
+.sunny-chat-header {
+  background: transparent;
+  color: var(--ink);
+}
+.sunny-chat-subtitle {
+  color: #1f253299;
+}
+.sunny-dialog .sunny-message-assistant {
+  background: #ffffff4d;
+  color: var(--ink);
+}
+.sunny-dialog button:not([type="submit"]) {
+  color: var(--ink);
+  border-color: #1f253233;
+}
+.sunny-dialog .sunny-suggestion {
+  text-transform: none;
+  letter-spacing: normal;
+  min-height: 44px;
+  background: transparent;
+}
+.sunny-dialog .sunny-suggestion:hover {
+  background: #f4ba5126;
+  border-color: var(--gold);
+}
+.sunny-dialog .sunny-chat-close:hover {
+  color: var(--gold);
+}
+.sunny-dialog input {
+  background: #ffffff4d;
+  color: var(--ink);
+  border-color: #1f253233;
+}
+.sunny-dialog input::placeholder {
+  color: #1f253299;
+}
+.sunny-dialog input:focus {
+  border-color: var(--gold);
+}
+
+/* A vertical photograph at left; the entire listing sits on a solid right panel. */
+.featured-property {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  width: min(1440px, calc(100% - 64px));
+  margin-inline: auto;
+  min-height: 0;
+  align-items: stretch;
+  background: var(--ink);
+}
+.featured-property .property-visual {
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 4 / 5;
+}
+.featured-property .property-visual::after {
+  display: none;
+}
+.featured-property .property-info {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 34px;
+  padding: 50px clamp(32px, 4.5vw, 72px);
+  background: var(--ink);
+}
+.featured-property .property-title {
+  font-size: clamp(38px, 4vw, 62px);
+  max-width: 600px;
+}
+.featured-property .property-details {
+  justify-self: auto;
+  width: 100%;
+  max-width: none;
+  margin-top: 0;
+}
+.featured-property .property-price {
+  font-size: 42px;
+}
+.featured-property .property-actions {
+  align-items: flex-start;
+}
+.featured-property .property-actions .premium-button {
+  width: 100%;
+}
+.featured-property .property-actions .text-link {
+  align-self: flex-start;
+  text-align: left;
+}
+.featured-property .property-photo-caption {
+  top: auto;
+  bottom: 24px;
+  left: 24px;
+  right: auto;
+  padding: 10px 14px;
+  background: #1f2532b3;
+}
+
+/* Halve photo dimensions and keep every horizontal text/photo gap at 80px. */
+.horizontal-services {
+  --service-gap: 80px;
+  --service-copy-width: clamp(320px, 38vw, 550px);
+  --service-photo-width: calc((100vw - 64px - 7vw) / 4);
+}
+.horizontal-services-track {
+  width: max-content;
+  gap: var(--service-gap);
+  padding-inline: 32px;
+}
+.horizontal-service-panel {
+  flex: 0 0 auto;
+  width: auto;
+  grid-template-columns: var(--service-copy-width) var(--service-photo-width);
+  gap: var(--service-gap);
+  padding: 0;
+}
+.horizontal-service-copy {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+.horizontal-service-panel figure {
+  width: 100%;
+  height: calc(50% + 20px);
+  overflow: visible;
+}
+.horizontal-service-panel img {
+  height: calc(100% - 40px);
+}
+
+/* All three news articles use the same columns, image ratio, and content hierarchy. */
+.journal-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  align-items: stretch;
+}
+.journal-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.journal-card-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 12 / 5;
+  overflow: hidden;
+}
+.journal-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.journal-card-image:hover img {
+  transform: scale(1.045);
+}
+.journal-card > .eyebrow {
+  font-size: 12px;
+  color: var(--gold);
+  margin-top: 24px;
+}
+.journal-card h3 {
+  font: 400 clamp(28px, 2.6vw, 38px) / 1.12 var(--serif);
+  letter-spacing: -0.025em;
+  margin-top: 16px;
+}
+.journal-card-description {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin-block: 20px 24px;
+}
+.journal-card .text-link {
+  margin-top: auto;
+  font-size: 13px;
+}
+.journal-section,
+.contact-section,
+.contact-heading {
+  border: 0;
+}
+
+@media (max-width: 1100px) {
+  .horizontal-services {
+    --service-photo-width: calc((100vw - 64px - 4vw) / 4);
+  }
+  .featured-property .property-info {
+    padding: 32px;
+    gap: 25px;
+  }
+  .featured-property .property-title {
+    font-size: 42px;
+  }
+  .journal-grid {
+    gap: 24px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1100px) {
+  .horizontal-services {
+    min-height: 740px;
+  }
+}
+@media (max-width: 899px) {
+  .featured-property {
+    grid-template-columns: 1fr;
+    width: calc(100% - 40px);
+  }
+  .featured-property .property-visual {
+    width: 100%;
+    max-height: none;
+  }
+  .featured-property .property-info {
+    padding: 32px 0 12px;
+  }
+  .featured-property .property-title {
+    font-size: clamp(36px, 7vw, 56px);
+  }
+}
+@media (max-width: 767px) {
+  .horizontal-services-track {
+    padding-inline: 20px;
+  }
+  .horizontal-service-panel {
+    width: calc(100vw - 40px);
+    gap: var(--service-gap);
+    padding: 0;
+  }
+  .horizontal-service-panel figure {
+    width: 50%;
+    height: 160px;
+  }
+  .horizontal-service-panel img {
+    height: 130px;
+  }
+  .horizontal-service-panel figcaption {
+    height: 30px;
+  }
+  .journal-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .journal-card h3 {
+    font-size: 34px;
+  }
+  .expert-gallery .expert-selection {
+    gap: 12px;
+  }
+  .expert-current strong {
+    font-size: 27px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .journal-card-image img {
+    transition: none;
+  }
+}
