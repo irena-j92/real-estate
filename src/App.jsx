@@ -20,7 +20,7 @@ import ScrollRail from "./components/experience/ScrollRail";
 import useExperienceMotion from "./hooks/useExperienceMotion";
 import useInitialAnchor from "./hooks/useInitialAnchor";
 export default function App() {
-  const Hero = new URLSearchParams(window.location.search).get("hero") === "video" ? VideoHero : VillaHero;
+  const Hero = new URLSearchParams(window.location.search).get("hero") === "3d" ? VillaHero : VideoHero;
   const perspective = window.location.pathname.replace(/\/$/, "") === "/our-perspective";
   const [ready, setReady] = useState(perspective),
     root = useRef(null);
