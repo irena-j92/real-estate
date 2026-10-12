@@ -160,30 +160,6 @@ export default function FeatureServices({ ready = true }) {
     );
     return () => media.revert();
   }, [ready]);
-  const select = (i) => {
-    setActive(i);
-    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
-      .matches
-      ? "instant"
-      : "smooth";
-    if (scroll.current) {
-      const trigger = scroll.current;
-      window.scrollTo({
-        top:
-          trigger.start +
-          ((trigger.end - trigger.start) * chapterOffset(i)) /
-            Math.max(
-              1,
-              track.current.scrollWidth - viewport.current.clientWidth,
-            ),
-        behavior,
-      });
-    } else
-      viewport.current.scrollTo({
-        left: chapterOffset(i),
-        behavior,
-      });
-  };
   return (
     <section
       ref={root}
@@ -193,19 +169,7 @@ export default function FeatureServices({ ready = true }) {
     >
       <div className="horizontal-services-top">
         <p>03 / A considered approach</p>
-        <nav aria-label="Service chapters">
-          {services.map((service, i) => (
-            <HoverControl as="button"
-              key={service.short}
-              type="button"
-              aria-pressed={active === i}
-              aria-label={`Show ${service.short}`}
-              onClick={() => select(i)}
-            >
-              <span className="service-chapter-dot" aria-hidden="true" />
-            </HoverControl>
-          ))}
-        </nav>
+
       </div>
       <div
         ref={viewport}
@@ -220,8 +184,6 @@ export default function FeatureServices({ ready = true }) {
             <article
               key={service.short}
               className="horizontal-service-panel"
-              inert={active !== i}
-              aria-hidden={active !== i}
             >
               <div className="horizontal-service-copy">
                 <p className="service-category">{service.short}</p>

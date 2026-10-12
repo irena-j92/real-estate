@@ -14,6 +14,7 @@ import {
 } from "react-icons/fi";
 import { properties } from "../data/properties";
 import Button from "./ui/Button";
+import { useAccount } from "../state/AccountContext";
 
 const SECONDS = 8;
 function inquire(property, offer = false) {
@@ -31,12 +32,14 @@ function inquire(property, offer = false) {
   });
 }
 function SaveButton({ property, saved, toggle }) {
+  const { pending, loading } = useAccount();
   return (
     <HoverControl as="button"
       type="button"
       className="save-property"
       aria-label={`${saved ? "Unsave" : "Save"} ${property.title}`}
       aria-pressed={saved}
+      disabled={loading || pending.includes(property.id)}
       onClick={() => toggle(property.id)}
     >
       <FiHeart size={18} fill={saved ? "currentColor" : "none"} />
@@ -103,18 +106,11 @@ function SingleView({ index, setIndex, saved, toggle }) {
             alt={property.title}
             loading="lazy"
           />
-          <span className="property-badge">Selected residence</span>
           <SaveButton
             property={property}
             saved={saved.includes(property.id)}
             toggle={toggle}
           />
-          <div className="property-photo-caption">
-            <span>Southern Arizona</span>
-            <span>
-              0{index + 1} / 0{properties.length}
-            </span>
-          </div>
         </div>
         <div key={`${property.id}-info`} className="property-info view-enter">
           <div className="property-summary">
@@ -251,6 +247,7 @@ function GridView({ saved, toggle, select }) {
   );
 }
 export default function TrendingProperties() {
+  const { saved, toggle } = useAccount();
   const [view, setView] = useState("single");
   const [index, setIndex] = useState(0);
   useEffect(() => {
@@ -266,30 +263,10 @@ export default function TrendingProperties() {
     window.addEventListener("realty-select-property", receive);
     return () => window.removeEventListener("realty-select-property", receive);
   }, []);
-  const [saved, setSaved] = useState(() => {
-    try {
-      return JSON.parse(
-        localStorage.getItem("long-realty-saved") || "[]",
-      ).filter((id) => properties.some((p) => p.id === id));
-    } catch {
-      return [];
-    }
-  });
-  useEffect(() => {
-    try {
-      localStorage.setItem("long-realty-saved", JSON.stringify(saved));
-    } catch {
-      /* Storage can be unavailable in private browsing. */
-    }
-  }, [saved]);
   useEffect(() => {
     const frame = requestAnimationFrame(() => ScrollTrigger.refresh());
     return () => cancelAnimationFrame(frame);
   }, [view, index]);
-  const toggle = (id) =>
-    setSaved((list) =>
-      list.includes(id) ? list.filter((item) => item !== id) : [...list, id],
-    );
   const select = (i) => {
     setIndex(i);
     setView("single");

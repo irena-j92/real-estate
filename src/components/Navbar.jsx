@@ -4,6 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import gsap from "gsap";
 import LanguageSelector from "./LanguageSelector";
 import SearchOverlay from "./SearchOverlay";
+import AccountMenu from "./AccountMenu";
 const links = [
   ["01", "The residences", "#trending"],
   ["02", "Our perspective", "#about"],
@@ -135,9 +136,9 @@ export default function Navbar({ ready = true }) {
             ))}
           </span>
         </HoverControl>
-        <HoverControl as="a" className="nav-wordmark" href="#top" aria-label="Sunter Realty home">
+        <a className="nav-wordmark" data-no-hover href="#top" aria-label="Sunter Realty home">
           Sunter<span>Realty</span>
-        </HoverControl>
+        </a>
         <div className="header-right">
           <LanguageSelector />
           <HoverControl as="button"
@@ -151,6 +152,7 @@ export default function Navbar({ ready = true }) {
           >
             <FiSearch size={22} strokeWidth={1.25} aria-hidden="true" />
           </HoverControl>
+          <AccountMenu onOpen={() => setActive(null)} />
         </div>
       </header>
       {active && (
@@ -166,7 +168,8 @@ export default function Navbar({ ready = true }) {
           }}
           onClick={backdrop}
         >
-          <HoverControl as="button"
+          <button
+            data-no-hover
             className="drawer-close"
             type="button"
             onClick={() => setActive(null)}
@@ -181,7 +184,7 @@ export default function Navbar({ ready = true }) {
                 strokeWidth="0.8"
               />
             </svg>
-          </HoverControl>
+          </button>
           {active === "search" ? (
             <SearchOverlay onNavigate={navigate} />
           ) : (

@@ -23,7 +23,8 @@ export default function ContactSection() {
     setSent(true);
   };
   return (
-    <section id="contact" className="premium-section contact-section">
+    <section id="contact" className="premium-section contact-section contact-photographic">
+      <img className="contact-background" src="/assets/properties-4.jpg" alt="" loading="lazy" aria-hidden="true" />
       <div className="site-container">
         <div className="contact-heading" data-reveal>
           <span className="section-kicker">07 / Your next chapter</span>

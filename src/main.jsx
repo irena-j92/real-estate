@@ -9,10 +9,12 @@ import "./layout-refinements.css";
 import "./brand-refinements.css";
 import "./final-polish.css";
 import "./editorial-refinements.css";
+import "./october-refinements.css";
+import { AccountProvider } from "./state/AccountContext";
 import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
+    <AccountProvider><App /></AccountProvider>
   </StrictMode>,
 );

@@ -33,7 +33,7 @@ export default function useExperienceMotion(rootRef, ready) {
     const roll = (event, entered) => {
       if (reduced.matches || !fine.matches) return;
       const control = event.target.closest?.("a, button");
-      if (!control || !root.contains(control) || control.disabled ||
+      if (!control || !root.contains(control) || control.disabled || control.hasAttribute("data-no-hover") ||
           (event.relatedTarget instanceof window.Node && control.contains(event.relatedTarget))) return;
       const faces = [...control.querySelectorAll(".hover-roll-track")];
       if (!faces.length) return;
@@ -66,33 +66,7 @@ export default function useExperienceMotion(rootRef, ready) {
             reveal.observe(el);
           }
         });
-        root.querySelectorAll('[data-magnetic="true"]').forEach((el) => {
-          if (el.dataset.magnetReady || reduced.matches || !fine.matches)
-            return;
-          el.dataset.magnetReady = "true";
-          const x = gsap.quickTo(el, "x", {
-              duration: 0.45,
-              ease: "power3.out",
-            }),
-            y = gsap.quickTo(el, "y", { duration: 0.45, ease: "power3.out" });
-          const move = (e) => {
-            const b = el.getBoundingClientRect();
-            x((e.clientX - b.left - b.width / 2) * 0.1);
-            y((e.clientY - b.top - b.height / 2) * 0.1);
-          };
-          const leave = () => {
-            x(0);
-            y(0);
-          };
-          el.addEventListener("pointermove", move);
-          el.addEventListener("pointerleave", leave);
-          cleanups.push(() => {
-            el.removeEventListener("pointermove", move);
-            el.removeEventListener("pointerleave", leave);
-            delete el.dataset.magnetReady;
-            gsap.killTweensOf(el);
-          });
-        });
+
       };
       register();
       const observer = new MutationObserver(register);

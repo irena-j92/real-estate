@@ -47,13 +47,8 @@ export default function BlogSection() {
         <div className="section-heading" data-reveal>
           <div>
             <p className="section-kicker">06 / The local edit</p>
-            <h2 className="section-title">
-              Life, through a <em>different lens.</em>
-            </h2>
+            <h2 className="section-title">Latest Posts</h2>
           </div>
-          <p className="body-copy">
-            Places, people, and ideas for your next chapter.
-          </p>
         </div>
         <div className="journal-layout journal-grid">
           {posts.map((post, index) => (
