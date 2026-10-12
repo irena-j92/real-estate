@@ -19,6 +19,16 @@ async function account(env, visitor) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    // Sites' hosted asset binding does not inherit Wrangler's SPA fallback.
+    // Serve the application shell explicitly for each supported page URL.
+    if (["/", "/index.html", "/our-perspective", "/our-perspective/"].includes(url.pathname) && ["GET", "HEAD"].includes(request.method)) {
+      const assetUrl = new URL(request.url);
+      assetUrl.pathname = "/index.html";
+      const shell = await env.ASSETS.fetch(new Request(assetUrl, request));
+      const response = new Response(shell.body, shell);
+      response.headers.set("Cache-Control", "no-cache, must-revalidate");
+      return response;
+    }
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
     const visitor = identity(request);
     if (!visitor) return json({ error: "Sign in to use your account." }, 401);
