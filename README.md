@@ -1,49 +1,32 @@
-# Long Realty — Architectural Gallery
+# Sunter Realty — A Different Perspective on Home
 
-A cinematic React portfolio concept for Long Realty, with midnight blue surfaces, signal yellow accents, oversized editorial typography, and the original scroll-controlled video hero.
+An independent real estate portfolio concept built with React, Vite, GSAP and a Sites Worker. The design pairs #1F2532 navy with #F4BA51 yellow, Inter Tight Regular and Instrument Serif.
 
-## Run locally
+## Pages
+
+- `/`: the original scroll-controlled hero video, description, properties, buying/selling/relocation, experts, offers, history, latest posts and contact.
+- `/our-perspective`: the company story on a yellow canvas, including the landing-page description, guiding principles and personal approach.
+
+Menu and footer navigation link to the company page and four existing homepage sections. The language picker is removed.
+
+## Development
 
 ```sh
 npm ci
 npm run dev
-```
-
-## Production build
-
-```sh
-npm run lint
 npm run build
-npm run preview
 ```
 
-## Experience
+Vite development serves the frontend. Account API routes require the Sites runtime identity and D1 binding; an ordinary Vite-only preview does not provide those services.
 
-- Kinetic GSAP opening sequence with masked typography, counter, and three staggered shutters.
-- Preserved original video asset and pinned playback/final-frame hold, with smoothed, coalesced video seeks.
-- Oversized masked headings, blue glass navigation, a full-screen editorial menu, and a contextual yellow cursor on fine-pointer devices.
-- Featured listing carousel and two-column property grid, with mobile navigation, pause controls, and locally saved favorites.
-- Property and adviser inquiries prefill the contact form.
-- Layered, selectable adviser portraits and service accordion.
-- Editorial stories open in keyboard-accessible dialogs.
-- IntersectionObserver section reveals, restrained magnetic interaction, and reduced-motion alternatives.
-- All in-page property, editorial, and service photos are bundled under `public/assets`; source URLs are recorded in `photo-sources.json`.
-- Adviser portraits are AI-generated illustrations of fictional people.
+The build emits the client in `dist/client` and Worker in `dist/server`. Sites handles authentication, provisions the declared `DB` binding and applies the schema migration in `drizzle/`.
 
-The site is an independent portfolio concept, not a live brokerage service. Properties and advisers are illustrative. The inquiry form demonstrates the interface and does not send messages. Sunny uses local scripted responses and does not connect to an AI or CRM service. Google Translate and Google Fonts require access to their external services.
+## Account behavior
 
-## Styling and content
+The account menu exposes My Profile, Saved, Settings and Log out. Saved properties and profile/preferences are persisted per authenticated visitor. Property IDs remain stable when display names change, preserving existing saved homes. Mutations require a same-origin request and authorize records from server-provided identity.
 
-`src/experience.css` defines the base visual system; `src/mosaicist.css` applies the architectural gallery edition and its responsive layouts. The earlier `src/premium.css` is retained as inactive source history. Property, adviser, service, and editorial content is stored in `src/data`.
+## Content and assets
 
-Read [the design blueprint](docs/DESIGN_BLUEPRINT.md) for the palette, typography, preloader timeline, scroll mechanics, section-by-section source map, and validation limits.
+All homes, advisers and company milestones are illustrative portfolio content. The history is a draft Sunter brand narrative; it does not borrow real brokerage sales figures or rankings. The contact form demonstrates a message flow and does not send messages. Sunny provides scripted local guidance. Social tiles currently link to platform homepages until brand profile URLs are supplied.
 
-The existing components for unused sections remain in the source for reference; the active homepage sequence is defined in `src/App.jsx`.
-
-## Mosaicist-inspired edition
-
-Full-bleed architectural manifesto, a centered minimal header, panoramic residence presentation, native-scroll service chapters with a sticky photographic stage, and a monumental closing invitation. The original hero film and scrub mapping remain unchanged. See [the reference translation](docs/MOSAICIST_DIRECTION.md).
-
-## Phase one refinements
-
-Instrument Sans / Instrument Serif, updated yellow `#F4BA51`, split white glass search and menu panels, an outlined circle action, a solid-blue scroll-fill description, and horizontal services. The original film and its final hold are preserved; the hold now drives the background transition. Sunny appears only after the hero leaves the screen. See [the implementation notes](docs/PHASE_ONE_REFINEMENTS.md).
+The hero video and scroll mechanics are preserved. The contact image is the supplied `public/assets/contact-img.jpg`; other bundled imagery is stored in `public/assets`. Reference sections use a four-column history timeline, responsive native scrolling and a photographic contact section with a glass form. Reduced-motion and keyboard interactions are supported.

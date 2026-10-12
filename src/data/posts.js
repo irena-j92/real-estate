@@ -1,26 +1,26 @@
 export const posts = [
   {
-    id: "buying-in-tucson-2026",
+    id: "reading-a-neighborhood-2026",
     date: "Jul 08, 2026",
-    title: "What to Know Before Buying in the Catalina Foothills",
+    title: "How to Read a Neighborhood Before You Buy",
     description:
-      "Elevation, view corridors, and lot orientation all shape value here. A quick guide to reading the foothills market before you make an offer.",
+      "Beyond the address: light, everyday rhythms, and the small details that help you recognize the right place.",
     image: "/assets/posts-1.jpg",
   },
   {
     id: "desert-modern-design",
     date: "Jun 22, 2026",
-    title: "The Rise of Desert Modern Architecture in Southern Arizona",
+    title: "Modern Architecture, Made for Living",
     description:
-      "Clean lines, rammed earth, and passive cooling — how Tucson's newest builds are reinterpreting the desert vernacular.",
+      "Courtyards, natural materials, and thoughtful light — the design decisions that turn striking architecture into a welcoming home.",
     image: "/assets/posts-2.jpg",
   },
   {
-    id: "relocating-to-tucson",
+    id: "the-art-of-a-new-beginning",
     date: "Jun 03, 2026",
-    title: "Relocating to Tucson: A Neighborhood-by-Neighborhood Primer",
+    title: "The Art of a New Beginning",
     description:
-      "From the Foothills to Sam Hughes, where you land shapes your daily life. Here's how our agents match buyers to blocks.",
+      "A new neighborhood is more than a new address. Discover how personal guidance makes settling in feel familiar.",
     image: "/assets/posts-3.jpg",
   },
 ];

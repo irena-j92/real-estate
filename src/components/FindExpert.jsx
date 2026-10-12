@@ -4,10 +4,10 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { agents } from "../data/agents";
 import Button from "./ui/Button";
 const specialties = [
-  "Catalina Foothills & luxury homes",
-  "Central Tucson & first homes",
-  "Oro Valley & family living",
-  "Relocation & desert communities",
+  "Distinctive architecture & luxury homes",
+  "City living & first homes",
+  "Neighborhoods & family living",
+  "Relocation & new beginnings",
   "Seller representation & estates",
 ];
 

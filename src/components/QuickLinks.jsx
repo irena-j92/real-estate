@@ -6,7 +6,7 @@ const CARDS = [
   {
     title: "Market Trends",
     description:
-      "Quarterly data on pricing, inventory, and days-on-market across every Southern Arizona submarket.",
+      "Quarterly data on pricing, inventory, and days-on-market across every the communities we serve submarket.",
     image:
       "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80",
   },

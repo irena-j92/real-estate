@@ -114,7 +114,7 @@ function SingleView({ index, setIndex, saved, toggle }) {
         </div>
         <div key={`${property.id}-info`} className="property-info view-enter">
           <div className="property-summary">
-            <p className="eyebrow">{property.tag} / Tucson, Arizona</p>
+            <p className="eyebrow">{property.tag} / {property.location}</p>
             <h3 className="property-title">{property.title}</h3>
             <p className="property-address">
               <FiMapPin size={15} />
@@ -260,6 +260,8 @@ export default function TrendingProperties() {
         setView("single");
       }
     };
+    const requested = new URLSearchParams(window.location.search).get("property");
+    if (requested) receive({ detail: requested });
     window.addEventListener("realty-select-property", receive);
     return () => window.removeEventListener("realty-select-property", receive);
   }, []);

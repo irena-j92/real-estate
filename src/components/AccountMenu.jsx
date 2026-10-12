@@ -42,6 +42,7 @@ export default function AccountMenu({ onOpen }) {
   };
   const chooseHome = id => {
     setPanel(null);
+    if (!document.getElementById("trending")) { window.location.assign(`/?property=${encodeURIComponent(id)}#trending`); return; }
     window.dispatchEvent(new CustomEvent("realty-select-property", { detail: id }));
     requestAnimationFrame(() => document.getElementById("trending")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" }));
   };
@@ -69,7 +70,7 @@ export default function AccountMenu({ onOpen }) {
         </article>)}
       </> : <form onSubmit={submit}>
         {panel === "profile" ? <><p className="account-email">{user.email}</p><label>Display name<input value={name} onChange={event => setName(event.target.value)} maxLength={100} autoComplete="name" required /></label></> : <>
-          <label>Preferred area<input value={area} onChange={event => setArea(event.target.value)} maxLength={120} placeholder="e.g. Catalina Foothills" /></label>
+          <label>Preferred area<input value={area} onChange={event => setArea(event.target.value)} maxLength={120} placeholder="e.g. a city or neighborhood" /></label>
           <label className="check-label"><input type="checkbox" checked={alerts} onChange={event => setAlerts(event.target.checked)} />Remember my interest in new property alerts</label>
           <p className="account-email">Your preferences are saved with your account.</p>
         </>}

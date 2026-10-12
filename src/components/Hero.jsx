@@ -62,7 +62,7 @@ export default function Hero({ ready = false }) {
       id="top"
       ref={sectionRef}
       className="cinematic-hero"
-      aria-label="Sunter Realty Southern Arizona"
+      aria-label="Sunter Realty — remarkable homes, personal guidance"
     >
       <img
         className="hero-fallback"

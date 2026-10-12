@@ -1,0 +1,135 @@
+/* Reference translation: sharp edges, serif display, brand-yellow story canvas. */
+.cinematic-hero { --hero-copy-top: 110px; }
+.cinematic-hero h1 { position: absolute; top: var(--hero-copy-top); left: 50%; transform: translateX(-50%); width: calc(100% - 360px); }
+.hero-contact-actions { top: var(--hero-copy-top); }
+.offer-card-content > p { transition: opacity 0.3s var(--ease); }
+.offer-flip-card.is-flipped .offer-card-content > p { opacity: 0; }
+/* Four milestones visible at desktop, with native touch scrolling on smaller screens. */
+.history-section { background: #f4ba51; color: #1f2532; padding: 90px 0 110px; color-scheme: light; }
+.history-shell { width: min(1260px, calc(100% - 12.5vw)); margin-inline: auto; }
+.history-heading { position: relative; margin-bottom: 130px; text-align: center; }
+.history-heading h2 { font: italic 400 clamp(64px, 7.8vw, 112px) / 1.05 var(--serif); letter-spacing: -0.04em; }
+.history-controls { position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; gap: 66px; }
+.history-controls button { width: 44px; height: 44px; display: grid; place-items: center; background: transparent; color: #1f2532; }
+.history-controls button svg { width: 32px; height: 32px; }
+.history-controls button:disabled { opacity: 0.3; cursor: default; }
+.history-viewport { width: 100%; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory; }
+.history-viewport::-webkit-scrollbar { display: none; }
+.history-track { display: flex; width: 100%; }
+.history-milestone { flex: 0 0 25%; min-width: 0; padding: 0 20px; border-left: 1px solid #1f2532b3; min-height: 410px; scroll-snap-align: start; }
+.history-milestone h3 { font: 400 48px / 1 var(--serif); letter-spacing: -0.025em; margin-bottom: 16px; }
+.history-milestone-title { max-width: 240px; font-size: 14px; line-height: 1.3; min-height: 42px; }
+.history-ticks { height: 50px; margin: 30px -1px 55px; background-image: repeating-linear-gradient(90deg, #1f253255 0 1px, transparent 1px 20px); mask-image: repeating-linear-gradient(0deg, black 0 1px, transparent 1px 3px); -webkit-mask-image: repeating-linear-gradient(0deg, black 0 1px, transparent 1px 3px); }
+.history-milestone-detail { font-size: 14px; line-height: 1.55; max-width: 260px; }
+.history-progress { margin-top: 120px; height: 2px; background: #ffffffa6; }
+.history-progress span { display: block; height: 100%; background: #1f2532; transform: scaleX(0); transform-origin: left; }
+.history-note { margin-top: 18px; font-size: 11px; color: #1f253299; }
+/* Contact reference: full photo, heading at left, a pale glass form at right. */
+.contact-reference { position: relative; isolation: isolate; min-height: 1000px; padding: 80px max(40px, 5.5vw); color: white; background: #1f2532; overflow: hidden; }
+.contact-reference::before { content: ""; position: absolute; inset: 0; background: #1f25321a; z-index: -1; pointer-events: none; }
+.contact-reference .contact-background { object-position: center; }
+.contact-reference-layout { max-width: 1440px; margin-inline: auto; display: grid; grid-template-columns: 0.72fr 1.18fr; gap: 6vw; align-items: start; }
+.contact-reference h2 { font: 400 clamp(56px, 5.8vw, 92px) / 1.05 var(--serif); letter-spacing: -0.035em; color: white; white-space: nowrap; }
+.contact-reference .contact-form { padding: 40px; color: #1f2532; background: rgba(255,255,255,0.25); backdrop-filter: blur(32px) saturate(110%); -webkit-backdrop-filter: blur(32px) saturate(110%); border: 1px solid #ffffff80; color-scheme: light; }
+.contact-reference .contact-form h3 { font: 400 30px / 1.2 var(--display); letter-spacing: -0.03em; }
+.contact-reference .contact-form > p { color: #1f2532; font-size: 15px; margin: 12px 0 22px; }
+.contact-reference .contact-form form { display: flex; flex-direction: column; gap: 16px; }
+.contact-reference .contact-field { display: flex; flex-direction: column; gap: 9px; }
+.contact-reference .contact-field label { color: #1f2532; font-size: 15px; }
+.contact-reference .contact-field input,
+.contact-reference .contact-field select,
+.contact-reference .contact-field textarea { background: #ffffff40; color: #1f2532; border: 1px solid transparent; width: 100%; padding: 18px 24px; min-height: 60px; border-radius: 0; font-size: 16px; }
+.contact-reference .contact-field textarea { min-height: 260px; resize: vertical; }
+.contact-reference .contact-field input::placeholder,
+.contact-reference .contact-field textarea::placeholder { color: #1f253299; }
+.contact-reference .contact-field input:focus,
+.contact-reference .contact-field select:focus,
+.contact-reference .contact-field textarea:focus { border-color: #1f2532; outline: 1px solid #1f2532; outline-offset: 2px; }
+.contact-phone-row { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 10px; }
+.contact-reference .contact-phone-row select { padding-inline: 12px; }
+.contact-reference .contact-phone-row option { color: #1f2532; background: white; }
+.contact-reference .contact-send { min-height: 80px; width: 100%; font-size: 18px; margin-top: 6px; }
+.contact-reference .contact-send > span { display: flex; align-items: center; gap: 12px; }
+.contact-reference .contact-preview-note { font-size: 11px; color: #1f2532a6; }
+.contact-reference .contact-success { padding: 30px 0; border: 0; }
+.contact-reference .contact-success h4, .contact-reference .contact-success p { color: #1f2532; }
+/* One real page and four real destinations replace the duplicated footer columns. */
+.premium-footer .footer-top { grid-template-columns: 1fr 1fr; align-items: start; gap: 60px; }
+.footer-navigation { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px 32px; max-width: 620px; margin-left: auto; }
+.footer-navigation a { min-height: 44px; display: flex; align-items: center; font-size: 14px; text-transform: uppercase; }
+.footer-navigation a:hover { color: #f4ba51; }
+.premium-footer .footer-socials { margin-block: 38px; }
+.premium-footer .footer-socials h3 { font-size: 30px; }
+.premium-footer .social-tile { min-height: 90px; }
+/* The company page shares the same narrative voice on an uninterrupted yellow canvas. */
+.perspective-page { background: #f4ba51; color: #1f2532; --paper: #1f2532; --gold: #1f2532; --muted: #1f2532b3; color-scheme: light; }
+.perspective-shell { width: min(1260px, calc(100% - 12.5vw)); margin-inline: auto; }
+.perspective-introduction { padding: 180px 0 100px; }
+.perspective-page .section-kicker { color: #1f2532aa; }
+.perspective-introduction h1 { margin-block: 36px 70px; font: 400 clamp(60px, 8vw, 128px) / 0.95 var(--serif); letter-spacing: -0.04em; }
+.perspective-introduction h1 em { font-weight: 400; }
+.perspective-opening-copy { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start; }
+.perspective-opening-copy p:first-child { font: 400 clamp(28px, 3vw, 42px) / 1.18 var(--serif); }
+.perspective-opening-copy p:last-child { font-size: 18px; line-height: 1.65; max-width: 550px; }
+.perspective-page .scroll-description { background: #f4ba51; min-height: 90svh; padding-block: 100px; }
+.perspective-page .description-word { color: #1f253266; }
+.perspective-page .description-word-fill { color: #1f2532; }
+.perspective-page .text-link { color: #1f2532; border-color: #1f2532; }
+.perspective-page .text-link:hover { color: #1f253299; }
+.perspective-principles { padding: 60px 0 120px; }
+.perspective-principles h2, .perspective-approach h2 { font: 400 clamp(44px, 4.7vw, 70px) / 1.05 var(--serif); letter-spacing: -0.035em; }
+.perspective-principles h2 { margin-bottom: 70px; }
+.perspective-principles article { display: grid; grid-template-columns: 60px 1fr 1fr; gap: 30px; padding: 36px 0; border-top: 1px solid #1f25324d; }
+.perspective-principles article > span { font-size: 14px; }
+.perspective-principles h3 { font: 400 clamp(30px, 3vw, 42px) / 1.1 var(--serif); max-width: 360px; }
+.perspective-principles article p { font-size: 17px; line-height: 1.6; }
+.perspective-approach { padding: 20px 0 100px; }
+.perspective-approach .perspective-shell { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
+.perspective-approach img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.perspective-approach h2 { margin-block: 26px; }
+.perspective-approach p:not(.section-kicker) { font-size: 17px; line-height: 1.6; margin-bottom: 30px; }
+.perspective-closing { text-align: center; padding: 90px 24px 120px; }
+.perspective-closing h2 { font: 400 clamp(68px, 10vw, 144px) / 0.95 var(--serif); letter-spacing: -0.04em; margin-bottom: 40px; }
+@media (max-width: 1100px) {
+  .history-controls { gap: 18px; }
+  .history-heading h2 { font-size: 80px; }
+  .history-milestone { flex-basis: 33.3333%; }
+  .contact-reference { padding-inline: 40px; }
+  .contact-reference-layout { gap: 40px; grid-template-columns: 0.65fr 1.2fr; }
+  .contact-reference h2 { font-size: 60px; }
+  .contact-reference .contact-form { padding: 28px; }
+}
+@media (max-width: 767px) {
+  .cinematic-hero { --hero-copy-top: 110px; }
+  .cinematic-hero h1 { left: 24px; transform: none; width: calc(100% - 175px); font-size: clamp(28px, 6vw, 46px); }
+  .hero-contact-actions { top: var(--hero-copy-top); right: 16px; width: 114px; font-size: 17px; }
+  .hero-call-button, .hero-contact-link { padding-inline: 4px; }
+  .history-section { padding-block: 70px; }
+  .history-shell, .perspective-shell { width: calc(100% - 64px); }
+  .history-heading { text-align: left; margin-bottom: 70px; }
+  .history-heading h2 { font-size: clamp(46px, 9vw, 68px); }
+  .history-controls { position: static; transform: none; justify-content: flex-end; margin-top: 20px; }
+  .history-milestone { flex-basis: 85%; min-height: 400px; }
+  .history-progress { margin-top: 60px; }
+  .contact-reference { padding: 64px 24px; min-height: 0; }
+  .contact-reference-layout { grid-template-columns: 1fr; gap: 36px; }
+  .contact-reference h2 { font-size: clamp(54px, 12vw, 80px); }
+  .contact-reference .contact-form { padding: 24px; }
+  .contact-phone-row { grid-template-columns: 108px minmax(0, 1fr); }
+  .contact-reference .contact-field input, .contact-reference .contact-field textarea { padding-inline: 14px; }
+  .contact-reference .contact-field textarea { min-height: 220px; }
+  .premium-footer .footer-top { grid-template-columns: 1fr; gap: 32px; }
+  .footer-navigation { justify-content: flex-start; margin-left: 0; gap: 8px 24px; }
+  .perspective-introduction { padding: 140px 0 60px; }
+  .perspective-introduction h1 { font-size: clamp(45px, 8vw, 72px); margin-bottom: 45px; }
+  .perspective-opening-copy, .perspective-approach .perspective-shell { grid-template-columns: 1fr; gap: 36px; }
+  .perspective-opening-copy p:last-child { font-size: 16px; }
+  .perspective-principles article { grid-template-columns: 30px 1fr; gap: 20px; }
+  .perspective-principles article p { grid-column: 2; font-size: 16px; }
+  .perspective-principles { padding-bottom: 60px; }
+  .perspective-approach { padding-bottom: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .offer-card-content > p { transition: none; }
+  .history-viewport { scroll-behavior: auto; }
+}

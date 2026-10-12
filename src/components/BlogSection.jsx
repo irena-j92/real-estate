@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { FiX } from "react-icons/fi";
 import { posts } from "../data/posts";
 const reads = [
-  "Start with the rhythms of your day: the route to work, the places you spend weekends, and the kind of space that makes you feel at ease. In the Foothills, a property's orientation, elevation, and relationship to the landscape can be as important as its floor plan. Visit at different times of day, notice the light, and take time to explore the surrounding streets. Your adviser can help you ask the right questions about access, upkeep, and the details behind a beautiful view.",
-  "Desert modern design begins with the landscape. Deep overhangs frame the views, shaded courtyards create outdoor rooms, and restrained materials allow the surroundings to take center stage. When exploring a home, look beyond the first impression. Consider how it handles afternoon light, where the shade falls, and how the living spaces connect to the outdoors. The most inviting architecture feels beautiful and comfortable in equal measure.",
-  "Getting to know a city begins one neighborhood at a time. Walk the streets, visit local cafes, and map the everyday destinations that matter to you. A lively urban block and a quiet foothills setting can offer very different versions of life in the same city. Share what your ideal week looks like with your adviser. Those small preferences often reveal more about the right place than a list of bedrooms and square feet.",
+  "Start with the rhythms of your day: the route to work, the places you spend weekends, and the kind of space that makes you feel at ease. In any neighborhood, a property's orientation, elevation, and relationship to the landscape can be as important as its floor plan. Visit at different times of day, notice the light, and take time to explore the surrounding streets. Your adviser can help you ask the right questions about access, upkeep, and the details behind a beautiful view.",
+  "Thoughtful modern design begins with its surroundings. Deep overhangs frame the views, shaded courtyards create outdoor rooms, and restrained materials allow the surroundings to take center stage. When exploring a home, look beyond the first impression. Consider how it handles afternoon light, where the shade falls, and how the living spaces connect to the outdoors. The most inviting architecture feels beautiful and comfortable in equal measure.",
+  "Getting to know a city begins one neighborhood at a time. Walk the streets, visit local cafes, and map the everyday destinations that matter to you. A lively urban block and a quiet residential setting can offer very different versions of life in the same city. Share what your ideal week looks like with your adviser. Those small preferences often reveal more about the right place than a list of bedrooms and square feet.",
 ];
 export default function BlogSection() {
   const [selected, setSelected] = useState(null);
@@ -46,7 +46,7 @@ export default function BlogSection() {
       <div className="site-container">
         <div className="section-heading" data-reveal>
           <div>
-            <p className="section-kicker">06 / The local edit</p>
+            <p className="section-kicker">07 / The local edit</p>
             <h2 className="section-title">Latest Posts</h2>
           </div>
         </div>

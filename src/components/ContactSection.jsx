@@ -1,141 +1,49 @@
 import { useEffect, useState } from "react";
+import { FiArrowRight } from "react-icons/fi";
 import Button from "./ui/Button";
 export default function ContactSection() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", country: "+1", message: "" });
   const [sent, setSent] = useState(false);
   useEffect(() => {
-    const receive = (e) => {
-      setSent(false);
-      setForm((f) => ({ ...f, message: e.detail }));
-    };
+    const receive = event => { setSent(false); setForm(current => ({ ...current, message: event.detail })); };
     window.addEventListener("realty-inquiry", receive);
     return () => window.removeEventListener("realty-inquiry", receive);
   }, []);
-  const change = (field) => (e) =>
-    setForm((f) => ({ ...f, [field]: e.target.value }));
-  const submit = (e) => {
-    e.preventDefault();
-    setSent(true);
-  };
-  return (
-    <section id="contact" className="premium-section contact-section contact-photographic">
-      <img className="contact-background" src="/assets/properties-4.jpg" alt="" loading="lazy" aria-hidden="true" />
-      <div className="site-container">
-        <div className="contact-heading" data-reveal>
-          <span className="section-kicker">07 / Your next chapter</span>
-          <h2>
-            Make room
-            <br />
-            <em>for what’s next.</em>
-          </h2>
-        </div>
-        <div className="contact-layout">
-          <div data-reveal className="contact-intro">
-            <h3 className="contact-invitation">Let’s find your next.</h3>
-            <p className="body-copy">
-              A first home. A fresh start. A little more room. Tell us what’s on
-              your mind, and let’s explore what comes next.
-            </p>
-            <div className="contact-small">
-              <p>
-                <strong>Rooted in Tucson</strong>900 E. River Road
-                <br />
-                Tucson, Arizona 85718
-              </p>
-              <p>
-                <strong>Here for your next move</strong>Buying · Selling ·
-                Relocating
-                <br />
-                Southern Arizona & beyond
-              </p>
+  const change = field => event => setForm(current => ({ ...current, [field]: event.target.value }));
+  return <section id="contact" className="contact-section contact-reference" aria-labelledby="contact-title">
+    <img className="contact-background" src="/assets/contact-img.jpg" alt="" loading="lazy" aria-hidden="true" />
+    <div className="contact-reference-layout">
+      <h2 id="contact-title" data-reveal>CONTACT US</h2>
+      <div className="contact-form" data-reveal>
+        <h3>Send us a message</h3>
+        <p>Connect with your Sunter adviser, or start your next chapter here.</p>
+        {sent ? <div className="contact-success" role="status">
+          <h4>Your message is ready.</h4>
+          <p>This portfolio concept demonstrates the inquiry experience. Messages are not sent to a brokerage.</p>
+          <Button variant="outline-dark" onClick={() => setSent(false)}>Back to your message</Button>
+        </div> : <form onSubmit={event => { event.preventDefault(); setSent(true); }}>
+          <Field id="name" label="Name" placeholder="Your full name" value={form.name} onChange={change("name")} required />
+          <Field id="email" label="Email" type="email" placeholder="Your email address" value={form.email} onChange={change("email")} required />
+          <div className="contact-field contact-phone">
+            <label htmlFor="phone">Phone</label>
+            <div className="contact-phone-row">
+              <select aria-label="Phone country code" value={form.country} onChange={change("country")}>
+                <option value="+1">US / CA +1</option><option value="+44">UK +44</option><option value="+49">DE +49</option><option value="+33">FR +33</option><option value="+385">HR +385</option><option value="+387">BA +387</option>
+              </select>
+              <input id="phone" type="tel" value={form.phone} onChange={change("phone")} placeholder="Phone number" autoComplete="tel-national" />
             </div>
           </div>
-          <div data-reveal className="contact-form">
-            <h3>Tell us a little about you.</h3>
-            <p>No pressure. Just possibilities.</p>
-            {sent ? (
-              <div className="contact-success" role="status">
-                <h4>Your message is ready.</h4>
-                <p>
-                  This portfolio preview demonstrates the inquiry experience.
-                  Messages are not sent to a brokerage.
-                </p>
-                <Button variant="outline" onClick={() => setSent(false)}>
-                  Back to your message
-                </Button>
-              </div>
-            ) : (
-              <form onSubmit={submit}>
-                <Field
-                  id="name"
-                  label="Your name"
-                  value={form.name}
-                  onChange={change("name")}
-                  required
-                />
-                <Field
-                  id="email"
-                  label="Email address"
-                  type="email"
-                  value={form.email}
-                  onChange={change("email")}
-                  required
-                />
-                <Field
-                  id="phone"
-                  label="Phone number (optional)"
-                  type="tel"
-                  value={form.phone}
-                  onChange={change("phone")}
-                  full
-                />
-                <div className="contact-field full">
-                  <label htmlFor="message">
-                    What does your next chapter look like?
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={3}
-                    value={form.message}
-                    onChange={change("message")}
-                    placeholder="Tell us about the place you’re looking for…"
-                  />
-                </div>
-                <div className="form-actions">
-                  <Button type="submit" variant="yellow">
-                    Start the conversation
-                  </Button>
-                  <small>
-                    We’ll take it one step at a time.
-                    <br />
-                    This is a portfolio preview.
-                  </small>
-                </div>
-              </form>
-            )}
+          <div className="contact-field">
+            <label htmlFor="message">Message</label>
+            <textarea id="message" rows={7} value={form.message} onChange={change("message")} placeholder="Your message here" required />
           </div>
-        </div>
+          <Button type="submit" variant="yellow" className="contact-send">SEND <FiArrowRight strokeWidth={1} aria-hidden="true" /></Button>
+          <p className="contact-preview-note">Portfolio preview · messages are not sent</p>
+        </form>}
       </div>
-    </section>
-  );
-}
-function Field({ id, label, type = "text", value, onChange, required, full }) {
-  return (
-    <div className={`contact-field ${full ? "full" : ""}`}>
-      <label htmlFor={id}>{label}</label>
-      <input
-        id={id}
-        type={type}
-        value={value}
-        onChange={onChange}
-        required={required}
-        autoComplete={id === "name" ? "name" : id === "email" ? "email" : "tel"}
-      />
     </div>
-  );
+  </section>;
+}
+function Field({ id, label, type = "text", placeholder, value, onChange, required }) {
+  return <div className="contact-field"><label htmlFor={id}>{label}</label><input id={id} type={type} placeholder={placeholder} value={value} onChange={onChange} required={required} autoComplete={id === "name" ? "name" : "email"} /></div>;
 }

@@ -176,7 +176,7 @@ export default function SearchOverlay({ onNavigate }) {
                 label="Location"
                 value={find.location}
                 onChange={changeFind("location")}
-                placeholder="Tucson, Catalina Foothills…"
+                placeholder="City, neighborhood, or address…"
               />
               <div className="search-field-row">
                 <SelectField
@@ -327,7 +327,7 @@ export default function SearchOverlay({ onNavigate }) {
               label="Property Address"
               value={valuation.address}
               onChange={change(setValuation, "address")}
-              placeholder="123 Placita del Conejo, Tucson"
+              placeholder="48 Ridge Lane, Hillside District"
               required
               autoComplete="street-address"
             />

@@ -28,7 +28,7 @@ const services = [
     title: "Arrive. Settle. Belong.",
     short: "Relocating",
     description:
-      "A new address is only the beginning. From understanding the communities to connecting the right local services, we make your move to Southern Arizona feel a little more familiar.",
+      "A new address is only the beginning. From understanding the communities to connecting the right local services, we make your move to a new community feel a little more familiar.",
     image: "/assets/offerservices-2.jpg",
     alt: "A welcoming interior prepared for a new beginning",
     link: "#offer",

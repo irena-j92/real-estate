@@ -1,8 +1,9 @@
 export const properties = [
   {
     id: "catalina-foothills-estate",
-    title: "Catalina Foothills Estate",
-    address: "4820 N Placita del Conejo, Tucson, AZ 85718",
+    title: "The Ridge Estate",
+    address: "48 Ridge Lane, Hillside District",
+    location: "Hillside District",
     price: "$2,450,000",
     beds: 5,
     baths: 6,
@@ -12,8 +13,9 @@ export const properties = [
   },
   {
     id: "sabino-canyon-modern",
-    title: "Sabino Canyon Modern",
-    address: "7710 E Snyder Rd, Tucson, AZ 85750",
+    title: "Courtyard Modern",
+    address: "77 Garden Avenue, West Quarter",
+    location: "West Quarter",
     price: "$1,875,000",
     beds: 4,
     baths: 4,
@@ -23,8 +25,9 @@ export const properties = [
   },
   {
     id: "river-road-retreat",
-    title: "River Road Retreat",
-    address: "900 E River Rd, Tucson, AZ 85718",
+    title: "The Grove Residence",
+    address: "9 Grove Way, Riverside District",
+    location: "Riverside District",
     price: "$3,120,000",
     beds: 6,
     baths: 7,
@@ -34,8 +37,9 @@ export const properties = [
   },
   {
     id: "gates-pass-hacienda",
-    title: "Gates Pass Hacienda",
-    address: "5230 W Gates Pass Rd, Tucson, AZ 85745",
+    title: "Terrace House",
+    address: "52 Terrace Road, Parkside Quarter",
+    location: "Parkside Quarter",
     price: "$1,640,000",
     beds: 4,
     baths: 5,

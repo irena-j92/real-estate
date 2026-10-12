@@ -2,15 +2,14 @@ import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import gsap from "gsap";
-import LanguageSelector from "./LanguageSelector";
 import SearchOverlay from "./SearchOverlay";
 import AccountMenu from "./AccountMenu";
 const links = [
-  ["01", "The residences", "#trending"],
-  ["02", "Our perspective", "#about"],
-  ["03", "Your people", "#experts"],
-  ["04", "The local edit", "#journal"],
-  ["05", "Let’s talk", "#contact"],
+  ["01", "Our perspective", "/our-perspective"],
+  ["02", "The properties", "/#trending"],
+  ["03", "Our experts", "/#experts"],
+  ["04", "The local edit", "/#journal"],
+  ["05", "Contact", "/#contact"],
 ];
 
 function MenuLink({ num, label, href, navigate }) {
@@ -48,6 +47,7 @@ function MenuLink({ num, label, href, navigate }) {
       onPointerEnter={() => hover(true)}
       onPointerLeave={() => hover(false)}
       onClick={(e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         e.preventDefault();
         navigate(href);
       }}
@@ -62,7 +62,7 @@ function MenuLink({ num, label, href, navigate }) {
     </a>
   );
 }
-export default function Navbar({ ready = true }) {
+export default function Navbar({ ready = true, light = false }) {
   const [active, setActive] = useState(null),
     [scrolled, setScrolled] = useState(false);
   const drawer = useRef(null),
@@ -93,8 +93,13 @@ export default function Navbar({ ready = true }) {
   }, [active]);
   const navigate = (href) => {
     setActive(null);
+    const destination = new URL(href, window.location.href);
+    if (destination.pathname !== window.location.pathname || !destination.hash) {
+      window.location.assign(destination.pathname + destination.hash);
+      return;
+    }
     requestAnimationFrame(() => {
-      const target = document.querySelector(href);
+      const target = document.getElementById(destination.hash.slice(1));
       if (target)
         window.scrollTo({
           top: target.getBoundingClientRect().top + window.scrollY - 90,
@@ -119,7 +124,7 @@ export default function Navbar({ ready = true }) {
   return (
     <>
       <header
-        className={`experience-nav ${scrolled ? "is-scrolled" : ""} ${ready ? "is-ready" : ""}`}
+        className={`experience-nav ${scrolled || light ? "is-scrolled" : ""} ${ready ? "is-ready" : ""}`}
       >
         <HoverControl as="button"
           ref={menuToggle}
@@ -140,7 +145,6 @@ export default function Navbar({ ready = true }) {
           Sunter<span>Realty</span>
         </a>
         <div className="header-right">
-          <LanguageSelector />
           <HoverControl as="button"
             ref={searchToggle}
             className="header-search-button"

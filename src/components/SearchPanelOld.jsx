@@ -25,7 +25,7 @@ function FindHomeTab() {
       <Field
         id="location"
         label="Location"
-        placeholder="Tucson, Catalina Foothills…"
+        placeholder="City, neighborhood, or address…"
         value={values.location}
         onChange={handleChange("location")}
       />
@@ -142,7 +142,7 @@ function ValueCalculatorTab() {
           label="Property Address"
           value={values.address}
           onChange={handleChange("address")}
-          placeholder="123 Placita del Conejo, Tucson"
+          placeholder="48 Ridge Lane, Hillside District"
           required
         />
         <SelectField

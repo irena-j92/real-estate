@@ -2,7 +2,7 @@ export const partners = [
   "HomeServices of America",
   "Leading Real Estate Companies of the World",
   "Berkshire Hathaway HomeServices",
-  "Arizona Regional MLS",
+  "Regional Property Network",
   "National Association of REALTORS®",
-  "Tucson Association of REALTORS®",
+  "Independent Property Professionals",
 ];

@@ -12,11 +12,11 @@ export const offerServices = [
     number: "02",
     title: "Communities",
     description:
-      "Take the first step in finding a community that is perfect for you. From deserts to mountains, Arizona and our communities have so much to offer.",
+      "Take the first step in finding a community that is perfect for you. From city quarters to quiet landscapes, discover the places that fit the way you want to live.",
     image: "/assets/properties-3.jpg",
     imageAlt: "Property surrounded by mature trees and greenery",
     inquiry:
-      "I'd like help finding the right Arizona community for my next home.",
+      "I'd like help finding the right community for my next home.",
   },
   {
     number: "03",

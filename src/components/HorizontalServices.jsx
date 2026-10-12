@@ -9,7 +9,7 @@ const ITEMS = [
   {
     number: "01",
     word: "Search",
-    copy: "Browse curated Southern Arizona listings with the filters that actually matter — elevation, view corridor, lot orientation.",
+    copy: "Browse curated the communities we serve listings with the filters that actually matter — elevation, view corridor, lot orientation.",
   },
   {
     number: "02",

@@ -16,7 +16,7 @@ const phrases = [
 const words = phrases.flatMap(([text, italic]) =>
   text.trim().split(/\s+/).map((word) => ({ word, italic })),
 );
-export default function AboutSection({ ready = true }) {
+export default function AboutSection({ ready = true, companyPage = false }) {
   const root = useRef(null);
   useEffect(() => {
     if (!ready) return;
@@ -70,10 +70,10 @@ export default function AboutSection({ ready = true }) {
         </h2>
         <HoverControl as="a"
           className="text-link description-experts"
-          href="#experts"
+          href={companyPage ? "/#experts" : "/our-perspective"}
           data-reveal
         >
-          About Us <FiArrowRight aria-hidden="true" />
+          {companyPage ? "Meet our experts" : "About Us"} <FiArrowRight aria-hidden="true" />
         </HoverControl>
       </div>
     </section>

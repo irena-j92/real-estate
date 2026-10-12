@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const chapters = ["top", "about", "trending", "services", "experts", "offer", "journal", "contact"];
+const homeChapters = ["top", "about", "trending", "services", "experts", "offer", "history", "journal", "contact"];
 
-export default function ScrollRail({ ready }) {
+export default function ScrollRail({ ready, perspective = false }) {
+  const chapters = perspective ? ["perspective-top", "about", "our-values", "our-approach"] : homeChapters;
   const [chapter, setChapter] = useState(0);
   const fill = useRef(null);
   const marker = useRef(null);
@@ -60,10 +61,10 @@ export default function ScrollRail({ ready }) {
       window.removeEventListener("load", refresh);
       ScrollTrigger.removeEventListener("refresh", refresh);
     };
-  }, [ready]);
+  }, [ready, perspective]);
   if (!ready) return null;
   return (
-    <aside className={`scroll-rail ${chapter === 3 || chapter === 6 ? "on-light" : ""}`} aria-hidden="true">
+    <aside className={`scroll-rail ${perspective || chapter === 3 || chapter === 6 || chapter === 7 ? "on-light" : ""}`} aria-hidden="true">
       <span className="scroll-rail-count">{String(chapter).padStart(2, "0")}</span>
       <span className="scroll-rail-track"><span ref={fill} /><span ref={marker} className="scroll-rail-marker" /></span>
       <span className="scroll-rail-label">Scroll</span>
