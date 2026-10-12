@@ -2,7 +2,8 @@ import HoverControl from "./components/ui/HoverControl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
+import VillaHero from "./components/Hero";
+import VideoHero from "./components/VideoHero";
 import AboutSection from "./components/AboutSection";
 import TrendingProperties from "./components/TrendingProperties";
 import FeatureServices from "./components/FeatureServices";
@@ -19,6 +20,7 @@ import ScrollRail from "./components/experience/ScrollRail";
 import useExperienceMotion from "./hooks/useExperienceMotion";
 import useInitialAnchor from "./hooks/useInitialAnchor";
 export default function App() {
+  const Hero = new URLSearchParams(window.location.search).get("hero") === "video" ? VideoHero : VillaHero;
   const perspective = window.location.pathname.replace(/\/$/, "") === "/our-perspective";
   const [ready, setReady] = useState(perspective),
     root = useRef(null);

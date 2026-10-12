@@ -30,3 +30,13 @@ The account menu exposes My Profile, Saved, Settings and Log out. Saved properti
 All homes, advisers and company milestones are illustrative portfolio content. The history is a draft Sunter brand narrative; it does not borrow real brokerage sales figures or rankings. The contact form demonstrates a message flow and does not send messages. Sunny provides scripted local guidance. Social tiles currently link to platform homepages until brand profile URLs are supplied.
 
 The hero video and scroll mechanics are preserved. The contact image is the supplied `public/assets/contact-img.jpg`; other bundled imagery is stored in `public/assets`. Reference sections use a four-column history timeline, responsive native scrolling and a photographic contact section with a glass form. Reduced-motion and keyboard interactions are supported.
+
+## Experimental 3D hero
+
+The default hero uses the supplied villa geometry, converted from OBJ to a 4.2 MB indexed GLB with 29 material groups and 158,922 triangles. The source OBJ did not include its referenced MTL/textures, so finishes are reconstructed from the provided reference image. Fine foliage is clustered for web performance; the architectural structure is retained.
+
+DAY and NIGHT override lighting; AUTO follows the pinned scroll from daylight to dusk, with warm glazing lighting floor by floor and path lights at night. Two further viewport scrolls retain the rectangular transition into the description. The scene renders on demand, limits pixel density and shadows, pauses outside the viewport and when the document is hidden, and disposes its GPU resources on unmount. Reduced motion disables pinning/camera movement and switches lighting instantly.
+
+The original film, frame sequence and video hero remain in the repository. `/?hero=video` previews that header. The complete pre-experiment version is preserved in GitHub commit `803af59` and branch `archive/sunter-video-hero`.
+
+To regenerate the web model from the original uploaded OBJ: `python scripts/prepare-villa.py /path/to/source.obj public/assets/models/sunter-villa.glb`. The generated GLB is tracked, so normal website builds do not require the original OBJ or Python.

@@ -64,7 +64,7 @@ export default function ScrollRail({ ready, perspective = false }) {
   }, [ready, perspective]);
   if (!ready) return null;
   return (
-    <aside className={`scroll-rail ${perspective || chapter === 3 || chapter === 6 || chapter === 7 ? "on-light" : ""}`} aria-hidden="true">
+    <aside className={`scroll-rail ${perspective || chapter === 3 || chapter === 6 || chapter === 7 ? "on-light" : ""}`} data-chapter={chapter} aria-hidden="true">
       <span className="scroll-rail-count">{String(chapter).padStart(2, "0")}</span>
       <span className="scroll-rail-track"><span ref={fill} /><span ref={marker} className="scroll-rail-marker" /></span>
       <span className="scroll-rail-label">Scroll</span>
