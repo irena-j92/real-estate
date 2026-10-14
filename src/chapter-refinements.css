@@ -10,17 +10,18 @@
 .history-progress { background: #1f253240; }
 .history-progress span { background: #1f253240; }
 .premium-footer .footer-wordmark { color: white; opacity: 0.18; }
-.footer-bottom { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 24px; }
+.footer-bottom { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 24px; }
+.footer-bottom > p { padding-top: 11px; }
+.footer-utilities { display: flex; flex-direction: column; align-items: flex-end; gap: 20px; }
+.footer-wordmark-wrap { padding-top: 80px; }
 .footer-legal { display: flex; gap: 24px; justify-content: flex-end; align-items: center; justify-self: end; }
 .footer-legal a { color: white; min-height: 44px; display: inline-flex; align-items: center; }
 .footer-legal a:hover { color: #f4ba51; }
 
-/* The same pinned, paired composition as Buying/Selling, with oversized numerals. */
+/* Text-only belief chapters retain the horizontal scroll choreography. */
 .perspective-page .perspective-beliefs { background: #f4ba51; color: #1f2532; }
 .perspective-beliefs .narrative-heading { font: 400 clamp(48px, 6vw, 92px) / 1.05 var(--serif); letter-spacing: -0.035em; }
 .perspective-beliefs .horizontal-services-top { justify-content: center; }
-.perspective-beliefs .narrative-number-frame { display: grid; place-items: center; height: auto; min-height: 300px; aspect-ratio: auto; overflow: visible; }
-.narrative-number { font: 400 clamp(200px, 25vw, 380px) / 0.9 var(--serif); letter-spacing: -0.055em; color: #1f2532; }
 .perspective-beliefs .service-category,
 .perspective-beliefs .horizontal-service-copy h2,
 .perspective-beliefs .horizontal-service-copy > p,
@@ -37,15 +38,16 @@
 .legal-page .text-link { margin-top: 35px; }
 @media (max-width: 1100px) {
   .footer-bottom { grid-template-columns: 1fr auto; }
-  .footer-bottom .back-to-top { grid-column: 1; grid-row: 2; }
-  .footer-legal { grid-column: 2; grid-row: 1; flex-wrap: wrap; gap: 10px 20px; }
+  .footer-legal { flex-wrap: wrap; gap: 10px 20px; }
 }
 @media (max-width: 767px) {
   .expert-career { margin-top: 36px; }
   .footer-bottom { gap: 18px 24px; }
   .footer-legal { flex-direction: column; align-items: flex-end; gap: 0; }
-  .perspective-beliefs .narrative-number-frame { min-height: 200px; }
-  .narrative-number { font-size: clamp(170px, 45vw, 260px); }
   .legal-page { padding-top: 135px; }
   .legal-shell { width: calc(100% - 48px); }
 }
+.account-dropdown .account-label { display: flex; align-items: center; gap: 12px; padding: 14px 12px; min-height: 48px; cursor: default; color: #1f253299; }
+.perspective-beliefs .horizontal-service-panel { grid-template-columns: minmax(0, 720px); }
+.perspective-beliefs .horizontal-service-copy { max-width: 720px; }
+.perspective-beliefs .horizontal-service-copy > p:not(.service-category) { max-width: 620px; }

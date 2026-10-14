@@ -26,13 +26,16 @@ export default function Footer() {
           <p>
             © {new Date().getFullYear()} Sunter Realty
           </p>
-          <HoverControl as="a" href="/#top" className="back-to-top">
-            BACK TO TOP <span className="back-to-top-square" aria-hidden="true"><FiArrowUp strokeWidth={1} /></span>
-          </HoverControl>
-          <nav className="footer-legal" aria-label="Legal information">
-            <HoverControl as="a" href="/privacy-policy">Privacy Policy</HoverControl>
-            <HoverControl as="a" href="/terms-of-services">Terms of Services</HoverControl>
-          </nav>
+
+          <div className="footer-utilities">
+            <nav className="footer-legal" aria-label="Legal information">
+              <HoverControl as="a" href="/privacy-policy">Privacy Policy</HoverControl>
+              <HoverControl as="a" href="/terms-of-services">Terms of Services</HoverControl>
+            </nav>
+            <HoverControl as="a" href="/#top" className="back-to-top">
+              BACK TO TOP <span className="back-to-top-square" aria-hidden="true"><FiArrowUp strokeWidth={1} /></span>
+            </HoverControl>
+          </div>
         </div>
       </div>
       <div className="footer-wordmark-wrap" data-reveal-group>

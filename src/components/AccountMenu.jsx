@@ -7,10 +7,10 @@ import HoverControl from "./ui/HoverControl";
 export default function AccountMenu({ onOpen }) {
   const { user, saved, loading, pending, toggle, update } = useAccount();
   const [opened, setOpened] = useState(false), [panel, setPanel] = useState(null);
-  const [name, setName] = useState(""), [area, setArea] = useState(""), [alerts, setAlerts] = useState(false);
+  const [area, setArea] = useState(""), [alerts, setAlerts] = useState(false);
   const [submitting, setSubmitting] = useState(false), [error, setError] = useState("");
   const root = useRef(null), trigger = useRef(null), dialog = useRef(null);
-  useEffect(() => { setName(user?.name || ""); setArea(user?.area || ""); setAlerts(user?.alerts || false); }, [user]);
+  useEffect(() => { setArea(user?.area || ""); setAlerts(user?.alerts || false); }, [user]);
   useEffect(() => {
     if (!opened) return;
     const outside = event => { if (!root.current?.contains(event.target)) setOpened(false); };
@@ -36,7 +36,7 @@ export default function AccountMenu({ onOpen }) {
   const openPanel = value => { setOpened(false); setError(""); setPanel(value); };
   const submit = async event => {
     event.preventDefault(); setSubmitting(true); setError("");
-    try { await update(panel === "profile" ? { name } : { area, alerts }); }
+    try { await update({ area, alerts }); }
     catch (failure) { setError(failure.message); }
     finally { setSubmitting(false); }
   };
@@ -50,7 +50,7 @@ export default function AccountMenu({ onOpen }) {
     <HoverControl as="button" ref={trigger} type="button" className="header-account-button" aria-label="Your account" aria-haspopup="menu" aria-expanded={opened} aria-controls="account-dropdown"
       onClick={() => { onOpen?.(); setOpened(value => !value); }}><FiUser size={22} strokeWidth={1.25} aria-hidden="true" /></HoverControl>
     {opened && <nav className="account-dropdown" id="account-dropdown" aria-label="Your account" role="menu">
-      <button role="menuitem" type="button" onClick={() => openPanel("profile")}><FiUser />My Profile</button>
+      <div className="account-label"><FiUser aria-hidden="true" />My Profile</div>
       <button role="menuitem" type="button" onClick={() => openPanel("saved")}><FiHeart />Saved<small>{saved.length}</small></button>
       <button role="menuitem" type="button" onClick={() => openPanel("settings")}><FiSettings />Settings</button>
       <a role="menuitem" href="/signout-with-chatgpt?return_to=%2F" target="_top"><FiLogOut />Log out</a>
@@ -60,7 +60,7 @@ export default function AccountMenu({ onOpen }) {
       const box = event.currentTarget.getBoundingClientRect();
       if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) setPanel(null);
     }}>
-      <header><h2 id="account-heading">{panel === "profile" ? "My Profile" : panel === "saved" ? "Saved Homes" : "Settings"}</h2>
+      <header><h2 id="account-heading">{panel === "saved" ? "Saved Homes" : "Settings"}</h2>
         <button data-no-hover className="panel-close" type="button" aria-label="Close account" onClick={() => setPanel(null)}><FiX strokeWidth={0.8} size={28} /></button></header>
       {loading ? <p role="status">Loading your account…</p> : !user ? <p><a href="/signin-with-chatgpt?return_to=%2F" target="_top">Sign in to save homes and manage your profile.</a></p> : panel === "saved" ? <>
         {saved.length === 0 ? <p>Your collection starts here. Tap the heart on a property to save it.</p> : properties.filter(property => saved.includes(property.id)).map(property => <article className="saved-home" key={property.id}>
@@ -69,11 +69,9 @@ export default function AccountMenu({ onOpen }) {
           <button className="remove-saved" type="button" disabled={pending.includes(property.id)} aria-label={`Unsave ${property.title}`} onClick={() => toggle(property.id)}><FiHeart fill="currentColor" /></button>
         </article>)}
       </> : <form onSubmit={submit}>
-        {panel === "profile" ? <><p className="account-email">{user.email}</p><label>Display name<input value={name} onChange={event => setName(event.target.value)} maxLength={100} autoComplete="name" required /></label></> : <>
           <label>Preferred area<input value={area} onChange={event => setArea(event.target.value)} maxLength={120} placeholder="e.g. a city or neighborhood" /></label>
           <label className="check-label"><input type="checkbox" checked={alerts} onChange={event => setAlerts(event.target.checked)} />Remember my interest in new property alerts</label>
           <p className="account-email">Your preferences are saved with your account.</p>
-        </>}
         {error && <p role="alert">{error}</p>}
         <button type="submit" disabled={submitting} className="account-submit">{submitting ? "Saving…" : "Save changes"}</button>
       </form>}

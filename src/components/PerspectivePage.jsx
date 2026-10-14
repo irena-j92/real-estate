@@ -5,12 +5,12 @@ import AboutSection from "./AboutSection";
 import HoverControl from "./ui/HoverControl";
 
 const principleCopy = [
-  ["01", "People before property", "We begin with the life you want to lead. Your routines, ambitions, and the things that make a place feel like yours shape every conversation that follows."],
-  ["02", "An eye for the meaningful", "We notice the morning light, the thoughtful materials, and the way a room connects to the outdoors. Distinctive architecture matters most when it supports everyday living."],
-  ["03", "Clarity at every step", "Good advice should leave you feeling informed. We make space for questions, explain the details, and help you understand the choices in front of you."],
+  ["People before property", "We begin with the life you want to lead. Your routines, ambitions, and the things that make a place feel like yours shape every conversation that follows."],
+  ["An eye for the meaningful", "We notice the morning light, the thoughtful materials, and the way a room connects to the outdoors. Distinctive architecture matters most when it supports everyday living."],
+  ["Clarity at every step", "Good advice should leave you feeling informed. We make space for questions, explain the details, and help you understand the choices in front of you."],
 ];
-const principles = principleCopy.map(([number, title, description], index) => ({
-  number, title, description, short: ["People", "Meaning", "Clarity"][index],
+const principles = principleCopy.map(([title, description], index) => ({
+  title, description, short: ["People", "Meaning", "Clarity"][index],
 }));
 export default function PerspectivePage() {
   return <main className="perspective-page">
@@ -26,7 +26,7 @@ export default function PerspectivePage() {
     </section>
     <AboutSection ready companyPage />
     <FeatureServices items={principles} sectionId="our-values" sectionLabel="What we believe"
-      heading="WHAT WE BELIEVE" caption="" className="perspective-beliefs" />
+      heading="WHAT WE BELIEVE" caption="" className="perspective-beliefs" textOnly showProgress={false} />
     <section className="perspective-approach" id="our-approach">
       <div className="perspective-shell" data-reveal-group>
         <MotionImage className="perspective-motion-image" reveal src="/assets/contact-img.jpg" alt="A modern residence with a landscaped garden and warm interior light" loading="lazy" />

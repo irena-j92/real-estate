@@ -5,7 +5,7 @@ const pages = {
     title: "Privacy Policy",
     introduction: "How information is used in the Sunter Realty portfolio experience.",
     sections: [
-      ["Your account", "Your ChatGPT sign-in identifies your account. The site displays your account name and email and stores the profile preferences and saved properties you choose to keep. Saved homes belong to your account; they are not shared with other visitors."],
+      ["Your account", "Your ChatGPT sign-in identifies your account. The site uses that identity to keep your profile preferences and saved properties associated with you. Your name and email are not displayed in the account dropdown. Saved homes belong to your account; they are not shared with other visitors."],
       ["Your device", "A small browser storage flag remembers that you have already seen the opening sequence. It is used to skip the pre-loader on future visits. Clearing site storage resets this preference."],
       ["Messages and inquiries", "The contact form demonstrates an inquiry flow. It prepares a message in the current page but does not send it to a brokerage. Account profile changes and saved properties are stored separately from this form."],
       ["External services", "The site uses hosted fonts and links to social platforms. Visiting an external link takes you to a service with its own privacy practices. This portfolio does not add an advertising or analytics tracker."],

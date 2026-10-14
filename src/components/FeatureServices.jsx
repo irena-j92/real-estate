@@ -39,7 +39,7 @@ const services = [
 export default function FeatureServices({
   ready = true, items = services, sectionId = "services",
   sectionLabel = "Buying, selling and relocating",
-  caption = "03 / A considered approach", heading, className = "",
+  caption = "03 / A considered approach", heading, className = "", textOnly = false, showProgress = true,
 }) {
   const root = useRef(null),
     viewport = useRef(null),
@@ -116,6 +116,7 @@ export default function FeatureServices({
         [...track.current.children].forEach((panel, i) => {
           const copy = panel.querySelector(".horizontal-service-copy");
           const photo = panel.querySelector("figure");
+          if (!photo) return;
           const offset = () => 40 + photo.offsetWidth * 0.075;
           const sequence = gsap.timeline({
             scrollTrigger: i === 0 ? {
@@ -164,7 +165,7 @@ export default function FeatureServices({
       root,
     );
     return () => media.revert();
-  }, [ready, items, sectionId]);
+  }, [ready, items, sectionId, textOnly]);
   return (
     <section
       ref={root}
@@ -202,17 +203,16 @@ export default function FeatureServices({
                   {service.label}
                 </HoverControl>}
               </div>
-              <figure className={service.number ? "narrative-number-frame" : undefined}>
-                {service.number ? <span className="narrative-number" aria-hidden="true">{service.number}</span> :
-                  <MotionImage scroll={false} src={service.image} alt={service.alt} loading="lazy" />}
-              </figure>
+              {!textOnly && <figure>
+                <MotionImage scroll={false} src={service.image} alt={service.alt} loading="lazy" />
+              </figure>}
             </article>
           ))}
         </div>
       </div>
-      <div className="horizontal-services-bottom">
+      {showProgress && <div className="horizontal-services-bottom">
         <span aria-live="polite">0{active + 1} / {String(items.length).padStart(2, "0")}</span>
-      </div>
+      </div>}
     </section>
   );
 }
