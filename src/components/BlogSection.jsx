@@ -51,7 +51,7 @@ export default function BlogSection() {
             <h2 className="section-title">Latest Posts</h2>
           </div>
         </div>
-        <div className="journal-layout journal-grid">
+        <div className="journal-layout journal-grid" data-reveal-group>
           {posts.map((post, index) => (
             <article data-reveal key={post.id} className="journal-card">
               <HoverControl as="button"

@@ -18,19 +18,27 @@ export default function useExperienceMotion(rootRef, ready) {
       fine = window.matchMedia("(hover: hover) and (pointer: fine)");
     const cleanups = [];
     let context;
+    const groups = new Map();
+    const finalOpacity = new WeakMap();
+    const play = (targets) => {
+      if (!targets.length) return;
+      // Keep the fade independent of the overshoot: the text stays translucent
+      // during its rise instead of snapping to full opacity halfway through.
+      gsap.timeline({ onComplete: () => gsap.set(targets, { clearProps: "opacity,transform" }) })
+        .to(targets, { y: -8, duration: 0.72, stagger: 0.16, ease: "power2.inOut", overwrite: "auto" }, 0)
+        .to(targets, { y: 0, duration: 0.28, stagger: 0.16, ease: "power2.out", overwrite: "auto" }, 0.72)
+        .to(targets, { opacity: (_, el) => finalOpacity.get(el) ?? 1, duration: 0.9, stagger: 0.16, ease: "power1.out", overwrite: "auto" }, 0);
+    };
     const reveal = new IntersectionObserver((entries) => {
-      const visible = entries.filter(entry => entry.isIntersecting).map(entry => entry.target);
-      if (!visible.length) return;
-      visible.forEach(el => reveal.unobserve(el));
-      context.add(() => {
-        gsap.to(visible, {
-          opacity: 1, y: 0, duration: 0.78,
-          stagger: { each: 0.08, amount: Math.min(0.24, (visible.length - 1) * 0.08) },
-          ease: "back.out(1.12)", overwrite: "auto",
-          onComplete: () => gsap.set(visible, { clearProps: "opacity,transform" }),
-        });
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const group = groups.get(entry.target);
+        if (!group) return;
+        group.played = true;
+        reveal.unobserve(entry.target);
+        context.add(() => play([...group.targets].filter(el => root.contains(el))));
       });
-    }, { threshold: 0.08, rootMargin: "0px 0px -35px 0px" });
+    }, { threshold: 0.01, rootMargin: `0px 0px -${Math.round(window.innerHeight * 0.18)}px 0px` });
     const seen = new WeakSet();
     const imageDrifts = new Map();
     // Delegate to the root: drawers and changing controls work immediately,
@@ -63,17 +71,36 @@ export default function useExperienceMotion(rootRef, ready) {
     });
     context = gsap.context(() => {
       const register = () => {
-        root.querySelectorAll("[data-reveal]").forEach((el) => {
-          // Pinned service choreography owns its transforms. Never reveal a
-          // nested target twice, or move a whole section containing a pin.
+        groups.forEach((group, anchor) => {
+          group.targets.forEach(el => {
+            if (!root.contains(el)) { gsap.killTweensOf(el); group.targets.delete(el); }
+          });
+          if (!root.contains(anchor)) { reveal.unobserve(anchor); groups.delete(anchor); }
+        });
+        const immediate = new Map();
+        root.querySelectorAll("[data-reveal]").forEach(el => {
           if (seen.has(el) || el.closest("#services, .horizontal-services") ||
               el.parentElement.closest("[data-reveal]")) return;
           seen.add(el);
-          if (!reduced.matches) {
-            gsap.set(el, { opacity: 0, y: 140 });
-            reveal.observe(el);
-          }
+          if (reduced.matches) return;
+          // Observe a stationary wrapper. Observing the translated element
+          // consumes most of its entrance below the viewport before triggering.
+          const anchor = el.closest("[data-reveal-group]") || el.parentElement;
+          let group = groups.get(anchor);
+          if (!group) { group = { targets: new Set(), played: false }; groups.set(anchor, group); }
+          finalOpacity.set(el, Number(gsap.getProperty(el, "opacity")) || 1);
+          group.targets.add(el);
+          gsap.set(el, { opacity: 0, y: 110 });
+          if (group.played) {
+            const bounds = anchor.getBoundingClientRect();
+            if (bounds.bottom > 0 && bounds.top < window.innerHeight) {
+              const targets = immediate.get(anchor) || [];
+              targets.push(el);
+              immediate.set(anchor, targets);
+            } else { group.played = false; reveal.observe(anchor); }
+          } else reveal.observe(anchor);
         });
+        immediate.forEach(play);
 
         // Register newly mounted property views, and release their old triggers
         // when the carousel or grid removes them.
@@ -141,6 +168,7 @@ export default function useExperienceMotion(rootRef, ready) {
       reveal.disconnect();
       cleanups.forEach((fn) => fn());
       imageDrifts.clear();
+      groups.clear();
       context.revert();
       images.forEach((img) => img.removeEventListener("load", refresh));
     };

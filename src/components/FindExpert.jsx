@@ -18,7 +18,7 @@ const firstExpert = Math.max(
 
 function OrbitStack({ index, setIndex }) {
   return (
-    <div className="expert-stage" aria-label="Choose your adviser">
+    <div className="expert-stage" data-reveal aria-label="Choose your adviser">
       {agents.map((agent, i) => {
         let offset = i - index;
         if (offset > 2) offset -= agents.length;
@@ -77,21 +77,37 @@ export default function FindExpert() {
     <section id="experts" className="premium-section experts-section">
       <div className="site-container">
         <div className="experts-layout">
-          <div data-reveal className="expert-intro">
-            <p className="section-kicker">04 / The human connection</p>
-            <h2 className="expert-headline">FIND AN EXPERT</h2>
-            <p className="body-copy expert-description">
+          <div data-reveal-group className="expert-intro">
+            <p className="section-kicker" data-reveal>04 / The human connection</p>
+            <h2 className="expert-headline" data-reveal>FIND AN EXPERT</h2>
+            <p className="body-copy expert-description" data-reveal>
               The best advice comes from someone who knows the streets, the
               stories, and what makes a place feel like home. Find the person
               who sees your vision.
             </p>
-            <Button className="mt-7" variant="yellow" onClick={connect}>
+            <Button data-reveal className="mt-7" variant="yellow" onClick={connect}>
               Let’s connect
             </Button>
+            <div className="expert-career" data-reveal>
+              <HoverControl as="a"
+                className="text-link career-link"
+                href="#contact"
+                onClick={() =>
+                  window.dispatchEvent(
+                    new CustomEvent("realty-inquiry", {
+                      detail:
+                        "I'd like to learn more about joining the Sunter Realty team.",
+                    }),
+                  )
+                }
+              >
+                Explore a career with Sunter Realty
+              </HoverControl>
+            </div>
           </div>
-          <div data-reveal className="expert-gallery">
+          <div data-reveal-group className="expert-gallery">
             <OrbitStack index={index} setIndex={setIndex} />
-            <div className="expert-selection">
+            <div className="expert-selection" data-reveal>
               <HoverControl as="button"
                 type="button"
                 className="icon-button"
@@ -113,7 +129,7 @@ export default function FindExpert() {
                 <FiChevronRight />
               </HoverControl>
             </div>
-            <p className="expert-count">
+            <p className="expert-count" data-reveal>
               0{((index - firstExpert + agents.length) % agents.length) + 1}{" "}
               <span className="mx-3">/</span> 0{agents.length}
             </p>
@@ -152,22 +168,7 @@ export default function FindExpert() {
             ))}
           </ul>
         </div>
-        <div className="career-line" data-reveal>
-          <HoverControl as="a"
-            className="text-link"
-            href="#contact"
-            onClick={() =>
-              window.dispatchEvent(
-                new CustomEvent("realty-inquiry", {
-                  detail:
-                    "I'd like to learn more about joining the Sunter Realty team.",
-                }),
-              )
-            }
-          >
-            Explore a career with Sunter Realty
-          </HoverControl>
-        </div>
+
       </div>
     </section>
   );

@@ -28,7 +28,7 @@ export default function HistorySection() {
         <h2 id="history-title">OUR HISTORY</h2>
       </div>
       <div ref={viewport} className="history-viewport" onScroll={measure} tabIndex={0} role="region" aria-label="Company milestones, scroll to explore">
-        <div className="history-track">
+        <div className="history-track" data-reveal-group>
           {milestones.map(milestone => <article className="history-milestone" data-reveal key={milestone.year}>
             <h3>{milestone.year}</h3>
             <p className="history-milestone-title">{milestone.title}</p>

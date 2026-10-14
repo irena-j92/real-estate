@@ -56,7 +56,7 @@ export default function AboutSection({ ready = true, companyPage = false }) {
   }, [ready]);
   return (
     <section ref={root} id="about" className="intro-section scroll-description">
-      <div className="description-inner">
+      <div className="description-inner" data-reveal-group>
         <p className="section-kicker" data-reveal>
           01 / A sense of place
         </p>

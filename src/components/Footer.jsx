@@ -31,8 +31,8 @@ export default function Footer() {
           </HoverControl>
         </div>
       </div>
-      <div className="footer-wordmark-wrap" data-reveal>
-        <svg aria-hidden="true" className="footer-wordmark" viewBox="0 0 1200 180">
+      <div className="footer-wordmark-wrap" data-reveal-group>
+        <svg aria-hidden="true" className="footer-wordmark" data-reveal viewBox="0 0 1200 180">
           <text x="2" y="145" textLength="1196" lengthAdjust="spacingAndGlyphs">SUNTER REALTY</text>
         </svg>
       </div>

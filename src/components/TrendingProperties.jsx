@@ -99,8 +99,8 @@ function SingleView({ index, setIndex, saved, toggle }) {
         if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false);
       }}
     >
-      <article className="featured-property" data-reveal>
-        <div className="property-visual" data-image-reveal>
+      <article className="featured-property" data-reveal-group>
+        <div className="property-visual" data-reveal data-image-reveal>
           <MotionImage
             key={property.id}
             src={property.image}
@@ -114,7 +114,7 @@ function SingleView({ index, setIndex, saved, toggle }) {
           />
         </div>
         <div key={`${property.id}-info`} className="property-info view-enter">
-          <div className="property-summary">
+          <div className="property-summary" data-reveal>
             <p className="eyebrow">{property.tag} / {property.location}</p>
             <h3 className="property-title">{property.title}</h3>
             <p className="property-address">
@@ -123,8 +123,8 @@ function SingleView({ index, setIndex, saved, toggle }) {
             </p>
           </div>
           <div className="property-details">
-            <p className="property-price">{property.price}</p>
-            <div className="property-specs">
+            <p className="property-price" data-reveal>{property.price}</p>
+            <div className="property-specs" data-reveal>
               <div>
                 <span className="property-metric-icon metric-bed" aria-hidden="true" />
                 <strong>{property.beds}</strong>
@@ -141,7 +141,7 @@ function SingleView({ index, setIndex, saved, toggle }) {
                 <span>Square feet</span>
               </div>
             </div>
-            <div className="property-actions">
+            <div className="property-actions" data-reveal>
               <Button variant="yellow" onClick={() => inquire(property)}>
                 Arrange a private showing
               </Button>
@@ -200,7 +200,7 @@ function SingleView({ index, setIndex, saved, toggle }) {
 }
 function GridView({ saved, toggle, select }) {
   return (
-    <div className="properties-grid view-enter">
+    <div className="properties-grid" data-reveal-group>
       {properties.map((property, i) => (
         <article key={property.id} className="property-grid-card" data-reveal>
           <div className="grid-property-image" data-cursor="EXPLORE">
@@ -284,12 +284,12 @@ export default function TrendingProperties() {
   return (
     <section id="trending" className="premium-section listings-section">
       <div className="site-container">
-        <div className="section-heading" data-reveal>
-          <div>
+        <div className="section-heading" data-reveal-group>
+          <div data-reveal>
             <p className="section-kicker">02 / The collection</p>
             <h2 className="section-title trending-title">Trending Properties</h2>
           </div>
-          <div className="listing-tools">
+          <div className="listing-tools" data-reveal>
             <div
               className="view-toggle"
               role="group"
@@ -324,8 +324,8 @@ export default function TrendingProperties() {
         ) : (
           <GridView saved={saved} toggle={toggle} select={select} />
         )}
-        <div className="listing-bottom-action" data-reveal>
-          <HoverControl as="button" className="text-link" type="button" onClick={() => {
+        <div className="listing-bottom-action" data-reveal-group>
+          <HoverControl data-reveal as="button" className="text-link" type="button" onClick={() => {
             setView("grid");
             requestAnimationFrame(() => document.getElementById("trending")?.scrollIntoView({
               behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",

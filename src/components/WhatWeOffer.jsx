@@ -35,7 +35,7 @@ export default function WhatWeOffer() {
       <img className="offer-scene" src="/assets/properties-1.jpg" alt="" loading="lazy" aria-hidden="true" />
       <div className="offer-gallery-inner">
         <h2 id="offer-heading" className="offer-heading" data-reveal>What We Offer</h2>
-        <div className="offer-card-grid">
+        <div className="offer-card-grid" data-reveal-group>
           {offerServices.map(service => <OfferCard key={service.number} service={service} />)}
         </div>
       </div>

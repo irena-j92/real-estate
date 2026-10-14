@@ -96,7 +96,7 @@
   .premium-footer .footer-socials nav { gap: 10px; }
 }
 
-/* Contained image drift, with a separate 1.5x hover layer. */
+/* Contained image drift, with a separate 1.2x hover layer. */
 .motion-image { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; }
 .motion-image-drift { position: absolute; inset: -12% 0; width: 100%; height: 124%; }
 .motion-image img,
@@ -139,7 +139,7 @@
   .motion-image:hover img,
   .property-grid-card .motion-image:hover img,
   .motion-image:hover .expert-portrait,
-  .offer-flip-card.is-flipped .motion-image img { transform: scale(1.5); }
+  .offer-flip-card.is-flipped .motion-image img { transform: scale(1.2); }
 }
 @media (max-width: 767px), (prefers-reduced-motion: reduce) {
   .motion-image-drift { inset: 0; height: 100%; }
@@ -151,10 +151,21 @@
 /* Neutralize the older grid zoom so the shared hover scale owns the image. */
 .grid-property-image > button .motion-image img { transform: scale(1); }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .grid-property-image > button:hover .motion-image img { transform: scale(1.5); }
-  .contact-reference:hover .contact-background img { transform: scale(1.5); }
+  .grid-property-image > button:hover .motion-image img { transform: scale(1.2); }
+  .contact-reference:hover .contact-background img { transform: scale(1.2); }
 }
 .contact-reference > .contact-background.motion-image { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
 @media (prefers-reduced-motion: reduce), (hover: none) {
   .journal-card-image:hover .motion-image img { transform: scale(1); }
+}
+
+/* Room above and below the horizontal track keeps vertical reveals visible. */
+.history-viewport { padding-block: 160px; margin-block: -160px; overflow-y: hidden; }
+.expert-career { margin-top: 20px; }
+.expert-career .career-link { padding: 0 0 6px; border: 0; border-bottom: 1px solid currentColor; text-decoration: none; }
+.expert-career .career-link::after { display: none; }
+/* Search gets its own symmetrical inset; the menu retains its current size. */
+.header-drawer.drawer-right { top: 24px; right: 24px; width: min(520px, calc(50vw - 128px)); max-height: calc(100svh - 48px); }
+@media (max-width: 767px) {
+  .header-drawer.drawer-right { top: 16px; right: 16px; width: min(460px, calc(100vw - 32px)); max-height: calc(100svh - 196px); }
 }
