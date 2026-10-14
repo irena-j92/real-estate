@@ -1,3 +1,4 @@
+import MotionImage from "./ui/MotionImage";
 import { useEffect, useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import Button from "./ui/Button";
@@ -11,7 +12,7 @@ export default function ContactSection() {
   }, []);
   const change = field => event => setForm(current => ({ ...current, [field]: event.target.value }));
   return <section id="contact" className="contact-section contact-reference" aria-labelledby="contact-title">
-    <img className="contact-background" src="/assets/contact-img.jpg" alt="" loading="lazy" aria-hidden="true" />
+    <MotionImage className="contact-background" src="/assets/contact-img.jpg" alt="" loading="lazy" aria-hidden="true" />
     <div className="contact-reference-layout">
       <h2 id="contact-title" data-reveal>CONTACT US</h2>
       <div className="contact-form" data-reveal>

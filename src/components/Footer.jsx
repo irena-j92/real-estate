@@ -24,18 +24,17 @@ export default function Footer() {
         </div>
         <div className="footer-bottom" data-reveal>
           <p>
-            © {new Date().getFullYear()} Sunter Realty · Independent portfolio
-            concept
+            © {new Date().getFullYear()} Sunter Realty
           </p>
           <HoverControl as="a" href="/#top" className="back-to-top">
-            BACK TO TOP <span className="back-to-top-circle" aria-hidden="true"><FiArrowUp strokeWidth={1} /></span>
+            BACK TO TOP <span className="back-to-top-square" aria-hidden="true"><FiArrowUp strokeWidth={1} /></span>
           </HoverControl>
         </div>
       </div>
-      <div data-reveal>
-      <p aria-hidden="true" className="footer-wordmark">
-        Sunter Realty
-      </p>
+      <div className="footer-wordmark-wrap" data-reveal>
+        <svg aria-hidden="true" className="footer-wordmark" viewBox="0 0 1200 180">
+          <text x="2" y="145" textLength="1196" lengthAdjust="spacingAndGlyphs">SUNTER REALTY</text>
+        </svg>
       </div>
     </footer>
   );

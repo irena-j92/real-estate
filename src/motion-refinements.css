@@ -95,3 +95,66 @@
   .contact-phone-row { grid-template-columns: 108px minmax(0, 1fr); }
   .premium-footer .footer-socials nav { gap: 10px; }
 }
+
+/* Contained image drift, with a separate 1.5x hover layer. */
+.motion-image { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; }
+.motion-image-drift { position: absolute; inset: -12% 0; width: 100%; height: 124%; }
+.motion-image img,
+.motion-image .expert-portrait {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: none;
+}
+.single-property-view .property-visual > .motion-image { height: auto; aspect-ratio: 3 / 4; }
+.property-grid-card .grid-property-image img,
+.journal-card .journal-card-image img { transform: scale(1); }
+.perspective-motion-image { height: auto; aspect-ratio: 4 / 5; }
+.perspective-approach .motion-image img { aspect-ratio: auto; height: 100%; }
+.horizontal-service-panel .motion-image-drift { inset: 0; height: 100%; }
+
+.back-to-top-square { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #ffffff80; border-radius: 0; }
+.back-to-top-square svg { width: 22px; height: 22px; }
+.back-to-top:hover .back-to-top-square { border-color: var(--gold); }
+.footer-wordmark-wrap { padding: 40px 24px 0; width: 100%; }
+.premium-footer .footer-wordmark {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  transform: none;
+  overflow: visible;
+  font-family: var(--serif);
+  font-size: 190px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+}
+.footer-wordmark text { fill: currentColor; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .motion-image:hover img,
+  .property-grid-card .motion-image:hover img,
+  .motion-image:hover .expert-portrait,
+  .offer-flip-card.is-flipped .motion-image img { transform: scale(1.5); }
+}
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .motion-image-drift { inset: 0; height: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-image img, .motion-image .expert-portrait { transition: none; }
+}
+
+/* Neutralize the older grid zoom so the shared hover scale owns the image. */
+.grid-property-image > button .motion-image img { transform: scale(1); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .grid-property-image > button:hover .motion-image img { transform: scale(1.5); }
+  .contact-reference:hover .contact-background img { transform: scale(1.5); }
+}
+.contact-reference > .contact-background.motion-image { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .journal-card-image:hover .motion-image img { transform: scale(1); }
+}

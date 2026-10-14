@@ -39,12 +39,16 @@ function OrbitStack({ index, setIndex }) {
               opacity: Math.abs(offset) > 1 ? 0.5 : 1,
             }}
           >
-            <div
-              className="expert-portrait"
-              role="img"
-              aria-label={`Illustrative portrait of ${agent.name}`}
-              style={{ backgroundPosition: `${i * 25}% 15%` }}
-            />
+            <div className="motion-image expert-motion-image">
+              <div className="motion-image-drift" data-image-drift>
+                <div
+                  className="expert-portrait"
+                  role="img"
+                  aria-label={`Illustrative portrait of ${agent.name}`}
+                  style={{ backgroundPosition: `${i * 25}% 15%` }}
+                />
+              </div>
+            </div>
           </HoverControl>
         );
       })}

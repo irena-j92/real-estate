@@ -1,3 +1,4 @@
+import MotionImage from "./ui/MotionImage";
 import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import { FiX } from "react-icons/fi";
@@ -60,7 +61,7 @@ export default function BlogSection() {
                 onClick={() => setSelected(index)}
                 aria-label={`Read ${post.title}`}
               >
-                <img src={post.image} alt={post.title} loading="lazy" />
+                <MotionImage src={post.image} alt={post.title} loading="lazy" />
               </HoverControl>
               <p className="eyebrow">{post.date}</p>
               <h3>{post.title}</h3>

@@ -1,3 +1,4 @@
+import MotionImage from "./ui/MotionImage";
 import HoverControl from "./ui/HoverControl";
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -194,7 +195,7 @@ export default function FeatureServices({ ready = true }) {
                 </HoverControl>
               </div>
               <figure>
-                <img src={service.image} alt={service.alt} loading="lazy" />
+                <MotionImage scroll={false} src={service.image} alt={service.alt} loading="lazy" />
               </figure>
             </article>
           ))}

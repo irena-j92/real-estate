@@ -24,14 +24,15 @@ export default function useExperienceMotion(rootRef, ready) {
       visible.forEach(el => reveal.unobserve(el));
       context.add(() => {
         gsap.to(visible, {
-          opacity: 1, y: 0, duration: 0.72,
+          opacity: 1, y: 0, duration: 0.78,
           stagger: { each: 0.08, amount: Math.min(0.24, (visible.length - 1) * 0.08) },
-          ease: "power3.out", overwrite: "auto",
+          ease: "back.out(1.12)", overwrite: "auto",
           onComplete: () => gsap.set(visible, { clearProps: "opacity,transform" }),
         });
       });
     }, { threshold: 0.08, rootMargin: "0px 0px -35px 0px" });
     const seen = new WeakSet();
+    const imageDrifts = new Map();
     // Delegate to the root: drawers and changing controls work immediately,
     // without retaining listeners for controls that have already unmounted.
     const roll = (event, entered) => {
@@ -69,10 +70,35 @@ export default function useExperienceMotion(rootRef, ready) {
               el.parentElement.closest("[data-reveal]")) return;
           seen.add(el);
           if (!reduced.matches) {
-            gsap.set(el, { opacity: 0, y: 24 });
+            gsap.set(el, { opacity: 0, y: 140 });
             reveal.observe(el);
           }
         });
+
+        // Register newly mounted property views, and release their old triggers
+        // when the carousel or grid removes them.
+        imageDrifts.forEach((tween, el) => {
+          if (!root.contains(el)) {
+            tween.scrollTrigger?.kill();
+            tween.kill();
+            imageDrifts.delete(el);
+          }
+        });
+        if (!reduced.matches && window.innerWidth > 767) {
+          root.querySelectorAll("[data-image-drift]").forEach(el => {
+            if (imageDrifts.has(el) || el.closest("#services")) return;
+            const tween = gsap.fromTo(el, { yPercent: 8 }, {
+              yPercent: -8,
+              ease: "none",
+              scrollTrigger: {
+                trigger: el.closest("section") || el.parentElement,
+                start: "top bottom", end: "bottom top", scrub: 0.65,
+                refreshPriority: -20, invalidateOnRefresh: true,
+              },
+            });
+            imageDrifts.set(el, tween);
+          });
+        }
 
       };
       register();
@@ -114,6 +140,7 @@ export default function useExperienceMotion(rootRef, ready) {
       cancelAnimationFrame(refreshFrame);
       reveal.disconnect();
       cleanups.forEach((fn) => fn());
+      imageDrifts.clear();
       context.revert();
       images.forEach((img) => img.removeEventListener("load", refresh));
     };

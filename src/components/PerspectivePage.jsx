@@ -1,3 +1,4 @@
+import MotionImage from "./ui/MotionImage";
 import { FiArrowRight } from "react-icons/fi";
 import AboutSection from "./AboutSection";
 import HoverControl from "./ui/HoverControl";
@@ -30,7 +31,7 @@ export default function PerspectivePage() {
     </section>
     <section className="perspective-approach" id="our-approach">
       <div className="perspective-shell">
-        <img data-reveal src="/assets/contact-img.jpg" alt="A modern residence with a landscaped garden and warm interior light" loading="lazy" />
+        <MotionImage className="perspective-motion-image" reveal src="/assets/contact-img.jpg" alt="A modern residence with a landscaped garden and warm interior light" loading="lazy" />
         <div data-reveal>
           <p className="section-kicker">A considered approach</p>
           <h2>EVERY MOVE.<br />PERSONALLY CONSIDERED.</h2>

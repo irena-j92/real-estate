@@ -1,3 +1,4 @@
+import MotionImage from "./ui/MotionImage";
 import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -100,7 +101,7 @@ function SingleView({ index, setIndex, saved, toggle }) {
     >
       <article className="featured-property" data-reveal>
         <div className="property-visual" data-image-reveal>
-          <img
+          <MotionImage
             key={property.id}
             src={property.image}
             alt={property.title}
@@ -208,7 +209,7 @@ function GridView({ saved, toggle, select }) {
               type="button"
               aria-label={`Explore ${property.title}`}
             >
-              <img src={property.image} alt={property.title} loading="lazy" />
+              <MotionImage src={property.image} alt={property.title} loading="lazy" />
             </HoverControl>
             <span className="property-badge">{property.tag}</span>
             <SaveButton

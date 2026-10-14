@@ -1,3 +1,4 @@
+import MotionImage from "./ui/MotionImage";
 import { useState } from "react";
 import { offerServices } from "../data/offerServices";
 
@@ -13,7 +14,7 @@ function OfferCard({ service }) {
       <div className="offer-card-rotor" aria-hidden="true">
         <div className="offer-card-face offer-card-front" />
         <div className="offer-card-face offer-card-back">
-          <img src={service.image} alt="" loading="lazy" />
+          <MotionImage src={service.image} alt="" loading="lazy" />
         </div>
       </div>
       <div className="offer-card-content">
