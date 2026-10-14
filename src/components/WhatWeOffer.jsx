@@ -4,7 +4,7 @@ import { offerServices } from "../data/offerServices";
 function OfferCard({ service }) {
   const [flipped, setFlipped] = useState(false);
   return (
-    <article className={`offer-flip-card ${flipped ? "is-flipped" : ""}`}
+    <article data-reveal className={`offer-flip-card ${flipped ? "is-flipped" : ""}`}
       onPointerEnter={() => { if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) setFlipped(true); }}
       onPointerLeave={() => { if (!document.activeElement || !document.activeElement.closest(`#offer-card-${service.number}`)) setFlipped(false); }}
       onFocusCapture={() => setFlipped(true)}
@@ -18,7 +18,7 @@ function OfferCard({ service }) {
       </div>
       <div className="offer-card-content">
         <span className="offer-card-number" aria-hidden="true">/{service.number}</span>
-        <h3 id={`offer-title-${service.number}`}>{service.title}</h3>
+        <h3 id={`offer-title-${service.number}`}>{service.title.toUpperCase()}</h3>
         <p id={`offer-description-${service.number}`}>{service.description}</p>
       </div>
       <button className="offer-card-toggle" type="button" data-no-hover
@@ -34,7 +34,7 @@ export default function WhatWeOffer() {
       <img className="offer-scene" src="/assets/properties-1.jpg" alt="" loading="lazy" aria-hidden="true" />
       <div className="offer-gallery-inner">
         <h2 id="offer-heading" className="offer-heading" data-reveal>What We Offer</h2>
-        <div className="offer-card-grid" data-reveal>
+        <div className="offer-card-grid">
           {offerServices.map(service => <OfferCard key={service.number} service={service} />)}
         </div>
       </div>

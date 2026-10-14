@@ -98,7 +98,7 @@ function SingleView({ index, setIndex, saved, toggle }) {
         if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false);
       }}
     >
-      <article className="featured-property">
+      <article className="featured-property" data-reveal>
         <div className="property-visual" data-image-reveal>
           <img
             key={property.id}
@@ -201,7 +201,7 @@ function GridView({ saved, toggle, select }) {
   return (
     <div className="properties-grid view-enter">
       {properties.map((property, i) => (
-        <article key={property.id} className="property-grid-card">
+        <article key={property.id} className="property-grid-card" data-reveal>
           <div className="grid-property-image" data-cursor="EXPLORE">
             <HoverControl as="button"
               onClick={() => select(i)}
@@ -323,7 +323,7 @@ export default function TrendingProperties() {
         ) : (
           <GridView saved={saved} toggle={toggle} select={select} />
         )}
-        <div className="listing-bottom-action">
+        <div className="listing-bottom-action" data-reveal>
           <HoverControl as="button" className="text-link" type="button" onClick={() => {
             setView("grid");
             requestAnimationFrame(() => document.getElementById("trending")?.scrollIntoView({

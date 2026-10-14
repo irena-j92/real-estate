@@ -1,3 +1,4 @@
+import { FiArrowUp } from "react-icons/fi";
 import HoverControl from "./ui/HoverControl";
 import { FaFacebookF, FaXTwitter, FaLinkedinIn, FaYoutube, FaInstagram } from "react-icons/fa6";
 const socials = [["Facebook", "https://www.facebook.com/", FaFacebookF], ["X", "https://x.com/", FaXTwitter], ["LinkedIn", "https://www.linkedin.com/", FaLinkedinIn], ["YouTube", "https://www.youtube.com/", FaYoutube], ["Instagram", "https://www.instagram.com/", FaInstagram]];
@@ -15,27 +16,27 @@ export default function Footer() {
           </nav>
         </div>
         <div className="footer-socials" data-reveal>
-          <h3>Socials</h3>
           <nav aria-label="Social media">
             {socials.map(([label, href, Icon]) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="social-tile"><Icon aria-hidden="true" /></a>
             ))}
           </nav>
         </div>
-        <div className="footer-bottom">
+        <div className="footer-bottom" data-reveal>
           <p>
             © {new Date().getFullYear()} Sunter Realty · Independent portfolio
             concept
           </p>
-          <p>Illustrative homes & advisers · Equal housing opportunity</p>
-          <HoverControl as="a" href="/#top" className="hover:text-yellow">
-            Back to the beginning
+          <HoverControl as="a" href="/#top" className="back-to-top">
+            BACK TO TOP <span className="back-to-top-circle" aria-hidden="true"><FiArrowUp strokeWidth={1} /></span>
           </HoverControl>
         </div>
       </div>
+      <div data-reveal>
       <p aria-hidden="true" className="footer-wordmark">
         Sunter Realty
       </p>
+      </div>
     </footer>
   );
 }

@@ -12,6 +12,7 @@ import "./editorial-refinements.css";
 import "./october-refinements.css";
 import "./sunter-story.css";
 import "./villa-hero.css";
+import "./motion-refinements.css";
 import { AccountProvider } from "./state/AccountContext";
 import App from "./App.jsx";
 

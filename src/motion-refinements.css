@@ -1,0 +1,97 @@
+/* Compact glass panels leave the centered brand and collection orbit exposed. */
+.header-drawer {
+  top: 96px;
+  bottom: auto;
+  width: min(480px, calc(50vw - 140px));
+  height: auto;
+  max-height: calc(100svh - 128px);
+  padding: 74px 28px 32px;
+}
+.drawer-left { left: 24px; }
+.drawer-right { right: 24px; }
+.header-drawer .drawer-close { top: 18px; right: 20px; }
+.header-drawer .menu-index { min-height: 0; padding: 10px 0 20px; }
+.header-drawer .menu-index nav a { gap: 14px; padding-block: 20px; }
+.header-drawer .menu-index nav a > span { font-size: clamp(22px, 2.65vw, 42px); }
+.header-drawer h2 { font-size: clamp(32px, 3.5vw, 48px); margin-bottom: 24px; }
+.header-drawer .search-tabs { gap: 10px 16px; margin-bottom: 24px; }
+.header-drawer .search-tabs button { font-size: 11px; }
+.header-drawer .search-form { gap: 18px; }
+.header-drawer .search-field-row { gap: 14px; }
+.header-drawer .search-field label { font-size: 12px; }
+.header-drawer .search-field input,
+.header-drawer .search-field select { font-size: 14px; min-height: 44px; }
+
+.history-heading h2 { font-family: var(--serif); font-style: normal; text-transform: uppercase; }
+.history-milestone h3 { font-family: var(--serif); text-transform: uppercase; }
+.offer-card-content h3 { text-transform: uppercase; }
+
+/* The form remains a quarter-white glass surface with a quieter footprint. */
+.contact-reference { min-height: 0; }
+.contact-reference-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 540px); gap: 6vw; }
+.contact-reference .contact-form { width: 100%; max-width: 540px; justify-self: end; padding: 32px; }
+.contact-reference .contact-form h3 {
+  font-family: var(--display);
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+.contact-reference .contact-form form { gap: 14px; }
+.contact-reference .contact-field { gap: 6px; }
+.contact-reference .contact-field input,
+.contact-reference .contact-field select,
+.contact-reference .contact-field textarea { min-height: 46px; padding: 12px 16px; font-size: 15px; }
+.contact-reference .contact-field textarea { min-height: 160px; }
+.contact-phone-row { grid-template-columns: 120px minmax(0, 1fr); }
+.contact-reference .contact-send {
+  min-height: 52px;
+  width: fit-content;
+  align-self: flex-start;
+  padding: 15px 22px;
+  font-size: 14px;
+}
+
+/* An unfilled right-aligned group, with the exact navigation control dimensions. */
+.premium-footer .footer-socials { display: flex; justify-content: flex-end; margin-block: 32px; padding: 0; background: transparent; border: 0; }
+.premium-footer .footer-socials nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; }
+.premium-footer .social-tile {
+  width: var(--nav-control-size);
+  height: var(--nav-control-size);
+  min-height: var(--nav-control-size);
+  padding: 0;
+  border: 1px solid #ffffff66;
+  background: transparent;
+  color: white;
+}
+.premium-footer .social-tile svg { width: 20px; height: 20px; }
+.premium-footer .social-tile:hover,
+.premium-footer .social-tile:focus-visible { color: var(--gold); border-color: var(--gold); }
+.back-to-top { display: inline-flex; align-items: center; gap: 14px; font-size: 12px; color: white; }
+.back-to-top-circle { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #ffffff80; border-radius: 50%; }
+.back-to-top-circle svg { width: 22px; height: 22px; }
+.back-to-top:hover { color: var(--gold); }
+.back-to-top:hover .back-to-top-circle { border-color: var(--gold); }
+
+@media (max-width: 1100px) and (min-width: 768px) {
+  .header-drawer { padding-inline: 22px; }
+  .header-drawer .search-field-row { grid-template-columns: 1fr; }
+  .contact-reference-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 480px); gap: 32px; }
+  .contact-reference h2 { font-size: clamp(40px, 5vw, 60px); }
+}
+@media (max-width: 767px) {
+  .header-drawer {
+    top: 90px;
+    width: min(440px, calc(100vw - 32px));
+    max-height: calc(100svh - 290px);
+    padding: 58px 24px 24px;
+  }
+  .drawer-left { left: 16px; }
+  .drawer-right { right: 16px; }
+  .header-drawer .menu-index nav a { padding-block: 15px; }
+  .header-drawer .menu-index nav a > span { font-size: clamp(24px, 6vw, 34px); }
+  .contact-reference-layout { grid-template-columns: 1fr; gap: 32px; }
+  .contact-reference .contact-form { padding: 24px; justify-self: center; }
+  .contact-phone-row { grid-template-columns: 108px minmax(0, 1fr); }
+  .premium-footer .footer-socials nav { gap: 10px; }
+}

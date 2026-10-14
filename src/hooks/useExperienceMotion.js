@@ -17,16 +17,20 @@ export default function useExperienceMotion(rootRef, ready) {
       reduced = window.matchMedia("(prefers-reduced-motion: reduce)"),
       fine = window.matchMedia("(hover: hover) and (pointer: fine)");
     const cleanups = [];
-    const reveal = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            reveal.unobserve(entry.target);
-          }
-        }),
-      { threshold: 0.08, rootMargin: "0px 0px -35px 0px" },
-    );
+    let context;
+    const reveal = new IntersectionObserver((entries) => {
+      const visible = entries.filter(entry => entry.isIntersecting).map(entry => entry.target);
+      if (!visible.length) return;
+      visible.forEach(el => reveal.unobserve(el));
+      context.add(() => {
+        gsap.to(visible, {
+          opacity: 1, y: 0, duration: 0.72,
+          stagger: { each: 0.08, amount: Math.min(0.24, (visible.length - 1) * 0.08) },
+          ease: "power3.out", overwrite: "auto",
+          onComplete: () => gsap.set(visible, { clearProps: "opacity,transform" }),
+        });
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -35px 0px" });
     const seen = new WeakSet();
     // Delegate to the root: drawers and changing controls work immediately,
     // without retaining listeners for controls that have already unmounted.
@@ -56,20 +60,23 @@ export default function useExperienceMotion(rootRef, ready) {
         gsap.set(faces, { yPercent: 0 });
       }
     });
-    const context = gsap.context(() => {
+    context = gsap.context(() => {
       const register = () => {
         root.querySelectorAll("[data-reveal]").forEach((el) => {
-          if (seen.has(el)) return;
+          // Pinned service choreography owns its transforms. Never reveal a
+          // nested target twice, or move a whole section containing a pin.
+          if (seen.has(el) || el.closest("#services, .horizontal-services") ||
+              el.parentElement.closest("[data-reveal]")) return;
           seen.add(el);
           if (!reduced.matches) {
-            el.classList.add("is-reveal");
+            gsap.set(el, { opacity: 0, y: 24 });
             reveal.observe(el);
           }
         });
 
       };
       register();
-      const observer = new MutationObserver(register);
+      const observer = new MutationObserver(() => context.add(register));
       observer.observe(root, { childList: true, subtree: true });
       cleanups.push(() => observer.disconnect());
       if (!reduced.matches && window.innerWidth > 767) {
@@ -91,13 +98,6 @@ export default function useExperienceMotion(rootRef, ready) {
         });
       }
     }, root);
-    const enableReduced = () => {
-      if (reduced.matches)
-        root
-          .querySelectorAll(".is-reveal")
-          .forEach((el) => el.classList.add("is-visible"));
-    };
-    reduced.addEventListener("change", enableReduced);
     let refreshFrame = 0;
     const images = [...root.querySelectorAll("img")];
     const refresh = () => {
@@ -115,11 +115,7 @@ export default function useExperienceMotion(rootRef, ready) {
       reveal.disconnect();
       cleanups.forEach((fn) => fn());
       context.revert();
-      reduced.removeEventListener("change", enableReduced);
       images.forEach((img) => img.removeEventListener("load", refresh));
-      root
-        .querySelectorAll(".is-reveal")
-        .forEach((el) => el.classList.remove("is-reveal", "is-visible"));
     };
   }, [rootRef, ready, motionReduced]);
 }

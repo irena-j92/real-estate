@@ -33,8 +33,9 @@ export default function Hero({ ready = false }) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".hero-word",
-        { yPercent: reduced ? 0 : 115, rotate: reduced ? 0 : 2 },
+        { opacity: 0, yPercent: reduced ? 0 : 115, rotate: reduced ? 0 : 2 },
         {
+          opacity: 1,
           yPercent: 0,
           rotate: 0,
           duration: reduced ? 0.01 : 0.95,

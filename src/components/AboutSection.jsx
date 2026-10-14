@@ -60,7 +60,7 @@ export default function AboutSection({ ready = true, companyPage = false }) {
         <p className="section-kicker" data-reveal>
           01 / A sense of place
         </p>
-        <h2 className="description-statement" aria-label={statement}>
+        <h2 data-reveal className="description-statement" aria-label={statement}>
           {words.map(({ word, italic }, i) => (
             <span key={i} className={`description-word ${italic ? "description-serif" : ""}`} aria-hidden="true">
               {word}

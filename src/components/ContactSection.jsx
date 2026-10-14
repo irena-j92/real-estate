@@ -15,7 +15,7 @@ export default function ContactSection() {
     <div className="contact-reference-layout">
       <h2 id="contact-title" data-reveal>CONTACT US</h2>
       <div className="contact-form" data-reveal>
-        <h3>Send us a message</h3>
+        <h3>SEND US A MESSAGE</h3>
         <p>Connect with your Sunter adviser, or start your next chapter here.</p>
         {sent ? <div className="contact-success" role="status">
           <h4>Your message is ready.</h4>
@@ -35,10 +35,9 @@ export default function ContactSection() {
           </div>
           <div className="contact-field">
             <label htmlFor="message">Message</label>
-            <textarea id="message" rows={7} value={form.message} onChange={change("message")} placeholder="Your message here" required />
+            <textarea id="message" rows={4} value={form.message} onChange={change("message")} placeholder="Your message here" required />
           </div>
           <Button type="submit" variant="yellow" className="contact-send">SEND <FiArrowRight strokeWidth={1} aria-hidden="true" /></Button>
-          <p className="contact-preview-note">Portfolio preview · messages are not sent</p>
         </form>}
       </div>
     </div>
