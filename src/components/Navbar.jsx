@@ -141,7 +141,7 @@ export default function Navbar({ ready = true, light = false }) {
             ))}
           </span>
         </HoverControl>
-        <a className="nav-wordmark" data-no-hover href="#top" aria-label="Sunter Realty home">
+        <a className="nav-wordmark" data-no-hover href="/#top" aria-label="Sunter Realty home">
           Sunter<span>Realty</span>
         </a>
         <div className="header-right">

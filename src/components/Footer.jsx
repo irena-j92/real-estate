@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="site-container">
         <div className="footer-top" data-reveal>
           <HoverControl as="a" href="/#top" className="footer-brand">
-            Sunter Realty<small>A DIFFERENT PERSPECTIVE ON HOME.</small>
+            Sunter Realty<small>REMARKABLE HOMES. PERSONAL GUIDANCE.</small>
           </HoverControl>
           <nav className="footer-navigation" aria-label="Footer navigation">
             {navigation.map(([label, href]) => <HoverControl as="a" key={href} href={href}>{label}</HoverControl>)}
@@ -29,6 +29,10 @@ export default function Footer() {
           <HoverControl as="a" href="/#top" className="back-to-top">
             BACK TO TOP <span className="back-to-top-square" aria-hidden="true"><FiArrowUp strokeWidth={1} /></span>
           </HoverControl>
+          <nav className="footer-legal" aria-label="Legal information">
+            <HoverControl as="a" href="/privacy-policy">Privacy Policy</HoverControl>
+            <HoverControl as="a" href="/terms-of-services">Terms of Services</HoverControl>
+          </nav>
         </div>
       </div>
       <div className="footer-wordmark-wrap" data-reveal-group>

@@ -1,13 +1,17 @@
+import FeatureServices from "./FeatureServices";
 import MotionImage from "./ui/MotionImage";
 import { FiArrowRight } from "react-icons/fi";
 import AboutSection from "./AboutSection";
 import HoverControl from "./ui/HoverControl";
 
-const principles = [
+const principleCopy = [
   ["01", "People before property", "We begin with the life you want to lead. Your routines, ambitions, and the things that make a place feel like yours shape every conversation that follows."],
   ["02", "An eye for the meaningful", "We notice the morning light, the thoughtful materials, and the way a room connects to the outdoors. Distinctive architecture matters most when it supports everyday living."],
   ["03", "Clarity at every step", "Good advice should leave you feeling informed. We make space for questions, explain the details, and help you understand the choices in front of you."],
 ];
+const principles = principleCopy.map(([number, title, description], index) => ({
+  number, title, description, short: ["People", "Meaning", "Clarity"][index],
+}));
 export default function PerspectivePage() {
   return <main className="perspective-page">
     <section id="perspective-top" className="perspective-introduction" aria-labelledby="perspective-title">
@@ -21,14 +25,8 @@ export default function PerspectivePage() {
       </div>
     </section>
     <AboutSection ready companyPage />
-    <section className="perspective-principles" id="our-values" aria-labelledby="values-title">
-      <div className="perspective-shell" data-reveal-group>
-        <h2 id="values-title" data-reveal>WHAT WE BELIEVE.</h2>
-        {principles.map(([number, title, description]) => <article key={number} data-reveal>
-          <span>{number}</span><h3>{title}</h3><p>{description}</p>
-        </article>)}
-      </div>
-    </section>
+    <FeatureServices items={principles} sectionId="our-values" sectionLabel="What we believe"
+      heading="WHAT WE BELIEVE" caption="" className="perspective-beliefs" />
     <section className="perspective-approach" id="our-approach">
       <div className="perspective-shell" data-reveal-group>
         <MotionImage className="perspective-motion-image" reveal src="/assets/contact-img.jpg" alt="A modern residence with a landscaped garden and warm interior light" loading="lazy" />

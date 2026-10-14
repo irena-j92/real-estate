@@ -2,8 +2,10 @@ import { cpSync, mkdirSync, writeFileSync, readFileSync } from "node:fs";
 mkdirSync("dist/server", { recursive: true });
 mkdirSync("dist/.openai", { recursive: true });
 // A real page entry also supports direct/static resolution of the company URL.
-mkdirSync("dist/client/our-perspective", { recursive: true });
-cpSync("dist/client/index.html", "dist/client/our-perspective/index.html");
+for (const page of ["our-perspective", "privacy-policy", "terms-of-services"]) {
+  mkdirSync(`dist/client/${page}`, { recursive: true });
+  cpSync("dist/client/index.html", `dist/client/${page}/index.html`);
+}
 cpSync("server/index.js", "dist/server/index.js");
 cpSync(".openai/hosting.json", "dist/.openai/hosting.json");
 const manifest = JSON.parse(readFileSync(".openai/hosting.json", "utf8"));

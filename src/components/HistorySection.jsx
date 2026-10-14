@@ -6,7 +6,7 @@ export const milestones = [
   { year: "2017", title: "Design becomes part of the conversation", detail: "Architecture, light, and the way a home feels become central to our collection. Editorial photography and thoughtful property storytelling help buyers see beyond a floor plan." },
   { year: "2021", title: "One team, from beginning to belonging", detail: "Buying, selling, and relocation come together under one approach. Clients receive a clear point of contact and guidance that continues through each step of their next chapter." },
   { year: "2024", title: "A collection shaped around you", detail: "Our digital experience brings considered property discovery and personal advice closer together, with curated homes and a clearer way to connect with the right expert." },
-  { year: "PRESENT", title: "Still personal. Always looking forward.", detail: "Today, Sunter Realty brings independent thinking, an eye for architecture, and a human approach to every move. Our next chapter follows the same principle as our first: remarkable places, understood through the lives of the people who call them home." },
+  { year: "Present", title: "Still personal. Always looking forward.", detail: "Today, Sunter Realty brings independent thinking, an eye for architecture, and a human approach to every move. Our next chapter follows the same principle as our first: remarkable places, understood through the lives of the people who call them home." },
 ];
 export default function HistorySection() {
   const viewport = useRef(null), progress = useRef(null);

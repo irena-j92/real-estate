@@ -36,7 +36,11 @@ const services = [
     label: "Discover the support around you",
   },
 ];
-export default function FeatureServices({ ready = true }) {
+export default function FeatureServices({
+  ready = true, items = services, sectionId = "services",
+  sectionLabel = "Buying, selling and relocating",
+  caption = "03 / A considered approach", heading, className = "",
+}) {
   const root = useRef(null),
     viewport = useRef(null),
     track = useRef(null),
@@ -59,7 +63,7 @@ export default function FeatureServices({ ready = true }) {
   const chapterAt = (position) => {
     let closest = 0,
       difference = Infinity;
-    services.forEach((_, index) => {
+    items.forEach((_, index) => {
       const delta = Math.abs(position - chapterOffset(index));
       if (delta < difference) {
         closest = index;
@@ -84,7 +88,7 @@ export default function FeatureServices({ ready = true }) {
           x: () => -(track.current.scrollWidth - viewport.current.clientWidth),
           ease: "none",
           scrollTrigger: {
-            id: "horizontal-services",
+            id: `horizontal-${sectionId}`,
             // The hero pin is created later as its media becomes ready.
             // Measure this lower section after that upstream spacer exists.
             refreshPriority: -10,
@@ -115,7 +119,7 @@ export default function FeatureServices({ ready = true }) {
           const offset = () => 40 + photo.offsetWidth * 0.075;
           const sequence = gsap.timeline({
             scrollTrigger: i === 0 ? {
-              id: `service-separation-${i + 1}`,
+              id: `${sectionId === "services" ? "service" : sectionId}-separation-${i + 1}`,
               refreshPriority: -11,
               trigger: root.current,
               start: "top 85%",
@@ -123,7 +127,7 @@ export default function FeatureServices({ ready = true }) {
               scrub: 0.8,
               invalidateOnRefresh: true,
             } : {
-              id: `service-separation-${i + 1}`,
+              id: `${sectionId === "services" ? "service" : sectionId}-separation-${i + 1}`,
               refreshPriority: -11,
               trigger: panel,
               containerAnimation: tween,
@@ -160,28 +164,32 @@ export default function FeatureServices({ ready = true }) {
       root,
     );
     return () => media.revert();
-  }, [ready]);
+  }, [ready, items, sectionId]);
   return (
     <section
       ref={root}
-      id="services"
-      className={`horizontal-services ${pinned ? "is-pinned" : ""}`}
-      aria-label="Buying, selling and relocating"
+      id={sectionId}
+      className={`horizontal-services ${className} ${pinned ? "is-pinned" : ""}`}
+      aria-label={sectionLabel}
     >
       <div className="horizontal-services-top">
-        <p>03 / A considered approach</p>
+        {caption && <p>{caption}</p>}
+        {heading && <h2 className="narrative-heading">{heading}</h2>}
 
       </div>
       <div
         ref={viewport}
         className="horizontal-services-viewport"
+        tabIndex={pinned ? undefined : 0}
+        role="region"
+        aria-label={`${sectionLabel} chapters`}
         onScroll={() => {
           if (!scroll.current && viewport.current.clientWidth)
             setActive(chapterAt(viewport.current.scrollLeft));
         }}
       >
         <div ref={track} className="horizontal-services-track">
-          {services.map((service, i) => (
+          {items.map((service, i) => (
             <article
               key={service.short}
               className="horizontal-service-panel"
@@ -190,19 +198,20 @@ export default function FeatureServices({ ready = true }) {
                 <p className="service-category">{service.short}</p>
                 <h2>{service.title}</h2>
                 <p>{service.description}</p>
-                <HoverControl as="a" className="text-link" href={service.link}>
+                {service.label && <HoverControl as="a" className="text-link" href={service.link}>
                   {service.label}
-                </HoverControl>
+                </HoverControl>}
               </div>
-              <figure>
-                <MotionImage scroll={false} src={service.image} alt={service.alt} loading="lazy" />
+              <figure className={service.number ? "narrative-number-frame" : undefined}>
+                {service.number ? <span className="narrative-number" aria-hidden="true">{service.number}</span> :
+                  <MotionImage scroll={false} src={service.image} alt={service.alt} loading="lazy" />}
               </figure>
             </article>
           ))}
         </div>
       </div>
       <div className="horizontal-services-bottom">
-        <span aria-live="polite">0{active + 1} / 03</span>
+        <span aria-live="polite">0{active + 1} / {String(items.length).padStart(2, "0")}</span>
       </div>
     </section>
   );

@@ -21,7 +21,7 @@ export default {
     const url = new URL(request.url);
     // Sites' hosted asset binding does not inherit Wrangler's SPA fallback.
     // Serve the application shell explicitly for each supported page URL.
-    if (["/", "/index.html", "/our-perspective", "/our-perspective/"].includes(url.pathname) && ["GET", "HEAD"].includes(request.method)) {
+    if (["/", "/index.html", "/our-perspective", "/our-perspective/", "/privacy-policy", "/privacy-policy/", "/terms-of-services", "/terms-of-services/"].includes(url.pathname) && ["GET", "HEAD"].includes(request.method)) {
       const assetUrl = new URL(request.url);
       assetUrl.pathname = "/index.html";
       const shell = await env.ASSETS.fetch(new Request(assetUrl, request));

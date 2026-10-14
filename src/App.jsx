@@ -1,5 +1,7 @@
+import LegalPage from "./components/LegalPage";
+import useFirstVisitIntro from "./hooks/useFirstVisitIntro";
 import HoverControl from "./components/ui/HoverControl";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
 import VillaHero from "./components/Hero";
@@ -21,13 +23,15 @@ import useExperienceMotion from "./hooks/useExperienceMotion";
 import useInitialAnchor from "./hooks/useInitialAnchor";
 export default function App() {
   const Hero = new URLSearchParams(window.location.search).get("hero") === "3d" ? VillaHero : VideoHero;
-  const perspective = window.location.pathname.replace(/\/$/, "") === "/our-perspective";
-  const [ready, setReady] = useState(perspective),
-    root = useRef(null);
-  const open = useCallback(() => setReady(true), []);
+  const pathname = window.location.pathname.replace(/\/$/, "");
+  const perspective = pathname === "/our-perspective";
+  const legal = ["/privacy-policy", "/terms-of-services"].includes(pathname) ? pathname.slice(1) : null;
+  const contentPage = perspective || Boolean(legal);
+  const [ready, open] = useFirstVisitIntro();
+  const root = useRef(null);
   const [heroPassed, setHeroPassed] = useState(false);
   useEffect(() => {
-    if (!ready || perspective) return;
+    if (!ready || contentPage) return;
     const hero = document.getElementById("top");
     const observer = new IntersectionObserver(
       ([entry]) =>
@@ -38,12 +42,13 @@ export default function App() {
     );
     if (hero) observer.observe(hero);
     return () => observer.disconnect();
-  }, [ready, perspective]);
+  }, [ready, contentPage]);
   useEffect(() => {
-    document.title = perspective ? "Our Perspective — Sunter Realty" : "Sunter Realty — A Different Perspective on Home";
-  }, [perspective]);
+    document.title = legal ? `${legal === "privacy-policy" ? "Privacy Policy" : "Terms of Services"} — Sunter Realty` :
+      perspective ? "Our Perspective — Sunter Realty" : "Sunter Realty — Remarkable Homes. Personal Guidance.";
+  }, [perspective, legal]);
   useExperienceMotion(root, ready);
-  useInitialAnchor(ready, perspective);
+  useInitialAnchor(ready, contentPage);
   useEffect(() => {
     const old = document.body.style.overflow;
     document.body.style.overflow = ready ? "" : "hidden";
@@ -53,14 +58,14 @@ export default function App() {
   }, [ready]);
   return (
     <div ref={root} className="realty-experience">
-      <HoverControl as="a" className="skip-link" href={perspective ? "#perspective-top" : "#trending"}>
-        {perspective ? "Skip to our perspective" : "Skip to residences"}
+      <HoverControl as="a" className="skip-link" href={legal ? "#legal-title" : perspective ? "#perspective-top" : "#trending"}>
+        {legal ? "Skip to page content" : perspective ? "Skip to our perspective" : "Skip to residences"}
       </HoverControl>
       {!ready && <Loader onComplete={open} />}
       <div inert={!ready}>
         <Navbar ready={ready} light={perspective} />
-        <ScrollRail ready={ready} perspective={perspective} />
-        {perspective ? <PerspectivePage /> : <main>
+        {!legal && <ScrollRail ready={ready} perspective={perspective} />}
+        {legal ? <LegalPage type={legal} /> : perspective ? <PerspectivePage /> : <main>
           <Hero ready={ready} />
           <AboutSection ready={ready} />
           <TrendingProperties />
