@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import useVideoScrub from "../hooks/useVideoScrub";
 import useHeroFrames, { HERO_DURATION } from "../hooks/useHeroFrames";
+import LiquidSquareGrid from "./experience/LiquidSquareGrid";
 
 export default function Hero({ ready = false }) {
   const sectionRef = useRef(null),
@@ -32,18 +33,6 @@ export default function Hero({ ready = false }) {
       "(prefers-reduced-motion: reduce)",
     ).matches;
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".hero-word",
-        { opacity: 0, yPercent: reduced ? 0 : 115, rotate: reduced ? 0 : 2 },
-        {
-          opacity: 1,
-          yPercent: 0,
-          rotate: 0,
-          duration: reduced ? 0.01 : 0.95,
-          stagger: reduced ? 0 : 0.08,
-          ease: "power3.out",
-        },
-      );
       gsap.fromTo(
         ".hero-small",
         { opacity: 0, y: reduced ? 0 : 16 },
@@ -93,17 +82,8 @@ export default function Hero({ ready = false }) {
         aria-hidden="true"
       />
       <div className="hero-scrim" aria-hidden="true" />
+      <LiquidSquareGrid surfaceRef={sectionRef} enabled={ready} />
       <div className="hero-scene-copy">
-        <h1 aria-label="A place to belong.">
-          <span className="hero-line">
-            <span className="hero-word">A place</span>
-          </span>
-          <span className="hero-line hero-line-second">
-            <span className="hero-word">
-              to <em>belong.</em>
-            </span>
-          </span>
-        </h1>
         <div className="hero-bottom hero-small">
           <HoverControl as="a"
             className="collection-orbit"
