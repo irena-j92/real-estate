@@ -1,14 +1,15 @@
+import { sitePath } from "../lib/sitePath.js";
 import { FiArrowUp } from "react-icons/fi";
 import HoverControl from "./ui/HoverControl";
 import { FaFacebookF, FaXTwitter, FaLinkedinIn, FaYoutube, FaInstagram } from "react-icons/fa6";
 const socials = [["Facebook", "https://www.facebook.com/", FaFacebookF], ["X", "https://x.com/", FaXTwitter], ["LinkedIn", "https://www.linkedin.com/", FaLinkedinIn], ["YouTube", "https://www.youtube.com/", FaYoutube], ["Instagram", "https://www.instagram.com/", FaInstagram]];
-const navigation = [["Our perspective", "/our-perspective"], ["The properties", "/#trending"], ["Our experts", "/#experts"], ["The local edit", "/#journal"], ["Contact", "/#contact"]];
+const navigation = [["Our perspective", sitePath("/our-perspective")], ["The properties", sitePath("/#trending")], ["Our experts", sitePath("/#experts")], ["The local edit", sitePath("/#journal")], ["Contact", sitePath("/#contact")]];
 export default function Footer() {
   return (
     <footer className="premium-footer">
       <div className="site-container">
         <div className="footer-top" data-reveal>
-          <HoverControl as="a" href="/#top" className="footer-brand">
+          <HoverControl as="a" href={sitePath("/#top")} className="footer-brand">
             Sunter Realty<small>REMARKABLE HOMES. PERSONAL GUIDANCE.</small>
           </HoverControl>
           <nav className="footer-navigation" aria-label="Footer navigation">
@@ -29,10 +30,10 @@ export default function Footer() {
 
           <div className="footer-utilities">
             <nav className="footer-legal" aria-label="Legal information">
-              <HoverControl as="a" href="/privacy-policy">Privacy Policy</HoverControl>
-              <HoverControl as="a" href="/terms-of-services">Terms of Services</HoverControl>
+              <HoverControl as="a" href={sitePath("/privacy-policy")}>Privacy Policy</HoverControl>
+              <HoverControl as="a" href={sitePath("/terms-of-services")}>Terms of Services</HoverControl>
             </nav>
-            <HoverControl as="a" href="/#top" className="back-to-top">
+            <HoverControl as="a" href={sitePath("/#top")} className="back-to-top">
               BACK TO TOP <span className="back-to-top-square" aria-hidden="true"><FiArrowUp strokeWidth={1} /></span>
             </HoverControl>
           </div>

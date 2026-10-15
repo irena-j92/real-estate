@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 export const properties = [
   {
     id: "catalina-foothills-estate",
@@ -8,7 +9,7 @@ export const properties = [
     beds: 5,
     baths: 6,
     sqft: "6,240",
-    image: "/assets/properties-1.jpg",
+    image: sitePath("/assets/properties-1.jpg"),
     tag: "FOR SALE",
   },
   {
@@ -20,7 +21,7 @@ export const properties = [
     beds: 4,
     baths: 4,
     sqft: "4,910",
-    image: "/assets/properties-2.jpg",
+    image: sitePath("/assets/properties-2.jpg"),
     tag: "FOR SALE",
   },
   {
@@ -32,7 +33,7 @@ export const properties = [
     beds: 6,
     baths: 7,
     sqft: "7,380",
-    image: "/assets/properties-3.jpg",
+    image: sitePath("/assets/properties-3.jpg"),
     tag: "FOR SALE",
   },
   {
@@ -44,7 +45,7 @@ export const properties = [
     beds: 4,
     baths: 5,
     sqft: "5,120",
-    image: "/assets/properties-4.jpg",
+    image: sitePath("/assets/properties-4.jpg"),
     tag: "FOR SALE",
   },
 ];

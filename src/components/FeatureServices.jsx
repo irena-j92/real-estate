@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 import MotionImage from "./ui/MotionImage";
 import HoverControl from "./ui/HoverControl";
 import { useLayoutEffect, useRef, useState } from "react";
@@ -10,7 +11,7 @@ const services = [
     short: "Buying",
     description:
       "The morning light. The right neighborhood. A home that makes room for your life. We help you see the possibilities, understand the details, and choose with confidence.",
-    image: "/assets/properties-2.jpg",
+    image: sitePath("/assets/properties-2.jpg"),
     alt: "A bright residence framed by desert landscape",
     link: "#trending",
     label: "Explore the residences",
@@ -20,7 +21,7 @@ const services = [
     short: "Selling",
     description:
       "Every home has a story. We find yours, shape a thoughtful presentation, and bring it to the people ready to begin their next chapter. Personal guidance, from preparation to closing.",
-    image: "/assets/properties-4.jpg",
+    image: sitePath("/assets/properties-4.jpg"),
     alt: "Contemporary architecture with an open outdoor terrace",
     link: "#contact",
     label: "Talk about your next move",
@@ -30,7 +31,7 @@ const services = [
     short: "Relocating",
     description:
       "A new address is only the beginning. From understanding the communities to connecting the right local services, we make your move to a new community feel a little more familiar.",
-    image: "/assets/offerservices-2.jpg",
+    image: sitePath("/assets/offerservices-2.jpg"),
     alt: "A welcoming interior prepared for a new beginning",
     link: "#offer",
     label: "Discover the support around you",

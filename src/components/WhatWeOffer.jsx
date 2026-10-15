@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 import MotionImage from "./ui/MotionImage";
 import { useState } from "react";
 import { offerServices } from "../data/offerServices";
@@ -32,7 +33,7 @@ function OfferCard({ service }) {
 export default function WhatWeOffer() {
   return (
     <section id="offer" className="premium-section offer-section offer-gallery" aria-labelledby="offer-heading">
-      <img className="offer-scene" src="/assets/properties-1.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img className="offer-scene" src={sitePath("/assets/properties-1.jpg")} alt="" loading="lazy" aria-hidden="true" />
       <div className="offer-gallery-inner">
         <h2 id="offer-heading" className="offer-heading" data-reveal>What We Offer</h2>
         <div className="offer-card-grid" data-reveal-group>

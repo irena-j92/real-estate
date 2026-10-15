@@ -40,3 +40,23 @@ DAY and NIGHT override lighting; AUTO follows the pinned scroll from daylight to
 The original film, frame sequence and video hero remain in the repository. The video header is the default. `/?hero=3d` previews the saved 3D experiment. The experiment is also preserved in branch `archive/sunter-3d-hero`. The complete pre-experiment version is preserved in GitHub commit `803af59` and branch `archive/sunter-video-hero`.
 
 To regenerate the web model from the original uploaded OBJ: `python scripts/prepare-villa.py /path/to/source.obj public/assets/models/sunter-villa.glb`. The generated GLB is tracked, so normal website builds do not require the original OBJ or Python.
+
+## GitHub Pages
+
+The complete latest source and bundled assets are included on `main`.
+
+1. In **Settings → Pages → Build and deployment**, select **GitHub Actions** as the source.
+2. Open **Actions → Deploy Sunter Realty to GitHub Pages → Run workflow** (branch `main`).
+3. The workflow builds and publishes `dist/client`. Future pushes to `main` redeploy automatically.
+
+Expected address: https://irena-j92.github.io/sunter-realty/
+
+The Pages build sets `VITE_BASE_PATH=/sunter-realty/`; links, runtime images, video frames and direct page entries support that prefix. The standard `npm run build` keeps root hosting and the existing Worker backend.
+
+To build the Pages version locally:
+
+```sh
+VITE_BASE_PATH=/sunter-realty/ npm run build:pages
+```
+
+GitHub Pages serves static files only. ChatGPT account sign-in, saved-home storage and account settings require the Sites identity layer and D1 server backend, and are unavailable on GitHub Pages. The server source and schema are retained for a compatible deployment. The contact form remains a demonstration and does not deliver messages.

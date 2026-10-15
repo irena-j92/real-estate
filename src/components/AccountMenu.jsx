@@ -42,7 +42,7 @@ export default function AccountMenu({ onOpen }) {
   };
   const chooseHome = id => {
     setPanel(null);
-    if (!document.getElementById("trending")) { window.location.assign(`/?property=${encodeURIComponent(id)}#trending`); return; }
+    if (!document.getElementById("trending")) { window.location.assign(`${import.meta.env.BASE_URL}?property=${encodeURIComponent(id)}#trending`); return; }
     window.dispatchEvent(new CustomEvent("realty-select-property", { detail: id }));
     requestAnimationFrame(() => document.getElementById("trending")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" }));
   };

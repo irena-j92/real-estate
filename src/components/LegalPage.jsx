@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 import HoverControl from "./ui/HoverControl";
 
 const pages = {
@@ -37,7 +38,7 @@ export default function LegalPage({ type }) {
         <h2 data-reveal><span>{String(index + 1).padStart(2, "0")}</span>{heading}</h2>
         <p data-reveal>{text}</p>
       </section>)}
-      <div data-reveal-group><HoverControl as="a" className="text-link" data-reveal href="/">Back to home</HoverControl></div>
+      <div data-reveal-group><HoverControl as="a" className="text-link" data-reveal href={sitePath("/")}>Back to home</HoverControl></div>
     </div>
   </main>;
 }

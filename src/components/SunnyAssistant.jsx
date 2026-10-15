@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -154,7 +155,7 @@ export default function SunnyAssistant({ visible = true }) {
             {open ? (
               <FiX size={22} strokeWidth={1.25} />
             ) : (
-              <img className="sunny-logo" src="/assets/sun-logo.svg" alt="" width="26" height="26" />
+              <img className="sunny-logo" src={sitePath("/assets/sun-logo.svg")} alt="" width="26" height="26" />
             )}
           </HoverControl>
         </div>
@@ -170,7 +171,7 @@ export default function SunnyAssistant({ visible = true }) {
         >
           <div className="sunny-chat-header flex items-center justify-between px-5 py-4">
             <div className="flex items-center gap-2">
-              <img className="sunny-logo" src="/assets/sun-logo.svg" alt="" width="24" height="24" />
+              <img className="sunny-logo" src={sitePath("/assets/sun-logo.svg")} alt="" width="24" height="24" />
               <div>
                 <p className="text-sm font-semibold leading-none">Sunny</p>
                 <p className="sunny-chat-subtitle text-[11px]">

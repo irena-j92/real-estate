@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 import FeatureServices from "./FeatureServices";
 import MotionImage from "./ui/MotionImage";
 import { FiArrowRight } from "react-icons/fi";
@@ -29,18 +30,18 @@ export default function PerspectivePage() {
       heading="WHAT WE BELIEVE" caption="" className="perspective-beliefs" textOnly showProgress={false} />
     <section className="perspective-approach" id="our-approach">
       <div className="perspective-shell" data-reveal-group>
-        <MotionImage className="perspective-motion-image" reveal src="/assets/contact-img.jpg" alt="A modern residence with a landscaped garden and warm interior light" loading="lazy" />
+        <MotionImage className="perspective-motion-image" reveal src={sitePath("/assets/contact-img.jpg")} alt="A modern residence with a landscaped garden and warm interior light" loading="lazy" />
         <div data-reveal-group>
           <p className="section-kicker" data-reveal>A considered approach</p>
           <h2 data-reveal>EVERY MOVE.<br />PERSONALLY CONSIDERED.</h2>
           <p data-reveal>Buying, selling, or beginning again somewhere new — each move deserves the same care. We connect you with the right people and help you see the possibilities without losing sight of the details.</p>
-          <HoverControl data-reveal as="a" className="text-link" href="/#experts">Meet our experts <FiArrowRight aria-hidden="true" /></HoverControl>
+          <HoverControl data-reveal as="a" className="text-link" href={sitePath("/#experts")}>Meet our experts <FiArrowRight aria-hidden="true" /></HoverControl>
         </div>
       </div>
     </section>
     <section className="perspective-closing" data-reveal-group>
       <h2 data-reveal>LET’S FIND<br /><em>YOUR NEXT.</em></h2>
-      <HoverControl data-reveal as="a" className="text-link" href="/#contact">Start a conversation <FiArrowRight aria-hidden="true" /></HoverControl>
+      <HoverControl data-reveal as="a" className="text-link" href={sitePath("/#contact")}>Start a conversation <FiArrowRight aria-hidden="true" /></HoverControl>
     </section>
   </main>;
 }

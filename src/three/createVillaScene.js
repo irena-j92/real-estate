@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
@@ -118,7 +119,7 @@ export async function createVillaScene(host, { signal, onLoad, onError, onPhase,
   };
   signal?.addEventListener("abort", dispose, { once: true });
   try {
-    const response = await fetch("/assets/models/sunter-villa.glb", { signal });
+    const response = await fetch(sitePath("/assets/models/sunter-villa.glb"), { signal });
     if (!response.ok) throw new Error("The villa model could not be loaded.");
     const reader = response.body?.getReader();
     let buffer;

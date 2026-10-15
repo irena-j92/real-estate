@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef } from "react";
 import { FiArrowRight } from "react-icons/fi";
@@ -70,7 +71,7 @@ export default function AboutSection({ ready = true, companyPage = false }) {
         </h2>
         <HoverControl as="a"
           className="text-link description-experts"
-          href={companyPage ? "/#experts" : "/our-perspective"}
+          href={companyPage ? sitePath("/#experts") : sitePath("/our-perspective")}
           data-reveal
         >
           {companyPage ? "Meet our experts" : "About Us"} <FiArrowRight aria-hidden="true" />

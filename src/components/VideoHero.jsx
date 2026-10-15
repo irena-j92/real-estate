@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -67,7 +68,7 @@ export default function Hero({ ready = false }) {
     >
       <img
         className="hero-fallback"
-        src="/assets/hero-poster.webp"
+        src={sitePath("/assets/hero-poster.webp")}
         alt=""
         fetchPriority="high"
         aria-hidden="true"
@@ -75,9 +76,9 @@ export default function Hero({ ready = false }) {
       <video
         ref={videoRef}
         data-hero-video
-        src="/assets/hero-video.mp4"
+        src={sitePath("/assets/hero-video.mp4")}
         className={`hero-film ${failed ? "has-error" : "is-ready"}`}
-        poster="/assets/hero-poster.webp"
+        poster={sitePath("/assets/hero-poster.webp")}
         muted
         playsInline
         preload="none"

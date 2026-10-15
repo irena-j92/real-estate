@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
@@ -5,11 +6,11 @@ import gsap from "gsap";
 import SearchOverlay from "./SearchOverlay";
 import AccountMenu from "./AccountMenu";
 const links = [
-  ["01", "Our perspective", "/our-perspective"],
-  ["02", "The properties", "/#trending"],
-  ["03", "Our experts", "/#experts"],
-  ["04", "The local edit", "/#journal"],
-  ["05", "Contact", "/#contact"],
+  ["01", "Our perspective", sitePath("/our-perspective")],
+  ["02", "The properties", sitePath("/#trending")],
+  ["03", "Our experts", sitePath("/#experts")],
+  ["04", "The local edit", sitePath("/#journal")],
+  ["05", "Contact", sitePath("/#contact")],
 ];
 
 function MenuLink({ num, label, href, navigate }) {
@@ -141,7 +142,7 @@ export default function Navbar({ ready = true, light = false }) {
             ))}
           </span>
         </HoverControl>
-        <a className="nav-wordmark" data-no-hover href="/#top" aria-label="Sunter Realty home">
+        <a className="nav-wordmark" data-no-hover href={sitePath("/#top")} aria-label="Sunter Realty home">
           Sunter<span>Realty</span>
         </a>
         <div className="header-right">

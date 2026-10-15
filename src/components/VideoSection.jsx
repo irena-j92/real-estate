@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 import HoverControl from "./ui/HoverControl";
 import { useEffect, useRef, useState } from "react";
 import { FiPlay, FiPause } from "react-icons/fi";
@@ -32,13 +33,13 @@ export default function VideoSection() {
     <section className="film-section" ref={root}>
       <img
         data-parallax
-        src="/assets/videosection-1.jpg"
+        src={sitePath("/assets/videosection-1.jpg")}
         alt="Open living spaces and garden views at a modern residence"
         loading="lazy"
       />
       <video
         ref={video}
-        src="/assets/hero-video.mp4"
+        src={sitePath("/assets/hero-video.mp4")}
         muted
         loop
         playsInline

@@ -1,3 +1,4 @@
+import { appPath } from "./lib/sitePath";
 import LegalPage from "./components/LegalPage";
 import useFirstVisitIntro from "./hooks/useFirstVisitIntro";
 import HoverControl from "./components/ui/HoverControl";
@@ -23,7 +24,7 @@ import useExperienceMotion from "./hooks/useExperienceMotion";
 import useInitialAnchor from "./hooks/useInitialAnchor";
 export default function App() {
   const Hero = new URLSearchParams(window.location.search).get("hero") === "3d" ? VillaHero : VideoHero;
-  const pathname = window.location.pathname.replace(/\/$/, "");
+  const pathname = appPath(window.location.pathname);
   const perspective = pathname === "/our-perspective";
   const legal = ["/privacy-policy", "/terms-of-services"].includes(pathname) ? pathname.slice(1) : null;
   const contentPage = perspective || Boolean(legal);

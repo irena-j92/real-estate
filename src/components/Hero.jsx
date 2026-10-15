@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FiSun, FiMoon } from "react-icons/fi";
 import HoverControl from "./ui/HoverControl";
@@ -43,7 +44,7 @@ export default function Hero({ ready = false }) {
     if (errorRef.current) setPhase(night > 0.52 ? 'night' : 'day');
   };
   return <section id="top" ref={root} className={`cinematic-hero villa-hero ${loaded && !error ? 'villa-ready' : ''}`} data-scene-phase={phase} aria-label="Sunter Realty — explore the villa by day and night">
-    <img className="villa-reference" src="/assets/villa-reference.webp" alt="Modern villa with sculptural white ribbons, charcoal walls, bronze glazing and landscaped gardens" fetchPriority="high" />
+    <img className="villa-reference" src={sitePath("/assets/villa-reference.webp")} alt="Modern villa with sculptural white ribbons, charcoal walls, bronze glazing and landscaped gardens" fetchPriority="high" />
     <div ref={host} className="villa-canvas" />
     <div className="hero-scene-copy">
       <h1 aria-label="A place to belong."><span className="hero-line"><span className="hero-word">A place</span></span><span className="hero-line hero-line-second"><span className="hero-word">to <em>belong.</em></span></span></h1>

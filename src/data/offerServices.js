@@ -1,10 +1,11 @@
+import { sitePath } from "../lib/sitePath.js";
 export const offerServices = [
   {
     number: "01",
     title: "Quick Buy",
     description:
       "Explore a simpler way to sell your home. Discover your options with Sunter Realty’s QuickBuy program and plan your next move with confidence.",
-    image: "/assets/properties-1.jpg",
+    image: sitePath("/assets/properties-1.jpg"),
     imageAlt: "Contemporary property with a pool and landscaped garden",
     inquiry: "I'd like to learn more about the QuickBuy program for my home.",
   },
@@ -13,7 +14,7 @@ export const offerServices = [
     title: "Communities",
     description:
       "Take the first step in finding a community that is perfect for you. From city quarters to quiet landscapes, discover the places that fit the way you want to live.",
-    image: "/assets/properties-3.jpg",
+    image: sitePath("/assets/properties-3.jpg"),
     imageAlt: "Property surrounded by mature trees and greenery",
     inquiry:
       "I'd like help finding the right community for my next home.",
@@ -23,7 +24,7 @@ export const offerServices = [
     title: "Mortgage",
     description:
       "Get a clearer picture of your buying power. Connect with a lending professional to explore financing options and prepare for your next home.",
-    image: "/assets/properties-2.jpg",
+    image: sitePath("/assets/properties-2.jpg"),
     imageAlt: "Modern property with a sunlit terrace and swimming pool",
     inquiry:
       "I'd like to connect with a lending professional about financing my next home.",

@@ -1,3 +1,4 @@
+import { sitePath } from "../lib/sitePath.js";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
@@ -81,7 +82,7 @@ export default function Loader({ onComplete }) {
       <div className="loader-lockup">
         <img
           className="loader-logo"
-          src="/assets/sun-logo.svg"
+          src={sitePath("/assets/sun-logo.svg")}
           alt=""
           width="105.5"
           height="105.125"

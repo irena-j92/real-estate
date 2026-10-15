@@ -83,7 +83,7 @@ export default function useHeroFrames(canvasRef) {
       image.onerror = () => {
         pending.delete(sheet);
       };
-      image.src = `/assets/hero-frames/sheet-${String(sheet).padStart(2, "0")}.webp`;
+      image.src = `${import.meta.env.BASE_URL}assets/hero-frames/sheet-${String(sheet).padStart(2, "0")}.webp`;
     };
     const resize = () => {
       const bounds = canvas.getBoundingClientRect();
